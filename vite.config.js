@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: "/Rural-Entrepreneurship-Platform/",  // ✅ Required for GitHub Pages
+  base: "/Rural-Entrepreneurship-Platform/", // ✅ GitHub Pages base path
   plugins: [react()],
   server: {
     port: 5173,
