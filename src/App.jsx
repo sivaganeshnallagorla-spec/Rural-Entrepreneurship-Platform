@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AuthProvider } from './contexts/AuthContext'
@@ -53,37 +53,35 @@ function App() {
           <ProductProvider>
             <OrderProvider>
               <NotificationProvider>
-                <Router>
-                  <Routes>
-                    <Route path="/" element={<Landing />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route
-                      path="/admin/*"
-                      element={
-                        <ProtectedRoute role="admin">
-                          <AdminDashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/farmer/*"
-                      element={
-                        <ProtectedRoute role="farmer">
-                          <FarmerDashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/buyer/*"
-                      element={
-                        <ProtectedRoute role="buyer">
-                          <BuyerDashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                  </Routes>
-                </Router>
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route
+                    path="/admin/*"
+                    element={
+                      <ProtectedRoute role="admin">
+                        <AdminDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/farmer/*"
+                    element={
+                      <ProtectedRoute role="farmer">
+                        <FarmerDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/buyer/*"
+                    element={
+                      <ProtectedRoute role="buyer">
+                        <BuyerDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
               </NotificationProvider>
             </OrderProvider>
           </ProductProvider>
