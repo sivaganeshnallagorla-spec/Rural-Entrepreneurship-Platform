@@ -19,8 +19,11 @@
     }
     
     if (path) {
+      // Construct the redirect URL with hash-based routing
+      // Note: We only preserve search parameters, not existing hash fragments
+      // to avoid conflicts with hash-based routing
       window.location.replace(
-        window.location.origin + basePath + '#/' + path + window.location.search + window.location.hash
+        window.location.origin + basePath + '#/' + path + window.location.search
       );
     }
   </script>
