@@ -167,28 +167,22 @@ All data is persisted using **Local Storage**:
 npm run build
 ```
 
-### Deploy to Netlify
+### Deploy to Netlify (Recommended)
 1. Connect your repository to Netlify
 2. Set build command: `npm run build`
 3. Set publish directory: `dist`
 4. Deploy!
 
+Alternatively, you can deploy using Netlify CLI:
+```bash
+npm install -g netlify-cli
+netlify deploy --prod
+```
+
 ### Deploy to Vercel
 1. Install Vercel CLI: `npm i -g vercel`
 2. Run `vercel` in project directory
 3. Follow the prompts
-
-### Deploy to GitHub Pages
-1. Install gh-pages: `npm install --save-dev gh-pages`
-2. Add to package.json:
-   ```json
-   "homepage": "https://username.github.io/FEDFW",
-   "scripts": {
-     "predeploy": "npm run build",
-     "deploy": "gh-pages -d dist"
-   }
-   ```
-3. Run `npm run deploy`
 
 ## ✨ Advanced Features
 
