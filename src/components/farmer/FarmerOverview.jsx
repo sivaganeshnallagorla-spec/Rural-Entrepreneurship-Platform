@@ -12,7 +12,8 @@ import {
   Inventory,
   ShoppingBag,
   TrendingUp,
-  Add
+  Add,
+  School
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -121,6 +122,30 @@ const FarmerOverview = () => {
             <Typography variant="body2" color="textSecondary">
               Add new products, manage inventory, track orders, and connect with buyers.
             </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3, bgcolor: '#e3f2fd' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+              <Box>
+                <Typography variant="h6" gutterBottom>
+                  <School sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Knowledge Center
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Learn farming techniques, value-addition processing, branding, digital skills, and more.
+                </Typography>
+              </Box>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<School />}
+                onClick={() => navigate('/farmer/knowledge')}
+              >
+                Explore Resources
+              </Button>
+            </Box>
           </Paper>
         </Grid>
       </Grid>

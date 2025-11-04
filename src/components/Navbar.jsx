@@ -92,9 +92,14 @@ const Navbar = ({ onCartClick }) => {
             </Button>
           )}
           {user?.role === 'farmer' && (
-            <Button color="inherit" onClick={() => navigate(`/${user?.role}/orders`)}>
-              {t('orders')}
-            </Button>
+            <>
+              <Button color="inherit" onClick={() => navigate(`/${user?.role}/orders`)}>
+                {t('orders')}
+              </Button>
+              <Button color="inherit" onClick={() => navigate(`/${user?.role}/knowledge`)}>
+                Knowledge Center
+              </Button>
+            </>
           )}
           {user?.role !== 'admin' && (
             <Button color="inherit" onClick={() => navigate(`/${user?.role}/profile`)}>
