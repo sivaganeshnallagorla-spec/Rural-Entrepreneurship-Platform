@@ -12,6 +12,7 @@ import {
   CardContent
 } from '@mui/material'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../contexts/ToastContext'
 import { useLanguage } from '../contexts/LanguageContext'
 
 const Login = () => {
@@ -19,6 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const { login } = useAuth()
+  const { showToast } = useToast()
   const { t } = useLanguage()
   const navigate = useNavigate()
 
@@ -29,6 +31,7 @@ const Login = () => {
     const result = login(username, password)
     
     if (result.success) {
+      showToast('Login successful', 'success')
       const role = result.user.role
       if (role === 'admin') {
         navigate('/admin')
@@ -39,6 +42,7 @@ const Login = () => {
       }
     } else {
       setError(result.error)
+      showToast(result.error, 'error')
     }
   }
 

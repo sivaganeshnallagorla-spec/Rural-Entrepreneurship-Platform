@@ -9,11 +9,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Chip
+  Chip,
+  Button
 } from '@mui/material'
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { generateInvoicePdf } from '../../utils/invoice'
 
 const BuyerOrders = () => {
   const { user } = useAuth()
@@ -81,7 +83,12 @@ const BuyerOrders = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    {new Date(order.createdAt).toLocaleDateString()}
+                    <Box display="flex" alignItems="center" gap={1}>
+                      {new Date(order.createdAt).toLocaleDateString()}
+                      <Button size="small" variant="outlined" onClick={() => generateInvoicePdf(order)}>
+                        Download Invoice
+                      </Button>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))

@@ -12,6 +12,7 @@ import {
   FormControl,
   InputLabel
 } from '@mui/material'
+import { Alert } from '@mui/material'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 
@@ -68,6 +69,19 @@ const EditProduct = () => {
   ]
 
   const certifications = ['', 'organic', 'eco-friendly', 'fair trade']
+
+  const getSuggestedPriceRange = () => {
+    const base = {
+      'Processed Foods': 180,
+      'Spices': 220,
+      'Eco-friendly Crafts': 120,
+      'Organic Produce': 150,
+      'Value-added Products': 200,
+    }[formData.category] || 150
+    const unitFactor = formData.unit === 'kg' ? 1 : formData.unit === 'liter' ? 0.9 : formData.unit === 'piece' ? 0.6 : 0.8
+    const center = base * unitFactor
+    return { min: Math.round(center * 0.9), max: Math.round(center * 1.1) }
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -145,6 +159,11 @@ const EditProduct = () => {
                 onChange={handleChange}
                 required
               />
+              {formData.category && (
+                <Alert severity="info" sx={{ mt: 1 }}>
+                  Suggested: ₹{getSuggestedPriceRange().min}–₹{getSuggestedPriceRange().max}/{formData.unit} (Market trend)
+                </Alert>
+              )}
             </Grid>
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>

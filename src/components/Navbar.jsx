@@ -19,8 +19,11 @@ import {
   Notifications,
   AccountCircle,
   ExitToApp,
-  Translate
+  Translate,
+  DarkMode,
+  LightMode
 } from '@mui/icons-material'
+import { useThemeMode } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 import { useNotifications } from '../contexts/NotificationContext'
 import { useLanguage } from '../contexts/LanguageContext'
@@ -33,6 +36,7 @@ const Navbar = ({ onCartClick }) => {
   const location = useLocation()
   const [anchorEl, setAnchorEl] = useState(null)
   const unreadCount = getUnreadCount(user?.id) || 0
+  const { mode, toggleMode } = useThemeMode()
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -122,6 +126,9 @@ const Navbar = ({ onCartClick }) => {
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <IconButton color="inherit" onClick={toggleMode} title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+            {mode === 'dark' ? <LightMode /> : <DarkMode />}
+          </IconButton>
           <FormControl size="small" sx={{ minWidth: 120, mr: 1 }}>
             <InputLabel>{t('language') || 'Language'}</InputLabel>
             <Select

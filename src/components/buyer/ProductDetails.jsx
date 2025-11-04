@@ -29,6 +29,7 @@ import { useNotifications } from '../../contexts/NotificationContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { calculateShipping, getShippingMethods } from '../../utils/shippingCalculator'
 import PaymentMethods from '../PaymentMethods'
+import { useToast } from '../../contexts/ToastContext'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -38,6 +39,7 @@ const ProductDetails = () => {
   const { addNotification } = useNotifications()
   const { t } = useLanguage()
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const product = getProductById(id)
   
   const [quantity, setQuantity] = useState(1)
@@ -71,15 +73,9 @@ const ProductDetails = () => {
   }, [quantity, shippingMethod, product, user])
 
   const handleAddToCart = () => {
-    if (!paymentMethod) {
-      alert('Please select a payment method')
-      return
-    }
+    if (!paymentMethod) { showToast('Please select a payment method', 'warning'); return }
 
-    if (!user.address || !user.address.street) {
-      alert('Please update your address in your profile')
-      return
-    }
+    if (!user.address || !user.address.street) { showToast('Please update your profile address', 'warning'); return }
 
     const subtotal = product.price * quantity
     const total = subtotal + shippingCost
@@ -126,7 +122,7 @@ const ProductDetails = () => {
       message: `You have received a new order for ${product.name} from ${user.name}.`
     })
 
-    alert('Order placed successfully!')
+    showToast('Order placed successfully!', 'success')
     navigate('/buyer/orders')
   }
 

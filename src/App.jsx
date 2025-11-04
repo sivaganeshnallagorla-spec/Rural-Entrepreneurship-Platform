@@ -1,12 +1,14 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AuthProvider } from './contexts/AuthContext'
 import { ProductProvider } from './contexts/ProductContext'
 import { OrderProvider } from './contexts/OrderContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { ThemeModeProvider } from './contexts/ThemeContext'
+import { ToastProvider } from './contexts/ToastContext'
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -16,44 +18,19 @@ import FarmerDashboard from './pages/FarmerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2e7d32',
-      light: '#4caf50',
-      dark: '#1b5e20',
-    },
-    secondary: {
-      main: '#ff9800',
-      light: '#ffb74d',
-      dark: '#f57c00',
-    },
-    background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
-    },
-  },
-  typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-    h4: {
-      fontWeight: 600,
-    },
-    h5: {
-      fontWeight: 600,
-    },
-  },
-})
-
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <LanguageProvider>
-        <AuthProvider>
-          <ProductProvider>
-            <OrderProvider>
-              <NotificationProvider>
-                <Routes>
+    <ThemeModeProvider>
+      {(theme) => (
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <LanguageProvider>
+            <AuthProvider>
+              <ProductProvider>
+                <OrderProvider>
+                  <NotificationProvider>
+                    <ToastProvider>
+                      <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
@@ -81,13 +58,16 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
-                </Routes>
-              </NotificationProvider>
-            </OrderProvider>
-          </ProductProvider>
-        </AuthProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+                      </Routes>
+                    </ToastProvider>
+                  </NotificationProvider>
+                </OrderProvider>
+              </ProductProvider>
+            </AuthProvider>
+          </LanguageProvider>
+        </ThemeProvider>
+      )}
+    </ThemeModeProvider>
   )
 }
 
