@@ -13,7 +13,8 @@ import {
   ShoppingBag,
   TrendingUp,
   Add,
-  School
+  School,
+  Calculate
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -125,7 +126,7 @@ const FarmerOverview = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <Paper sx={{ p: 3, bgcolor: '#e3f2fd' }}>
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
               <Box>
@@ -144,6 +145,30 @@ const FarmerOverview = () => {
                 onClick={() => navigate('/farmer/knowledge')}
               >
                 Explore Resources
+              </Button>
+            </Box>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 3, bgcolor: '#e8f5e9' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+              <Box>
+                <Typography variant="h6" gutterBottom>
+                  <Calculate sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Interactive Tools
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Calculate prices, estimate profits, and optimize your business operations.
+                </Typography>
+              </Box>
+              <Button
+                variant="contained"
+                color="success"
+                startIcon={<Calculate />}
+                onClick={() => navigate('/farmer/tools')}
+              >
+                Open Tools
               </Button>
             </Box>
           </Paper>

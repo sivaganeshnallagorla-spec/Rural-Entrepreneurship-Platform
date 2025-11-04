@@ -35,11 +35,11 @@ import {
   AttachMoney
 } from '@mui/icons-material'
 import { useLanguage } from '../../contexts/LanguageContext'
-import PricingCalculator from './PricingCalculator'
-import ProfitEstimator from './ProfitEstimator'
+import { useNavigate } from 'react-router-dom'
 
 const KnowledgeCenter = () => {
   const { t } = useLanguage()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState(0)
 
   const categories = [
@@ -362,22 +362,33 @@ const KnowledgeCenter = () => {
 
       <Divider sx={{ my: 4 }} />
 
-      <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-        📊 Interactive Tools
-      </Typography>
-
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3, mb: 3 }}>
-            <PricingCalculator />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3 }}>
-            <ProfitEstimator />
-          </Paper>
-        </Grid>
-      </Grid>
+      <Paper sx={{ p: 3, mb: 4, bgcolor: '#e8f5e9', border: '2px solid #4caf50' }}>
+        <Typography variant="h5" gutterBottom>
+          📊 Interactive Tools
+        </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          Access powerful calculators to help you make informed business decisions. Calculate prices, estimate profits, and optimize your operations.
+        </Typography>
+        <Box sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<Calculate />}
+            onClick={() => navigate('/farmer/tools')}
+            sx={{ mr: 2 }}
+          >
+            Open Interactive Tools
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => navigate('/farmer/tools')}
+          >
+            View All Tools
+          </Button>
+        </Box>
+      </Paper>
 
       <Paper sx={{ p: 3, mt: 4, bgcolor: '#e3f2fd' }}>
         <Typography variant="h6" gutterBottom>

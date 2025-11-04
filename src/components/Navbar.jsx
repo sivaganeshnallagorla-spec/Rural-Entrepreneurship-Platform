@@ -99,6 +99,9 @@ const Navbar = ({ onCartClick }) => {
               <Button color="inherit" onClick={() => navigate(`/${user?.role}/knowledge`)}>
                 Knowledge Center
               </Button>
+              <Button color="inherit" onClick={() => navigate(`/${user?.role}/tools`)}>
+                Tools
+              </Button>
             </>
           )}
           {user?.role !== 'admin' && (

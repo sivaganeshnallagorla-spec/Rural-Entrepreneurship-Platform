@@ -9,6 +9,7 @@ import FarmerOrders from '../components/farmer/FarmerOrders'
 import NotificationsComponent from '../components/Notifications'
 import Profile from '../components/farmer/Profile'
 import KnowledgeCenter from '../components/farmer/KnowledgeCenter'
+import InteractiveTools from '../components/farmer/InteractiveTools'
 import { Container, Box } from '@mui/material'
 
 const FarmerDashboard = () => {
@@ -24,6 +25,7 @@ const FarmerDashboard = () => {
           <Route path="orders" element={<FarmerOrders />} />
           <Route path="profile" element={<Profile />} />
           <Route path="knowledge" element={<KnowledgeCenter />} />
+          <Route path="tools" element={<InteractiveTools />} />
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="*" element={<Navigate to="/farmer" replace />} />
         </Routes>
