@@ -30,9 +30,13 @@ import {
   Public,
   Description,
   VideoLibrary,
-  Article
+  Article,
+  Calculate,
+  AttachMoney
 } from '@mui/icons-material'
 import { useLanguage } from '../../contexts/LanguageContext'
+import PricingCalculator from './PricingCalculator'
+import ProfitEstimator from './ProfitEstimator'
 
 const KnowledgeCenter = () => {
   const { t } = useLanguage()
@@ -355,6 +359,25 @@ const KnowledgeCenter = () => {
           </Grid>
         </Box>
       ))}
+
+      <Divider sx={{ my: 4 }} />
+
+      <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
+        📊 Interactive Tools
+      </Typography>
+
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3, mb: 3 }}>
+            <PricingCalculator />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3 }}>
+            <ProfitEstimator />
+          </Paper>
+        </Grid>
+      </Grid>
 
       <Paper sx={{ p: 3, mt: 4, bgcolor: '#e3f2fd' }}>
         <Typography variant="h6" gutterBottom>
