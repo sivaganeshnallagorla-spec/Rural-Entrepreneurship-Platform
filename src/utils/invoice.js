@@ -1,4 +1,4 @@
-import jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 
 export const generateInvoicePdf = (order) => {
 	const doc = new jsPDF()
