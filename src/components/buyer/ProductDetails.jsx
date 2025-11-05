@@ -71,7 +71,8 @@ const ProductDetails = () => {
     if (product) {
       addToRecentlyViewed(product)
     }
-  }, [product, addToRecentlyViewed])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.id])
 
   // Calculate shipping when quantity or shipping method changes
   useEffect(() => {

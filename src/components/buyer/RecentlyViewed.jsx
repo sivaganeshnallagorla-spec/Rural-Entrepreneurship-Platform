@@ -26,7 +26,7 @@ const RecentlyViewed = () => {
     navigate(`/buyer/product/${productId}`)
   }
 
-  if (recentlyViewed.length === 0) {
+  if (!recentlyViewed || recentlyViewed.length === 0) {
     return null
   }
 
@@ -40,42 +40,45 @@ const RecentlyViewed = () => {
       </Typography>
 
       <Grid container spacing={2}>
-        {recentlyViewed.slice(0, 4).map((product) => (
-          <Grid item xs={6} sm={4} md={3} key={product.id}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="150"
-                image={product.image || `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name)}`}
-                alt={product.name}
-                sx={{ objectFit: 'cover', cursor: 'pointer' }}
-                onClick={() => handleViewProduct(product.id)}
-              />
-              <CardContent>
-                <Typography variant="subtitle2" gutterBottom noWrap>
-                  {product.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  {product.farmerName}
-                </Typography>
-                <Chip
-                  label={`₹${product.price}/${product.unit}`}
-                  color="primary"
-                  size="small"
-                />
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  startIcon={<Visibility />}
+        {recentlyViewed.slice(0, 4).map((product) => {
+          if (!product || !product.id) return null
+          return (
+            <Grid item xs={6} sm={4} md={3} key={product.id}>
+              <Card>
+                <CardMedia
+                  component="img"
+                  height="150"
+                  image={product.image || `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name || 'Product')}`}
+                  alt={product.name || 'Product'}
+                  sx={{ objectFit: 'cover', cursor: 'pointer' }}
                   onClick={() => handleViewProduct(product.id)}
-                >
-                  View
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+                />
+                <CardContent>
+                  <Typography variant="subtitle2" gutterBottom noWrap>
+                    {product.name || 'Unknown Product'}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                    {product.farmerName || 'Unknown Farmer'}
+                  </Typography>
+                  <Chip
+                    label={`₹${product.price || 0}/${product.unit || 'unit'}`}
+                    color="primary"
+                    size="small"
+                  />
+                </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    startIcon={<Visibility />}
+                    onClick={() => handleViewProduct(product.id)}
+                  >
+                    View
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          )
+        })}
       </Grid>
     </Box>
   )
