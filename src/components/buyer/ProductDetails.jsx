@@ -16,11 +16,14 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Alert
+  Alert,
+  IconButton
 } from '@mui/material'
 import {
   ShoppingCart,
-  ArrowBack
+  ArrowBack,
+  Favorite,
+  CompareArrows
 } from '@mui/icons-material'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'
@@ -30,6 +33,9 @@ import { useLanguage } from '../../contexts/LanguageContext'
 import { calculateShipping, getShippingMethods } from '../../utils/shippingCalculator'
 import PaymentMethods from '../PaymentMethods'
 import { useToast } from '../../contexts/ToastContext'
+import { useWishlist } from '../../contexts/WishlistContext'
+import { useRecentlyViewed } from '../../contexts/RecentlyViewedContext'
+import { useComparison } from '../../contexts/ComparisonContext'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -40,6 +46,9 @@ const ProductDetails = () => {
   const { t } = useLanguage()
   const navigate = useNavigate()
   const { showToast } = useToast()
+  const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
+  const { addToRecentlyViewed } = useRecentlyViewed()
+  const { addToComparison, isInComparison, removeFromComparison, canAddMore } = useComparison()
   const product = getProductById(id)
   
   const [quantity, setQuantity] = useState(1)
@@ -56,6 +65,13 @@ const ProductDetails = () => {
       </Box>
     )
   }
+
+  // Track recently viewed
+  useEffect(() => {
+    if (product) {
+      addToRecentlyViewed(product)
+    }
+  }, [product, addToRecentlyViewed])
 
   // Calculate shipping when quantity or shipping method changes
   useEffect(() => {
@@ -159,12 +175,11 @@ const ProductDetails = () => {
               ₹{product.price}/{product.unit}
             </Typography>
 
-            <Box sx={{ my: 2 }}>
+            <Box sx={{ my: 2, display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
               <Chip
                 label={product.category}
                 color="primary"
                 variant="outlined"
-                sx={{ mr: 1 }}
               />
               {product.certification && (
                 <Chip
@@ -173,6 +188,38 @@ const ProductDetails = () => {
                   variant="outlined"
                 />
               )}
+              <IconButton
+                color={isInWishlist(product.id) ? 'error' : 'default'}
+                onClick={() => {
+                  if (isInWishlist(product.id)) {
+                    removeFromWishlist(product.id)
+                    showToast('Removed from wishlist', 'info')
+                  } else {
+                    addToWishlist(product)
+                    showToast('Added to wishlist', 'success')
+                  }
+                }}
+                title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+              >
+                <Favorite />
+              </IconButton>
+              <IconButton
+                color={isInComparison(product.id) ? 'primary' : 'default'}
+                onClick={() => {
+                  if (isInComparison(product.id)) {
+                    removeFromComparison(product.id)
+                    showToast('Removed from comparison', 'info')
+                  } else if (canAddMore) {
+                    addToComparison(product)
+                    showToast('Added to comparison', 'success')
+                  } else {
+                    showToast('Maximum 3 products can be compared', 'warning')
+                  }
+                }}
+                title={isInComparison(product.id) ? 'Remove from comparison' : 'Add to comparison'}
+              >
+                <CompareArrows />
+              </IconButton>
             </Box>
 
             <Divider sx={{ my: 2 }} />

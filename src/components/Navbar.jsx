@@ -21,12 +21,16 @@ import {
   ExitToApp,
   Translate,
   DarkMode,
-  LightMode
+  LightMode,
+  Favorite,
+  CompareArrows
 } from '@mui/icons-material'
 import { useThemeMode } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 import { useNotifications } from '../contexts/NotificationContext'
 import { useLanguage } from '../contexts/LanguageContext'
+import { useWishlist } from '../contexts/WishlistContext'
+import { useComparison } from '../contexts/ComparisonContext'
 
 const Navbar = ({ onCartClick }) => {
   const { user, logout } = useAuth()
@@ -37,6 +41,8 @@ const Navbar = ({ onCartClick }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const unreadCount = getUnreadCount(user?.id) || 0
   const { mode, toggleMode } = useThemeMode()
+  const { wishlist } = useWishlist()
+  const { comparisonItems } = useComparison()
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -146,11 +152,23 @@ const Navbar = ({ onCartClick }) => {
           </FormControl>
 
           {user?.role === 'buyer' && (
-            <IconButton color="inherit" onClick={onCartClick}>
-              <Badge badgeContent={0} color="error">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
+            <>
+              <IconButton color="inherit" onClick={() => navigate('/buyer/wishlist')}>
+                <Badge badgeContent={wishlist.length} color="error">
+                  <Favorite />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" onClick={() => navigate('/buyer/compare')}>
+                <Badge badgeContent={comparisonItems.length} color="primary">
+                  <CompareArrows />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" onClick={onCartClick}>
+                <Badge badgeContent={0} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </>
           )}
 
           <IconButton

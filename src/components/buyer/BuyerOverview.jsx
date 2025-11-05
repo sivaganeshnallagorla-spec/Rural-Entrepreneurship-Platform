@@ -19,6 +19,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import RecentlyViewed from './RecentlyViewed'
 
 const StatCard = ({ title, value, icon, color }) => (
   <Card>
@@ -110,6 +111,10 @@ const BuyerOverview = () => {
               Explore a wide range of value-added products from rural farmers across India.
             </Typography>
           </Paper>
+        </Grid>
+
+        <Grid item xs={12}>
+          <RecentlyViewed />
         </Grid>
       </Grid>
     </Box>

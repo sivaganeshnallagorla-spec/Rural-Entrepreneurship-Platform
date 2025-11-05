@@ -9,6 +9,9 @@ import { NotificationProvider } from './contexts/NotificationContext'
 import { LanguageProvider } from './contexts/LanguageContext'
 import { ThemeModeProvider } from './contexts/ThemeContext'
 import { ToastProvider } from './contexts/ToastContext'
+import { WishlistProvider } from './contexts/WishlistContext'
+import { RecentlyViewedProvider } from './contexts/RecentlyViewedContext'
+import { ComparisonProvider } from './contexts/ComparisonContext'
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -30,7 +33,10 @@ function App() {
                 <OrderProvider>
                   <NotificationProvider>
                     <ToastProvider>
-                      <Routes>
+                      <WishlistProvider>
+                        <RecentlyViewedProvider>
+                          <ComparisonProvider>
+                            <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
@@ -58,7 +64,10 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
-                      </Routes>
+                            </Routes>
+                          </ComparisonProvider>
+                        </RecentlyViewedProvider>
+                      </WishlistProvider>
                     </ToastProvider>
                   </NotificationProvider>
                 </OrderProvider>

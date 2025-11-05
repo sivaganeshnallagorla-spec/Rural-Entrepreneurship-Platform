@@ -20,16 +20,24 @@ import {
 import {
   Search,
   ShoppingCart,
-  Visibility
+  Visibility,
+  Favorite,
+  CompareArrows
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { useWishlist } from '../../contexts/WishlistContext'
+import { useComparison } from '../../contexts/ComparisonContext'
+import { useToast } from '../../contexts/ToastContext'
 
 const BrowseProducts = () => {
   const { products, searchProducts, filterProducts } = useProducts()
   const { t } = useLanguage()
   const navigate = useNavigate()
+  const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
+  const { addToComparison, isInComparison, removeFromComparison, canAddMore } = useComparison()
+  const { showToast } = useToast()
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState({
     category: '',
@@ -167,7 +175,7 @@ const BrowseProducts = () => {
                     )}
                   </Box>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ flexWrap: 'wrap', gap: 1 }}>
                   <Button
                     size="small"
                     startIcon={<Visibility />}
@@ -183,6 +191,40 @@ const BrowseProducts = () => {
                   >
                     {t('addToCart')}
                   </Button>
+                  <IconButton
+                    size="small"
+                    color={isInWishlist(product.id) ? 'error' : 'default'}
+                    onClick={() => {
+                      if (isInWishlist(product.id)) {
+                        removeFromWishlist(product.id)
+                        showToast('Removed from wishlist', 'info')
+                      } else {
+                        addToWishlist(product)
+                        showToast('Added to wishlist', 'success')
+                      }
+                    }}
+                    title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                  >
+                    <Favorite />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    color={isInComparison(product.id) ? 'primary' : 'default'}
+                    onClick={() => {
+                      if (isInComparison(product.id)) {
+                        removeFromComparison(product.id)
+                        showToast('Removed from comparison', 'info')
+                      } else if (canAddMore) {
+                        addToComparison(product)
+                        showToast('Added to comparison', 'success')
+                      } else {
+                        showToast('Maximum 3 products can be compared', 'warning')
+                      }
+                    }}
+                    title={isInComparison(product.id) ? 'Remove from comparison' : 'Add to comparison'}
+                  >
+                    <CompareArrows />
+                  </IconButton>
                 </CardActions>
               </Card>
             </Grid>
