@@ -9,6 +9,10 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Role-based Access Control**: Each user type sees only relevant features
 - **Future Ready**: Architecture supports future integration with Aadhaar/UPI/Email
 
+### 🏠 Landing Page
+- Modern, responsive landing page at `/` with smooth scrolling, hero, features, workflow, CTA, and footer
+- Built as a React page (`src/pages/Landing.jsx`) with IntersectionObserver animations
+
 ### 👨‍💼 Admin Capabilities
 - **User Management**: Add, edit, or deactivate farmer and buyer accounts
 - **Transaction Oversight**: Monitor all orders, payments, and disputes
@@ -23,6 +27,19 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Buyer Interaction**: In-app messaging for negotiation and queries
 - **Entrepreneurship Support**: Access training modules on food processing, branding, and packaging
 - **Impact Storytelling**: Upload photos/videos to showcase product origin and rural entrepreneurship journey
+
+### 🧠 Knowledge Center (Farmer)
+- Rich learning hub at `/farmer/knowledge` with core modules:
+  - Crop Processing, Packaging, Branding & Marketing, Digital Skills, Business Skills, Exporter Guide
+- Curated resources (articles/videos) with topic tags and tabs
+- Government schemes highlight
+
+### 📊 Interactive Tools (Farmer)
+- Dedicated tools page at `/farmer/tools`
+- Tools included:
+  - Pricing Calculator (raw → processed pricing)
+  - Profit Estimator (costs → margin)
+- Linked from navbar and Knowledge Center
 
 ### 🛒 Buyer Capabilities
 - **Product Browsing**: Search and filter by category, price, location, or certification (organic, fair trade)
@@ -39,6 +56,18 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Local Storage**: Data persistence across sessions
 - **Analytics Dashboard**: Charts and graphs for insights
 
+### 🧭 Logistics, Payments, Profiles (New)
+- **Shipping/Logistics**: Select shipping method (Standard/Express/Priority) with cost and ETA via `shippingCalculator`
+- **Payment Methods**: UPI, Card, NetBanking, COD (UI simulation)
+- **Profiles**: Buyer/Farmer profile pages with photo, contact and full address; editable and persisted
+- **Sign Up**: Demo sign-up for Buyer/Farmer with validation and address capture
+
+### ✨ Experience Enhancements (New)
+- **Dark / Light Mode**: Navbar toggle; persisted to LocalStorage; applied on reload
+- **Toast Alerts**: Success/error info via global Snackbar (login, orders, validation)
+- **AI Price Suggestion (UI)**: Suggested price range in Add/Edit Product based on category/unit
+- **PDF Invoices**: Download invoice PDF for orders (buyer side) via `jsPDF`
+
 ## 🛠️ Tech Stack
 
 - **React 18** - Modern React with Hooks
@@ -49,6 +78,7 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Recharts** - Analytics and data visualization
 - **Axios** - HTTP client (ready for API integration)
 - **Vite** - Fast build tool and dev server
+- **jsPDF** - Client-side PDF invoice creation
 
 ## 📦 Installation
 
@@ -109,15 +139,22 @@ FEDFW/
 │   │   ├── ProductContext.jsx
 │   │   ├── OrderContext.jsx
 │   │   ├── NotificationContext.jsx
-│   │   └── LanguageContext.jsx
+│   │   ├── LanguageContext.jsx
+│   │   ├── ThemeContext.jsx         # Dark/Light mode with persistence
+│   │   └── ToastContext.jsx         # Global toasts (Snackbar)
 │   ├── hooks/               # Custom React hooks
 │   │   ├── useLocalStorage.js
 │   │   └── useDebounce.js
 │   ├── pages/               # Page components
+│   │   ├── Landing.jsx
+│   │   ├── Landing.css
 │   │   ├── Login.jsx
 │   │   ├── AdminDashboard.jsx
 │   │   ├── FarmerDashboard.jsx
 │   │   └── BuyerDashboard.jsx
+│   ├── utils/
+│   │   ├── shippingCalculator.js    # Shipping cost + ETA
+│   │   └── invoice.js               # jsPDF invoice generator
 │   ├── App.jsx              # Main app component
 │   ├── main.jsx             # Entry point
 │   └── index.css            # Global styles
@@ -142,14 +179,22 @@ The application uses **Context API** for global state management:
 - **OrderContext**: Order management
 - **NotificationContext**: Notifications system
 - **LanguageContext**: Multi-language support
+- **ThemeContext**: Dark/Light mode persisted to LocalStorage
+- **ToastContext**: Global toast notifications
 
 ## 🧭 Routing
 
 React Router is configured with protected routes:
 - `/login` - Authentication page
+- `/signup` - Demo registration for Buyer/Farmer
+- `/` - Public landing page
 - `/admin/*` - Admin dashboard and features
 - `/farmer/*` - Farmer dashboard and features
 - `/buyer/*` - Buyer dashboard and features
+
+Farmer nested routes include:
+- `/farmer/knowledge` - Knowledge Center
+- `/farmer/tools` - Interactive Tools (Pricing Calculator, Profit Estimator)
 
 ## 💾 Data Persistence
 
@@ -159,6 +204,8 @@ All data is persisted using **Local Storage**:
 - Orders history
 - Notifications
 - Language preference
+- Theme preference
+- Registered users (demo sign-up)
 
 ## 🌐 Deployment
 
@@ -189,10 +236,28 @@ netlify deploy --prod
 1. **Custom Hooks**: `useLocalStorage`, `useDebounce` for reusable logic
 2. **Analytics Dashboard**: Charts and graphs using Recharts
 3. **Multi-language Support**: 4 languages (English, Hindi, Telugu, Tamil)
-4. **Real-time Notifications**: Notification system with unread counts
+4. **Real-time Notifications & Toasts**: Notification system with unread counts + Snackbar toasts
 5. **Responsive Design**: Mobile-first approach with Material UI
 6. **Advanced Filtering**: Search and filter products by multiple criteria
 7. **Role-based Navigation**: Dynamic navigation based on user role
+8. **Dark/Light Mode**: Theme toggle persisted to LocalStorage
+9. **AI Price Suggestion (UI)**: Contextual price hints in product forms
+10. **PDF Invoice**: Downloadable invoice for buyer orders
+
+## 🧩 Concepts Used So Far
+
+- React Hooks: `useState`, `useEffect`, `useMemo`, `useRef`, `useContext`
+- Context API for global state (auth, products, orders, notifications, language, theme, toast)
+- React Router v6: nested routes, protected routes, role-based access
+- Material UI: theming, components, icons, responsive layout
+- Theme management: custom ThemeContext with persisted dark/light mode
+- Toast notifications: global Snackbar provider
+- Form handling and basic validation (Sign Up, Add/Edit Product, Login)
+- Derived UI suggestions: category/unit-based price range suggestion
+- Client-side PDF generation: jsPDF invoice
+- LocalStorage persistence: session, products, orders, notifications, language, theme, registered users
+- Analytics: charts with Recharts (admin dashboard)
+- UX: smooth scrolling, IntersectionObserver animations on landing page
 
 ## 🔮 Future Enhancements
 
@@ -203,7 +268,7 @@ netlify deploy --prod
 - Image upload functionality
 - QR code traceability
 - Micro-credit and insurance integration
-- AI-driven pricing suggestions
+- AI-driven pricing suggestions (server-backed)
 
 ## 📝 License
 
