@@ -15,7 +15,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
-import { generateInvoicePdf } from '../../utils/invoice'
+import { generateInvoice } from '../../utils/invoice'
 
 const BuyerOrders = () => {
   const { user } = useAuth()
@@ -85,7 +85,16 @@ const BuyerOrders = () => {
                   <TableCell>
                     <Box display="flex" alignItems="center" gap={1}>
                       {new Date(order.createdAt).toLocaleDateString()}
-                      <Button size="small" variant="outlined" onClick={() => generateInvoicePdf(order)}>
+                      <Button size="small" variant="outlined" onClick={() => {
+                        // For demo, create farmer object from order data
+                        const farmer = {
+                          name: order.farmerName,
+                          location: 'Rural India',
+                          email: 'farmer@example.com',
+                          phone: 'N/A'
+                        }
+                        generateInvoice(order, user, farmer)
+                      }}>
                         Download Invoice
                       </Button>
                     </Box>
