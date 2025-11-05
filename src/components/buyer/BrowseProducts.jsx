@@ -15,7 +15,8 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  IconButton
 } from '@mui/material'
 import {
   Search,
@@ -45,6 +46,20 @@ const BrowseProducts = () => {
     location: ''
   })
 
+  // Safety checks
+  if (!products || !Array.isArray(products)) {
+    return (
+      <Box>
+        <Typography variant="h4" gutterBottom>
+          Browse Products
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Loading products...
+        </Typography>
+      </Box>
+    )
+  }
+
   let filtered = searchQuery ? searchProducts(searchQuery) : products
   
   if (filters.category || filters.certification || filters.location) {
@@ -54,9 +69,9 @@ const BrowseProducts = () => {
     })
   }
 
-  const categories = ['', ...new Set(products.map(p => p.category))]
-  const certifications = ['', ...new Set(products.map(p => p.certification).filter(Boolean))]
-  const locations = ['', ...new Set(products.map(p => p.location))]
+  const categories = ['', ...new Set(products.map(p => p?.category).filter(Boolean))]
+  const certifications = ['', ...new Set(products.map(p => p?.certification).filter(Boolean))]
+  const locations = ['', ...new Set(products.map(p => p?.location).filter(Boolean))]
 
   const handleFilterChange = (field, value) => {
     setFilters({
@@ -157,7 +172,7 @@ const BrowseProducts = () => {
                     {product.location}
                   </Typography>
                   <Typography variant="body2" sx={{ mb: 1, minHeight: 60 }}>
-                    {product.description.substring(0, 100)}...
+                    {product.description ? (product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description) : 'No description available'}
                   </Typography>
                   <Box sx={{ mb: 1 }}>
                     <Chip
