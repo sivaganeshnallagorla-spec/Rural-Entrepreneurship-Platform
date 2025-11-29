@@ -19,6 +19,13 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Content Moderation**: Approve/reject product listings, ensure compliance
 - **Analytics & Reports**: Generate insights on sales, farmer participation, and buyer trends with charts
 - **Platform Maintenance**: Manage categories, tags, and featured products
+- **Knowledge Center Management**: Create, edit, and delete learning modules and resources
+  - Add new categories with custom icons and colors
+  - Add learning resources (articles/videos) to categories
+  - Link to external content (YouTube videos, blog posts, articles from any website)
+  - Edit existing modules and resources
+  - Delete categories and resources
+  - All changes persist in LocalStorage
 
 ### 🚜 Farmer Capabilities
 - **Product Listings**: Add raw and value-added products with images, descriptions, and pricing
@@ -31,8 +38,12 @@ A comprehensive web application that empowers farmers in rural India to transfor
 ### 🧠 Knowledge Center (Farmer)
 - Rich learning hub at `/farmer/knowledge` with core modules:
   - Crop Processing, Packaging, Branding & Marketing, Digital Skills, Business Skills, Exporter Guide
+- **Dynamic Content Management**: Admin-controlled modules that can be updated anytime
 - Curated resources (articles/videos) with topic tags and tabs
+- **External Resource Links**: Direct links to YouTube videos, blog posts, and articles from external websites
+- Resources can include URLs to external content (optional description)
 - Government schemes highlight
+- Interactive resource cards with external link support
 
 ### 📊 Interactive Tools (Farmer)
 - Dedicated tools page at `/farmer/tools`
@@ -130,6 +141,8 @@ FEDFW/
 ├── src/
 │   ├── components/          # Reusable components
 │   │   ├── admin/           # Admin-specific components
+│   │   │   ├── KnowledgeManagement.jsx      # Admin Knowledge Center management
+│   │   │   └── AddEditKnowledgeModule.jsx   # Add/Edit knowledge modules
 │   │   ├── farmer/          # Farmer-specific components
 │   │   ├── buyer/           # Buyer-specific components
 │   │   ├── Navbar.jsx       # Navigation bar
@@ -141,7 +154,8 @@ FEDFW/
 │   │   ├── NotificationContext.jsx
 │   │   ├── LanguageContext.jsx
 │   │   ├── ThemeContext.jsx         # Dark/Light mode with persistence
-│   │   └── ToastContext.jsx         # Global toasts (Snackbar)
+│   │   ├── ToastContext.jsx         # Global toasts (Snackbar)
+│   │   └── KnowledgeContext.jsx     # Knowledge Center modules & resources
 │   ├── hooks/               # Custom React hooks
 │   │   ├── useLocalStorage.js
 │   │   └── useDebounce.js
@@ -181,6 +195,7 @@ The application uses **Context API** for global state management:
 - **LanguageContext**: Multi-language support
 - **ThemeContext**: Dark/Light mode persisted to LocalStorage
 - **ToastContext**: Global toast notifications
+- **KnowledgeContext**: Knowledge Center categories and resources with LocalStorage persistence
 
 ## 🧭 Routing
 
@@ -191,6 +206,9 @@ React Router is configured with protected routes:
 - `/admin/*` - Admin dashboard and features
 - `/farmer/*` - Farmer dashboard and features
 - `/buyer/*` - Buyer dashboard and features
+
+Admin nested routes include:
+- `/admin/knowledge` - Knowledge Center Management
 
 Farmer nested routes include:
 - `/farmer/knowledge` - Knowledge Center
@@ -206,6 +224,7 @@ All data is persisted using **Local Storage**:
 - Language preference
 - Theme preference
 - Registered users (demo sign-up)
+- Knowledge Center categories and resources
 
 ## 🌐 Deployment
 
@@ -243,6 +262,8 @@ netlify deploy --prod
 8. **Dark/Light Mode**: Theme toggle persisted to LocalStorage
 9. **AI Price Suggestion (UI)**: Contextual price hints in product forms
 10. **PDF Invoice**: Downloadable invoice for buyer orders
+11. **Dynamic Knowledge Center**: Admin-managed learning modules with external resource linking
+12. **External Resource Integration**: Link to YouTube videos, blogs, and articles from any website
 
 ## 🧩 Concepts Used So Far
 
@@ -258,6 +279,20 @@ netlify deploy --prod
 - LocalStorage persistence: session, products, orders, notifications, language, theme, registered users
 - Analytics: charts with Recharts (admin dashboard)
 - UX: smooth scrolling, IntersectionObserver animations on landing page
+
+## 🆕 Latest Updates
+
+### Knowledge Center Management (Admin)
+- **Dynamic Content System**: Knowledge Center is now fully manageable by admins
+- **Category Management**: Create, edit, and delete learning categories with custom icons and colors
+- **Resource Management**: Add, edit, and delete learning resources (articles/videos)
+- **External Link Support**: Add URLs to YouTube videos, blog posts, and articles from any website
+- **Flexible Content**: Resources can have either description text or external URL (or both)
+- **Persistent Storage**: All changes saved to LocalStorage for immediate availability
+- **Admin Interface**: Dedicated management page at `/admin/knowledge` with search and filtering
+- **User Experience**: Resources with URLs open in new tabs with security attributes
+
+This makes the platform feel alive and up-to-date, transforming static demo content into a real LMS/knowledge base experience.
 
 ## 🔮 Future Enhancements
 
