@@ -12,6 +12,7 @@ import { ToastProvider } from './contexts/ToastContext'
 import { WishlistProvider } from './contexts/WishlistContext'
 import { RecentlyViewedProvider } from './contexts/RecentlyViewedContext'
 import { ComparisonProvider } from './contexts/ComparisonContext'
+import { KnowledgeProvider } from './contexts/KnowledgeContext'
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -32,11 +33,12 @@ function App() {
               <ProductProvider>
                 <OrderProvider>
                   <NotificationProvider>
-                    <ToastProvider>
-                      <WishlistProvider>
-                        <RecentlyViewedProvider>
-                          <ComparisonProvider>
-                            <Routes>
+                    <KnowledgeProvider>
+                      <ToastProvider>
+                        <WishlistProvider>
+                          <RecentlyViewedProvider>
+                            <ComparisonProvider>
+                              <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
@@ -64,11 +66,12 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
-                            </Routes>
-                          </ComparisonProvider>
-                        </RecentlyViewedProvider>
-                      </WishlistProvider>
-                    </ToastProvider>
+                              </Routes>
+                            </ComparisonProvider>
+                          </RecentlyViewedProvider>
+                        </WishlistProvider>
+                      </ToastProvider>
+                    </KnowledgeProvider>
                   </NotificationProvider>
                 </OrderProvider>
               </ProductProvider>

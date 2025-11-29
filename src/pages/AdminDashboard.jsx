@@ -6,6 +6,7 @@ import UserManagement from '../components/admin/UserManagement'
 import Analytics from '../components/admin/Analytics'
 import ProductModeration from '../components/admin/ProductModeration'
 import OrderManagement from '../components/admin/OrderManagement'
+import KnowledgeManagement from '../components/admin/KnowledgeManagement'
 import NotificationsComponent from '../components/Notifications'
 import { Container, Box } from '@mui/material'
 
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
           <Route path="analytics" element={<Analytics />} />
           <Route path="products" element={<ProductModeration />} />
           <Route path="orders" element={<OrderManagement />} />
+          <Route path="knowledge" element={<KnowledgeManagement />} />
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Routes>

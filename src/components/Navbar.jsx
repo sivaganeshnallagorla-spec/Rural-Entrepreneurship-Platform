@@ -127,6 +127,9 @@ const Navbar = ({ onCartClick }) => {
               <Button color="inherit" onClick={() => navigate(`/${user?.role}/analytics`)}>
                 {t('analytics')}
               </Button>
+              <Button color="inherit" onClick={() => navigate(`/${user?.role}/knowledge`)}>
+                Knowledge Center
+              </Button>
             </>
           )}
         </Box>
