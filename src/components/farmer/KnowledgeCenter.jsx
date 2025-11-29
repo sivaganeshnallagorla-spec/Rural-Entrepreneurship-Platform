@@ -32,7 +32,9 @@ import {
   VideoLibrary,
   Article,
   Calculate,
-  AttachMoney
+  AttachMoney,
+  OpenInNew,
+  Link as LinkIcon
 } from '@mui/icons-material'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { useKnowledge } from '../../contexts/KnowledgeContext'
@@ -153,12 +155,31 @@ const KnowledgeCenter = () => {
                     <Typography variant="h6" gutterBottom>
                       {resource.title}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" paragraph>
-                      {resource.content}
-                    </Typography>
+                    {resource.content && (
+                      <Typography variant="body2" color="textSecondary" paragraph>
+                        {resource.content}
+                      </Typography>
+                    )}
+                    {resource.url && (
+                      <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <LinkIcon fontSize="small" color="primary" />
+                        <Typography 
+                          variant="caption" 
+                          color="primary" 
+                          sx={{ 
+                            wordBreak: 'break-all',
+                            textDecoration: 'underline',
+                            cursor: 'pointer'
+                          }}
+                          onClick={() => window.open(resource.url, '_blank', 'noopener,noreferrer')}
+                        >
+                          {resource.url.length > 50 ? `${resource.url.substring(0, 50)}...` : resource.url}
+                        </Typography>
+                      </Box>
+                    )}
                     <Divider sx={{ my: 2 }} />
                     <Box display="flex" flexWrap="wrap" gap={1}>
-                      {resource.topics.map((topic, topicIdx) => (
+                      {resource.topics?.map((topic, topicIdx) => (
                         <Chip
                           key={topicIdx}
                           label={topic}
@@ -169,9 +190,20 @@ const KnowledgeCenter = () => {
                     </Box>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
-                      {resource.type === 'video' ? 'Watch Video' : 'Read Article'}
-                    </Button>
+                    {resource.url ? (
+                      <Button 
+                        size="small" 
+                        color="primary"
+                        endIcon={<OpenInNew />}
+                        onClick={() => window.open(resource.url, '_blank', 'noopener,noreferrer')}
+                      >
+                        {resource.type === 'video' ? 'Watch Video' : 'Read Article'}
+                      </Button>
+                    ) : (
+                      <Button size="small" color="primary" disabled>
+                        {resource.type === 'video' ? 'Watch Video' : 'Read Article'}
+                      </Button>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>

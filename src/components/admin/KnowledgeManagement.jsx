@@ -35,7 +35,9 @@ import {
   AccountBalance,
   Business,
   Public,
-  Description
+  Description,
+  Link as LinkIcon,
+  OpenInNew
 } from '@mui/icons-material'
 import { useKnowledge } from '../../contexts/KnowledgeContext'
 import { useLanguage } from '../../contexts/LanguageContext'
@@ -281,9 +283,28 @@ const KnowledgeManagement = () => {
                               <Typography variant="h6" gutterBottom>
                                 {resource.title}
                               </Typography>
-                              <Typography variant="body2" color="textSecondary" paragraph>
-                                {resource.content}
-                              </Typography>
+                              {resource.content && (
+                                <Typography variant="body2" color="textSecondary" paragraph>
+                                  {resource.content}
+                                </Typography>
+                              )}
+                              {resource.url && (
+                                <Box sx={{ mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                  <LinkIcon fontSize="small" color="primary" />
+                                  <Typography 
+                                    variant="caption" 
+                                    color="primary" 
+                                    sx={{ 
+                                      wordBreak: 'break-all',
+                                      textDecoration: 'underline',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={() => window.open(resource.url, '_blank', 'noopener,noreferrer')}
+                                  >
+                                    {resource.url.length > 60 ? `${resource.url.substring(0, 60)}...` : resource.url}
+                                  </Typography>
+                                </Box>
+                              )}
                             </Box>
                           </Box>
                           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
@@ -298,6 +319,15 @@ const KnowledgeManagement = () => {
                           </Box>
                         </CardContent>
                         <CardActions>
+                          {resource.url && (
+                            <Button
+                              size="small"
+                              startIcon={<OpenInNew />}
+                              onClick={() => window.open(resource.url, '_blank', 'noopener,noreferrer')}
+                            >
+                              Open Link
+                            </Button>
+                          )}
                           <Button
                             size="small"
                             startIcon={<Edit />}

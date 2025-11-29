@@ -54,6 +54,7 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
     title: '',
     type: 'article',
     content: '',
+    url: '',
     topics: [],
     categoryId: ''
   })
@@ -80,6 +81,7 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
           title: item.title || '',
           type: item.type || 'article',
           content: item.content || '',
+          url: item.url || '',
           topics: item.topics || [],
           categoryId: item.categoryId || ''
         })
@@ -88,6 +90,7 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
           title: '',
           type: 'article',
           content: '',
+          url: '',
           topics: [],
           categoryId: item?.categoryId || ''
         })
@@ -134,6 +137,7 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
           title: resourceForm.title,
           type: resourceForm.type,
           content: resourceForm.content,
+          url: resourceForm.url,
           topics: resourceForm.topics
         })
       } else {
@@ -141,6 +145,7 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
           title: resourceForm.title,
           type: resourceForm.type,
           content: resourceForm.content,
+          url: resourceForm.url,
           topics: resourceForm.topics
         })
       }
@@ -151,9 +156,9 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
   const isCategoryFormValid = categoryForm.name.trim() !== ''
   const isResourceFormValid =
     resourceForm.title.trim() !== '' &&
-    resourceForm.content.trim() !== '' &&
     resourceForm.categoryId !== '' &&
-    resourceForm.topics.length > 0
+    resourceForm.topics.length > 0 &&
+    (resourceForm.content.trim() !== '' || resourceForm.url.trim() !== '')
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
@@ -247,12 +252,22 @@ const AddEditKnowledgeModule = ({ open, onClose, mode, item }) => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Content"
+                  label="URL (YouTube, Blog, Article, etc.)"
+                  value={resourceForm.url}
+                  onChange={(e) => handleResourceChange('url', e.target.value)}
+                  placeholder="https://www.youtube.com/watch?v=... or https://example.com/article"
+                  helperText="Add a link to external content (YouTube videos, blog posts, articles, etc.)"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Description/Content"
                   value={resourceForm.content}
                   onChange={(e) => handleResourceChange('content', e.target.value)}
                   multiline
                   rows={4}
-                  required
+                  helperText="Description of the resource (optional if URL is provided)"
                 />
               </Grid>
               <Grid item xs={12}>
