@@ -9,8 +9,11 @@ import {
   Typography,
   Alert,
   Card,
-  CardContent
+  CardContent,
+  IconButton,
+  InputAdornment
 } from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../contexts/ToastContext'
 import { useLanguage } from '../contexts/LanguageContext'
@@ -18,17 +21,18 @@ import { useLanguage } from '../contexts/LanguageContext'
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const { login } = useAuth()
   const { showToast } = useToast()
   const { t } = useLanguage()
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     
-    const result = login(username, password)
+    const result = await login(username, password)
     
     if (result.success) {
       showToast('Login successful', 'success')
@@ -104,12 +108,25 @@ const Login = () => {
             <TextField
               fullWidth
               label={t('password')}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               variant="outlined"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
               required
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
 
             <Button

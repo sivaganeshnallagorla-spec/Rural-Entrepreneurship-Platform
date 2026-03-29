@@ -33,7 +33,8 @@ const stages = [
   { id: 8, title: 'Harvesting Help', icon: <Agriculture />, color: '#ff9800', path: 'stage8' },
   { id: 9, title: 'Market Linkage', icon: <Storefront />, color: '#ffc107', path: 'stage9' },
   { id: 10, title: 'Logistics/Storage', icon: <LocalShipping />, color: '#607d8b', path: 'stage10' },
-  { id: 11, title: 'Mkt Finance/Insurance', icon: <CurrencyExchange />, color: '#e91e63', path: 'stage11' }
+  { id: 11, title: 'Mkt Finance/Insurance', icon: <CurrencyExchange />, color: '#e91e63', path: 'stage11' },
+  { id: 'DaaS', title: 'Drone Booking', icon: <Science />, color: '#03a9f4', absolutePath: '/farmer/drone-booking' }
 ];
 
 const ServicesHub = () => {
@@ -56,7 +57,7 @@ const ServicesHub = () => {
               }}
             >
               <CardActionArea 
-                onClick={() => navigate(`/farmer/services/${stage.path}`)}
+                onClick={() => navigate(stage.absolutePath || `/farmer/services/${stage.path}`)}
                 sx={{ height: '100%', p: 1 }}
               >
                 <CardContent sx={{ textAlign: 'center' }}>
@@ -73,9 +74,6 @@ const ServicesHub = () => {
                     {stage.icon}
                   </Avatar>
                   <Typography variant="h6" component="div" sx={{ fontSize: '1rem', fontWeight: 600 }}>
-                    Stage {stage.id}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
                     {stage.title}
                   </Typography>
                 </CardContent>

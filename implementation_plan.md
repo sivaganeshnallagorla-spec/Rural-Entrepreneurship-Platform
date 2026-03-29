@@ -45,6 +45,14 @@ This plan outlines the final implementation phase to complete the production-rea
 
 ### 4. Public & Marketing Pages
 - **[NEW] `ProductOriginPage.jsx`**: A public-facing page that displays a product's supply chain history (traced via QR code).
+- **[MODIFIED] Landing Page**: Simplified developer credits to feature only Nallagorla Siva Ganesh.
+
+### 5. Final Platform Improvements & Extras
+- **Progressive Web App (PWA)**: Implemented `vite-plugin-pwa` for manifest and offline installability.
+- **Skill Center Conversion**: Deeply refactored all references of "Knowledge Center" to "Skill Center" including routes, state names, and translations.
+- **Farmer Schemes Hub**: Dedicated UI aggregating Indian Government schemes (PM-KISAN, PMFBY, KCC) with quick-apply links.
+- **Bulk Order & Messaging**: Clarified and connected direct buyer-to-farmer chat features for bulk product requesting.
+- **UX Layout Simplification**: Restructured Navbar to clean floating buttons, moved theme/language toggles securely into the user profile menu, and merged Drone Services with the larger Services Marketplace.
 
 ---
 

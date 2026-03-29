@@ -11,6 +11,7 @@ import Profile from '../components/buyer/Profile'
 import Wishlist from '../components/buyer/Wishlist'
 import RecentlyViewed from '../components/buyer/RecentlyViewed'
 import ProductComparison from '../components/buyer/ProductComparison'
+import Messaging from '../components/shared/Messaging'
 import { Container, Box } from '@mui/material'
 
 const BuyerDashboard = () => {
@@ -33,6 +34,7 @@ const BuyerDashboard = () => {
           <Route path="compare" element={<ProductComparison />} />
           <Route path="profile" element={<Profile />} />
           <Route path="notifications" element={<NotificationsComponent />} />
+          <Route path="messages" element={<Messaging />} />
           <Route path="*" element={<Navigate to="/buyer" replace />} />
         </Routes>
       </Container>

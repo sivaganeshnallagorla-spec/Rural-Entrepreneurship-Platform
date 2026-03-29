@@ -1,13 +1,35 @@
 import React, { createContext, useContext, useState } from 'react';
+import { mockAgmarknetPrices } from '../api/demoData';
 
 const PricingContext = createContext();
 
-const initialPricingData = {
+const basePricingData = {
   'Wheat': { current: 2200, trend: 'up', history: [2100, 2150, 2180, 2200], unit: 'Quintal' },
   'Rice': { current: 1800, trend: 'stable', history: [1750, 1780, 1800, 1800], unit: 'Quintal' },
   'Cotton': { current: 6500, trend: 'down', history: [7000, 6800, 6600, 6500], unit: 'Quintal' },
   'Sugarcane': { current: 310, trend: 'up', history: [290, 300, 305, 310], unit: 'Ton' }
 };
+
+// Merge Agmarknet prices from demoData for richer crop coverage
+const initialPricingData = { ...basePricingData };
+Object.entries(mockAgmarknetPrices).forEach(([crop, agmarknetPrice]) => {
+  if (initialPricingData[crop]) {
+    // Update existing with Agmarknet price as latest
+    initialPricingData[crop] = {
+      ...initialPricingData[crop],
+      agmarknetPrice
+    };
+  } else {
+    // Add new crop from Agmarknet
+    initialPricingData[crop] = {
+      current: agmarknetPrice * 100, // convert per-kg to per-quintal
+      agmarknetPrice,
+      trend: 'stable',
+      history: [agmarknetPrice * 95, agmarknetPrice * 98, agmarknetPrice * 99, agmarknetPrice * 100],
+      unit: 'Quintal'
+    };
+  }
+});
 
 export const PricingProvider = ({ children }) => {
   const [pricingData] = useState(initialPricingData);

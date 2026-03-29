@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   Box,
@@ -14,8 +14,11 @@ import {
   FormControl,
   InputLabel,
   Card,
-  CardContent
+  CardContent,
+  IconButton,
+  InputAdornment
 } from '@mui/material'
+import { CloudUpload, Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAuth } from '../contexts/AuthContext'
 import { useLanguage } from '../contexts/LanguageContext'
 
@@ -37,11 +40,14 @@ const SignUp = () => {
     },
     profilePicture: ''
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const { register } = useAuth()
   const { t } = useLanguage()
   const navigate = useNavigate()
+  const fileInputRef = useRef(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -62,33 +68,43 @@ const SignUp = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    if (file.size > 512000) {
+      setError('Profile picture must be under 500 KB')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      setFormData(prev => ({ ...prev, profilePicture: ev.target.result }))
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setSuccess(false)
 
-    // Validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       return
     }
-
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters')
       return
     }
-
     if (!formData.email.includes('@')) {
       setError('Please enter a valid email address')
       return
     }
-
     if (!formData.phone || formData.phone.length < 10) {
       setError('Please enter a valid phone number')
       return
     }
 
-    const result = register(formData)
+    const result = await register(formData)
     
     if (result.success) {
       setSuccess(true)
@@ -198,10 +214,23 @@ const SignUp = () => {
                   fullWidth
                   label="Password"
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
 
@@ -210,10 +239,23 @@ const SignUp = () => {
                   fullWidth
                   label="Confirm Password"
                   name="confirmPassword"
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle confirm password visibility"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          edge="end"
+                        >
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
 
@@ -278,13 +320,39 @@ const SignUp = () => {
               </Grid>
 
               <Grid item xs={12}>
+                <Typography variant="body2" gutterBottom fontWeight="bold">
+                  Profile Picture (Optional)
+                </Typography>
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  ref={fileInputRef}
+                  onChange={handleImageUpload}
+                />
+                <Button
+                  variant="outlined"
+                  startIcon={<CloudUpload />}
+                  onClick={() => fileInputRef.current?.click()}
+                  sx={{ mr: 2, mb: 1 }}
+                >
+                  Upload Photo
+                </Button>
+                {formData.profilePicture && formData.profilePicture.startsWith('data:') && (
+                  <img
+                    src={formData.profilePicture}
+                    alt="preview"
+                    style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: '50%', marginTop: 8, display: 'block' }}
+                  />
+                )}
                 <TextField
                   fullWidth
-                  label="Profile Picture URL (Optional)"
+                  label="Or paste profile picture URL"
                   name="profilePicture"
-                  value={formData.profilePicture}
+                  value={formData.profilePicture.startsWith('data:') ? '' : formData.profilePicture}
                   onChange={handleChange}
                   placeholder="https://example.com/image.jpg"
+                  sx={{ mt: 2 }}
                 />
               </Grid>
 

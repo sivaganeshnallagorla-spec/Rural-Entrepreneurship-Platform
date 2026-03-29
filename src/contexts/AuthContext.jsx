@@ -2,7 +2,17 @@ import React, { createContext, useState, useEffect, useContext } from 'react'
 
 const AuthContext = createContext()
 
-// Predefined credentials
+// Helper: SHA-256 hash using Web Crypto API (for registered users only)
+// PREDEFINED_USERS keep plain-text passwords for demo convenience
+async function hashPassword(plaintext) {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(plaintext)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
+// Predefined credentials (plain-text passwords are acceptable for hardcoded demo users)
 const PREDEFINED_USERS = [
   {
     id: 'admin1',
@@ -85,23 +95,25 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }, [])
 
-  const login = (username, password) => {
-    // Check predefined users first
+  const login = async (username, password) => {
+    // Check predefined users first (plain-text comparison for demo accounts)
     let foundUser = PREDEFINED_USERS.find(
       u => u.username === username && u.password === password
     )
 
-    // If not found, check registered users
+    // If not found, check registered users (hashed password comparison)
     if (!foundUser) {
       const registeredUsers = getRegisteredUsers()
+      const inputHash = await hashPassword(password)
       foundUser = registeredUsers.find(
-        u => u.username === username && u.password === password
+        u => u.username === username && u.passwordHash === inputHash
       )
     }
     
     if (foundUser) {
       const userData = { ...foundUser }
       delete userData.password // Don't store password
+      delete userData.passwordHash // Don't keep hash in session
       setUser(userData)
       localStorage.setItem('user', JSON.stringify(userData))
       return { success: true, user: userData }
@@ -110,7 +122,7 @@ export const AuthProvider = ({ children }) => {
     return { success: false, error: 'Invalid username or password' }
   }
 
-  const register = (formData) => {
+  const register = async (formData) => {
     const registeredUsers = getRegisteredUsers()
     
     // Check if username already exists
@@ -131,11 +143,14 @@ export const AuthProvider = ({ children }) => {
       return { success: false, error: 'Email already registered' }
     }
 
-    // Create new user
+    // Hash password before storing — never store plain-text passwords
+    const passwordHash = await hashPassword(formData.password)
+
+    // Create new user (passwordHash stored, not plain password)
     const newUser = {
       id: `user-${Date.now()}`,
       username: formData.username,
-      password: formData.password,
+      passwordHash,
       role: formData.role,
       name: formData.name,
       email: formData.email,

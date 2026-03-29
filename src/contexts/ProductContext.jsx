@@ -30,7 +30,7 @@ const DEFAULT_PRODUCTS = [
     unit: 'kg',
     stock: 50,
     location: 'Punjab, India',
-    image: '/api/placeholder/400/300',
+    image: 'https://images.unsplash.com/photo-1607920592519-bab4a0618ee2?auto=format&fit=crop&w=400&q=80',
     certification: 'organic',
     available: true,
     createdAt: new Date().toISOString()
@@ -46,7 +46,7 @@ const DEFAULT_PRODUCTS = [
     unit: 'kg',
     stock: 75,
     location: 'Maharashtra, India',
-    image: '/api/placeholder/400/300',
+    image: 'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=400&q=80',
     certification: 'organic',
     available: true,
     createdAt: new Date().toISOString()
@@ -62,7 +62,7 @@ const DEFAULT_PRODUCTS = [
     unit: 'piece',
     stock: 200,
     location: 'Maharashtra, India',
-    image: '/api/placeholder/400/300',
+    image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=400&q=80',
     certification: 'eco-friendly',
     available: true,
     createdAt: new Date().toISOString()

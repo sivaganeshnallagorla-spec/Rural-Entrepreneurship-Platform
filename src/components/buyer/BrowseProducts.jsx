@@ -16,7 +16,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  IconButton
+  IconButton,
+  Rating
 } from '@mui/material'
 import {
   Search,
@@ -31,6 +32,7 @@ import { useLanguage } from '../../contexts/LanguageContext'
 import { useWishlist } from '../../contexts/WishlistContext'
 import { useComparison } from '../../contexts/ComparisonContext'
 import { useToast } from '../../contexts/ToastContext'
+import { useReviews } from '../../contexts/ReviewContext'
 
 const BrowseProducts = () => {
   const { products, searchProducts, filterProducts } = useProducts()
@@ -39,6 +41,7 @@ const BrowseProducts = () => {
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const { addToComparison, isInComparison, removeFromComparison, canAddMore } = useComparison()
   const { showToast } = useToast()
+  const { getAverageRating } = useReviews()
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState({
     category: '',
@@ -189,6 +192,14 @@ const BrowseProducts = () => {
                       />
                     )}
                   </Box>
+                  {getAverageRating(product.id) > 0 && (
+                    <Box display="flex" alignItems="center" gap={0.5}>
+                      <Rating value={getAverageRating(product.id)} precision={0.5} readOnly size="small" />
+                      <Typography variant="caption" color="textSecondary">
+                        {getAverageRating(product.id)}
+                      </Typography>
+                    </Box>
+                  )}
                 </CardContent>
                 <CardActions sx={{ flexWrap: 'wrap', gap: 1 }}>
                   <Button

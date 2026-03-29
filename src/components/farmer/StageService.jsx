@@ -39,7 +39,54 @@ const stageContent = {
     actions: ['Book Soil Test', 'Order Fertilizers'],
     resources: ['Soil Health Cards', 'Preparation Tips']
   },
-  // ... can be expanded for all 11
+  stage4: {
+    title: 'Crop Monitoring',
+    desc: 'Monitor crop health, detect pests early, and track growth stages.',
+    actions: ['Book Drone Survey', 'View Soil Health Report', 'Log Observation'],
+    resources: ['Pest Identification Guide', 'Growth Stage Calendar', 'Drone Imagery Samples']
+  },
+  stage5: {
+    title: 'Harvesting',
+    desc: 'Plan optimal harvest timing and choose the right harvesting methods.',
+    actions: ['Check Market Price', 'Schedule Labour', 'Log Harvest Data'],
+    resources: ['Harvest Readiness Checklist', 'Post-Harvest Loss Reduction Tips']
+  },
+  stage6: {
+    title: 'Post-Harvest Handling',
+    desc: 'Reduce losses with proper grading, cleaning, and sorting techniques.',
+    actions: ['Download Grading Standards', 'Find Processing Unit'],
+    resources: ['FSSAI Food Safety Guidelines', 'Grading & Sorting Video']
+  },
+  stage7: {
+    title: 'Storage',
+    desc: 'Use zero-energy cool chambers and proper storage to extend shelf life.',
+    actions: ['Find Nearby Cold Storage', 'Calculate Storage Cost'],
+    resources: ['Zero-Energy Cool Chamber Guide', 'Warehouse Receipt Scheme Info']
+  },
+  stage8: {
+    title: 'Processing & Value Addition',
+    desc: 'Transform raw crops into value-added products to multiply income.',
+    actions: ['Explore Processing Recipes', 'Find Equipment Suppliers'],
+    resources: ['Value Addition Handbook', 'FSSAI License Process', 'Packaging Guidelines']
+  },
+  stage9: {
+    title: 'Packaging & Branding',
+    desc: 'Design attractive packaging and build a brand that buyers trust.',
+    actions: ['Generate QR Label', 'Browse Packaging Suppliers'],
+    resources: ['Branding for Rural Entrepreneurs', 'Label Design Templates', 'Eco-Packaging Options']
+  },
+  stage10: {
+    title: 'Market Linkage',
+    desc: 'Connect directly with buyers, exporters, and government procurement.',
+    actions: ['List Product on Platform', 'Browse Buyer Directory', 'Register for e-NAM'],
+    resources: ['e-NAM Registration Guide', 'Export Documentation Checklist']
+  },
+  stage11: {
+    title: 'Market Finance & Insurance',
+    desc: 'Access crop insurance, Kisan Credit Card, and micro-financing options.',
+    actions: ['Apply for KCC', 'Check PM-FASAL Bima', 'Find MFI Partner'],
+    resources: ['PMFBY Scheme Details', 'KCC Application Process', 'SHG Loan Options']
+  }
 };
 
 const StageService = () => {

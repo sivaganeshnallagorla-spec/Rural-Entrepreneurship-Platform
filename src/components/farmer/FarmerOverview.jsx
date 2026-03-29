@@ -4,8 +4,6 @@ import {
   Paper,
   Typography,
   Box,
-  Card,
-  CardContent,
   Button
 } from '@mui/material'
 import {
@@ -14,29 +12,16 @@ import {
   TrendingUp,
   Add,
   School,
-  Calculate
+  Calculate,
+  Star
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
-
-const StatCard = ({ title, value, icon, color }) => (
-  <Card>
-    <CardContent>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
-          <Typography color="textSecondary" gutterBottom variant="body2">
-            {title}
-          </Typography>
-          <Typography variant="h4">{value}</Typography>
-        </Box>
-        <Box sx={{ color, fontSize: 40 }}>{icon}</Box>
-      </Box>
-    </CardContent>
-  </Card>
-)
+import { useReviews } from '../../contexts/ReviewContext'
+import StatCard from '../shared/StatCard'
 
 const FarmerOverview = () => {
   const { user } = useAuth()
@@ -44,6 +29,7 @@ const FarmerOverview = () => {
   const { getOrdersByFarmer } = useOrders()
   const { t } = useLanguage()
   const navigate = useNavigate()
+  const { getAverageFarmerRating } = useReviews()
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,
@@ -64,6 +50,8 @@ const FarmerOverview = () => {
       pendingOrders
     })
   }, [user, getProductsByFarmer, getOrdersByFarmer])
+
+  const avgRating = getAverageFarmerRating(user?.id)
 
   return (
     <Box>
@@ -101,10 +89,10 @@ const FarmerOverview = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
-            title="Pending Orders"
-            value={stats.pendingOrders}
-            icon={<ShoppingBag />}
-            color="#f44336"
+            title={t('avg_rating') || 'Avg Rating'}
+            value={avgRating > 0 ? `${avgRating} ★` : 'No ratings'}
+            icon={<Star />}
+            color="#fbc02d"
           />
         </Grid>
 
@@ -132,7 +120,7 @@ const FarmerOverview = () => {
               <Box>
                 <Typography variant="h6" gutterBottom>
                   <School sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Knowledge Center
+                  Skill Center
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Learn farming techniques, value-addition processing, branding, digital skills, and more.
@@ -142,7 +130,7 @@ const FarmerOverview = () => {
                 variant="contained"
                 color="primary"
                 startIcon={<School />}
-                onClick={() => navigate('/farmer/knowledge')}
+                onClick={() => navigate('/farmer/skill')}
               >
                 Explore Resources
               </Button>
@@ -179,4 +167,3 @@ const FarmerOverview = () => {
 }
 
 export default FarmerOverview
-

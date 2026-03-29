@@ -23,7 +23,8 @@ import {
   DarkMode,
   LightMode,
   Favorite,
-  CompareArrows
+  CompareArrows,
+  Message
 } from '@mui/icons-material'
 import { useThemeMode } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
@@ -31,6 +32,7 @@ import { useNotifications } from '../contexts/NotificationContext'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useWishlist } from '../contexts/WishlistContext'
 import { useComparison } from '../contexts/ComparisonContext'
+import { useMessaging } from '../contexts/MessagingContext'
 
 const Navbar = ({ onCartClick }) => {
   const { user, logout } = useAuth()
@@ -43,6 +45,8 @@ const Navbar = ({ onCartClick }) => {
   const { mode, toggleMode } = useThemeMode()
   const { wishlist } = useWishlist()
   const { comparisonItems } = useComparison()
+  const { getUnreadCount: getMsgUnread } = useMessaging()
+  const msgUnreadCount = user ? getMsgUnread(user.id) : 0
 
   /** Route paths use hyphens (e.g. drone-operator), roles use snake_case in data. */
   const rolePathSegment = user?.role ? user.role.replace(/_/g, '-') : ''
@@ -96,14 +100,18 @@ const Navbar = ({ onCartClick }) => {
               <Button color="inherit" onClick={() => navigate('/farmer/products')}>
                 {t('products')}
               </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/drone-booking')}>
-                {t('book_drone')}
+
+              <Button color="inherit" onClick={() => navigate('/farmer/services')}>
+                Services Marketplace
               </Button>
               <Button color="inherit" onClick={() => navigate('/farmer/orders')}>
                 {t('orders')}
               </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/knowledge')}>
+              <Button color="inherit" onClick={() => navigate('/farmer/skill')}>
                 {t('knowledge_center')}
+              </Button>
+              <Button color="inherit" onClick={() => navigate('/farmer/schemes')}>
+                Schemes
               </Button>
               <Button color="inherit" onClick={() => navigate('/farmer/tools')}>
                 {t('nav_tools')}
@@ -149,32 +157,10 @@ const Navbar = ({ onCartClick }) => {
               </Button>
             </>
           )}
-          {user && (
-            <Button color="inherit" onClick={() => navigate(`/${rolePathSegment}/profile`)}>
-              {t('profile')}
-            </Button>
-          )}
+
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconButton color="inherit" onClick={toggleMode} title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
-            {mode === 'dark' ? <LightMode /> : <DarkMode />}
-          </IconButton>
-          <FormControl size="small" sx={{ minWidth: 120, mr: 1 }}>
-            <InputLabel>{t('language') || 'Language'}</InputLabel>
-            <Select
-              value={language}
-              label={t('language') || 'Language'}
-              onChange={(e) => setLanguage(e.target.value)}
-              sx={{ color: 'white', '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.5)' } }}
-            >
-              {availableLanguages.map((lang) => (
-                <MenuItem key={lang} value={lang}>
-                  {languageLabels[lang]}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
           {user?.role === 'buyer' && (
             <>
@@ -194,6 +180,19 @@ const Navbar = ({ onCartClick }) => {
                 </Badge>
               </IconButton>
             </>
+          )}
+
+          {/* Messages icon for farmers and buyers */}
+          {(user?.role === 'farmer' || user?.role === 'buyer') && (
+            <IconButton
+              color="inherit"
+              onClick={() => navigate(`/${rolePathSegment}/messages`)}
+              title={t('messages') || 'Messages'}
+            >
+              <Badge badgeContent={msgUnreadCount} color="error">
+                <Message />
+              </Badge>
+            </IconButton>
           )}
 
           <IconButton
@@ -219,6 +218,34 @@ const Navbar = ({ onCartClick }) => {
             <MenuItem disabled>
               <Typography variant="caption">{getRoleLabel()}</Typography>
             </MenuItem>
+            <MenuItem onClick={toggleMode}>
+              {mode === 'dark' ? <LightMode sx={{ mr: 1 }} /> : <DarkMode sx={{ mr: 1 }} />}
+              {mode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            </MenuItem>
+            <Box sx={{ px: 2, py: 1 }}>
+              <FormControl size="small" fullWidth>
+                <InputLabel>{t('language') || 'Language'}</InputLabel>
+                <Select
+                  value={language}
+                  label={t('language') || 'Language'}
+                  onChange={(e) => {
+                    setLanguage(e.target.value)
+                  }}
+                >
+                  {availableLanguages.map((lang) => (
+                    <MenuItem key={lang} value={lang}>
+                      {languageLabels[lang]}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <MenuItem onClick={() => {
+              navigate(`/${rolePathSegment}/profile`)
+              handleClose()
+            }}>
+              <AccountCircle sx={{ mr: 1 }} /> {t('profile') || 'Profile'}
+            </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ExitToApp sx={{ mr: 1 }} /> {t('logout')}
             </MenuItem>
@@ -230,4 +257,3 @@ const Navbar = ({ onCartClick }) => {
 }
 
 export default Navbar
-

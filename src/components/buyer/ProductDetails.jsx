@@ -17,14 +17,17 @@ import {
   FormControl,
   InputLabel,
   Alert,
-  IconButton
+  IconButton,
+  Rating
 } from '@mui/material'
 import {
   ShoppingCart,
   ArrowBack,
   Favorite,
-  CompareArrows
+  CompareArrows,
+  Message
 } from '@mui/icons-material'
+import { QRCodeCanvas as QRCode } from 'qrcode.react'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useAuth } from '../../contexts/AuthContext'
@@ -36,6 +39,8 @@ import { useToast } from '../../contexts/ToastContext'
 import { useWishlist } from '../../contexts/WishlistContext'
 import { useRecentlyViewed } from '../../contexts/RecentlyViewedContext'
 import { useComparison } from '../../contexts/ComparisonContext'
+import { useReviews } from '../../contexts/ReviewContext'
+import { generateOriginUrl } from '../../utils/qrGenerator'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -49,6 +54,7 @@ const ProductDetails = () => {
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const { addToRecentlyViewed } = useRecentlyViewed()
   const { addToComparison, isInComparison, removeFromComparison, canAddMore } = useComparison()
+  const { getAverageRating, getReviewsByProduct } = useReviews()
   const product = getProductById(id)
   
   const [quantity, setQuantity] = useState(1)
@@ -77,7 +83,7 @@ const ProductDetails = () => {
   // Calculate shipping when quantity or shipping method changes
   useEffect(() => {
     if (product && user) {
-      const estimatedWeight = quantity * (product.unit === 'kg' ? 1 : 0.5) // Estimate weight
+      const estimatedWeight = quantity * (product.unit === 'kg' ? 1 : 0.5)
       const shipping = calculateShipping(
         product.location,
         user.location || user.address?.city || 'New Delhi',
@@ -143,7 +149,14 @@ const ProductDetails = () => {
     navigate('/buyer/orders')
   }
 
+  const handleMessageFarmer = () => {
+    navigate(`/buyer/messages?farmerId=${product.farmerId}&farmerName=${encodeURIComponent(product.farmerName)}`)
+  }
+
   const maxQuantity = Math.min(product.stock, 100)
+  const avgRating = getAverageRating(product.id)
+  const reviews = getReviewsByProduct(product.id)
+  const recentReviews = reviews.slice(-3).reverse()
 
   return (
     <Box>
@@ -172,6 +185,17 @@ const ProductDetails = () => {
             <Typography variant="h4" gutterBottom>
               {product.name}
             </Typography>
+
+            {/* Average rating */}
+            {avgRating > 0 && (
+              <Box display="flex" alignItems="center" gap={1} mb={1}>
+                <Rating value={avgRating} precision={0.5} readOnly size="small" />
+                <Typography variant="caption" color="textSecondary">
+                  ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                </Typography>
+              </Box>
+            )}
+
             <Typography variant="h5" color="primary" gutterBottom>
               ₹{product.price}/{product.unit}
             </Typography>
@@ -240,6 +264,29 @@ const ProductDetails = () => {
               <strong>Location:</strong> {product.location}<br />
               <strong>Stock Available:</strong> {product.stock} {product.unit}
             </Typography>
+
+            {/* QR Code — origin verification */}
+            <Box sx={{ mt: 3, p: 2, border: '1px solid', borderColor: 'divider', borderRadius: 2, display: 'inline-block', textAlign: 'center' }}>
+              <Typography variant="caption" display="block" gutterBottom>
+                {t('scan_qr') || 'Scan to verify origin'}
+              </Typography>
+              <QRCode value={generateOriginUrl(product.id)} size={120} />
+              <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                Product ID: {product.id}
+              </Typography>
+            </Box>
+
+            {/* Message Farmer button */}
+            <Box sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                startIcon={<Message />}
+                onClick={handleMessageFarmer}
+                fullWidth
+              >
+                Message Farmer / Request Bulk Order
+              </Button>
+            </Box>
 
             <Divider sx={{ my: 3 }} />
 
@@ -350,9 +397,41 @@ const ProductDetails = () => {
           </Paper>
         </Grid>
       </Grid>
+
+      {/* Reviews Section */}
+      {recentReviews.length > 0 && (
+        <Paper sx={{ p: 3, mt: 4 }}>
+          <Typography variant="h6" gutterBottom>
+            Customer Reviews
+          </Typography>
+          <Box display="flex" alignItems="center" gap={1} mb={2}>
+            <Rating value={avgRating} precision={0.5} readOnly />
+            <Typography variant="body2" color="textSecondary">
+              {avgRating} out of 5 ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+            </Typography>
+          </Box>
+          <Divider sx={{ mb: 2 }} />
+          {recentReviews.map((review) => (
+            <Box key={review.id} sx={{ mb: 2 }}>
+              <Box display="flex" alignItems="center" gap={1} mb={0.5}>
+                <Rating value={review.rating} readOnly size="small" />
+                <Typography variant="body2" fontWeight="bold">{review.buyerName}</Typography>
+                <Typography variant="caption" color="textSecondary">
+                  {new Date(review.createdAt).toLocaleDateString()}
+                </Typography>
+              </Box>
+              {review.comment && (
+                <Typography variant="body2" color="textSecondary">
+                  {review.comment}
+                </Typography>
+              )}
+              <Divider sx={{ mt: 1 }} />
+            </Box>
+          ))}
+        </Paper>
+      )}
     </Box>
   )
 }
 
 export default ProductDetails
-

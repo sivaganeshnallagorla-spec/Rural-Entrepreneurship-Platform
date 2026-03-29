@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -13,14 +13,18 @@ import {
   InputLabel
 } from '@mui/material'
 import { Alert } from '@mui/material'
+import { CloudUpload } from '@mui/icons-material'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { useToast } from '../../contexts/ToastContext'
 
 const EditProduct = () => {
   const { id } = useParams()
   const { getProductById, updateProduct } = useProducts()
   const { t } = useLanguage()
+  const { showToast } = useToast()
   const navigate = useNavigate()
+  const fileInputRef = useRef(null)
   const product = getProductById(id)
   
   const [formData, setFormData] = useState({
@@ -88,6 +92,20 @@ const EditProduct = () => {
       ...formData,
       [e.target.name]: e.target.value
     })
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    if (file.size > 512000) {
+      showToast('Image must be under 500 KB', 'error')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      setFormData(prev => ({ ...prev, image: ev.target.result }))
+    }
+    reader.readAsDataURL(file)
   }
 
   const handleSubmit = (e) => {
@@ -218,16 +236,51 @@ const EditProduct = () => {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Image Upload Section */}
             <Grid item xs={12}>
+              <Typography variant="body2" gutterBottom fontWeight="bold">
+                Product Image
+              </Typography>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+              />
+              <Button
+                variant="outlined"
+                startIcon={<CloudUpload />}
+                onClick={() => fileInputRef.current?.click()}
+                sx={{ mr: 2, mb: 1 }}
+              >
+                Choose File
+              </Button>
+              {formData.image && formData.image.startsWith('data:') && (
+                <img
+                  src={formData.image}
+                  alt="preview"
+                  style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginTop: 8, display: 'block' }}
+                />
+              )}
               <TextField
                 fullWidth
-                label="Product Image URL"
+                label="Or paste image URL"
                 name="image"
-                value={formData.image}
+                value={formData.image.startsWith('data:') ? '' : formData.image}
                 onChange={handleChange}
                 placeholder="https://example.com/product-image.jpg"
-                helperText="Enter a URL to an image of your product"
+                helperText="Enter a URL if you don't have a file to upload"
+                sx={{ mt: 2 }}
               />
+              {formData.image && !formData.image.startsWith('data:') && (
+                <img
+                  src={formData.image}
+                  alt="preview"
+                  style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginTop: 8, display: 'block' }}
+                  onError={(e) => { e.target.style.display = 'none' }}
+                />
+              )}
             </Grid>
             <Grid item xs={12}>
               <Box display="flex" gap={2} justifyContent="flex-end">

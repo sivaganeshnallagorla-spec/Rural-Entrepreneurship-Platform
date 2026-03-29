@@ -4,8 +4,7 @@ import {
   Paper,
   Typography,
   Box,
-  Card,
-  CardContent
+  Button
 } from '@mui/material'
 import {
   People,
@@ -17,38 +16,29 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
-
-const StatCard = ({ title, value, icon, color }) => (
-  <Card>
-    <CardContent>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
-          <Typography color="textSecondary" gutterBottom variant="body2">
-            {title}
-          </Typography>
-          <Typography variant="h4">{value}</Typography>
-        </Box>
-        <Box sx={{ color, fontSize: 40 }}>{icon}</Box>
-      </Box>
-    </CardContent>
-  </Card>
-)
+import { useToast } from '../../contexts/ToastContext'
+import StatCard from '../shared/StatCard'
+import { demoProducts, demoOrders } from '../../api/demoData'
 
 const AdminOverview = () => {
   const { user } = useAuth()
-  const { products } = useProducts()
-  const { orders } = useOrders()
+  const { products, addProduct } = useProducts()
+  const { orders, createOrder } = useOrders()
   const { t } = useLanguage()
+  const { showToast } = useToast()
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalProducts: 0,
     totalOrders: 0,
     totalRevenue: 0
   })
+  const [demoLoaded, setDemoLoaded] = useState(false)
 
   useEffect(() => {
-    // Calculate stats
-    const totalUsers = 5 // Predefined users
+    // Count registered users dynamically
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]')
+    // 6 = admin + farmer + farmer2 + buyer + buyer2 + drone operator
+    const totalUsers = 6 + registeredUsers.length
     const totalProducts = products.length
     const totalOrders = orders.length
     const totalRevenue = orders.reduce((sum, order) => sum + (order.total || 0), 0)
@@ -60,6 +50,45 @@ const AdminOverview = () => {
       totalRevenue
     })
   }, [products, orders])
+
+  const seedDemoData = () => {
+    const currentProductNames = products.map(p => p.name.toLowerCase())
+
+    // Add demo products (skip duplicates by name)
+    demoProducts.forEach(dp => {
+      if (!currentProductNames.includes(dp.name.toLowerCase())) {
+        addProduct({
+          ...dp,
+          image: (dp.images && dp.images[0]) || '',
+          available: true,
+          certification: (dp.certifications && dp.certifications[0]) || ''
+        })
+      }
+    })
+
+    // Create demo orders
+    demoOrders.forEach(order => {
+      createOrder({
+        buyerId: order.buyerId,
+        buyerName: 'Demo Buyer',
+        farmerId: order.farmerId,
+        items: order.products?.map(p => ({
+          productId: p.id,
+          productName: p.name,
+          quantity: p.qty,
+          price: p.price,
+          unit: 'kg'
+        })) || [],
+        total: order.total,
+        status: 'confirmed',
+        paymentMethod: 'upi',
+        shippingMethod: 'standard'
+      })
+    })
+
+    setDemoLoaded(true)
+    showToast('Demo data loaded successfully!', 'success')
+  }
 
   return (
     <Box>
@@ -106,9 +135,19 @@ const AdminOverview = () => {
 
         <Grid item xs={12}>
           <Paper sx={{ p: 3, mt: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Recent Activity
-            </Typography>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+              <Typography variant="h6">
+                Quick Actions
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={seedDemoData}
+                disabled={demoLoaded}
+              >
+                {demoLoaded ? 'Demo Data Loaded ✓' : t('load_demo_data') || 'Load demo data'}
+              </Button>
+            </Box>
             <Typography variant="body2" color="textSecondary">
               Monitor platform activity, manage users, moderate products, and track orders from this dashboard.
             </Typography>
@@ -120,4 +159,3 @@ const AdminOverview = () => {
 }
 
 export default AdminOverview
-

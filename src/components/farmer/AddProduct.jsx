@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   Box,
   Typography,
@@ -12,16 +12,20 @@ import {
   InputLabel
 } from '@mui/material'
 import { Alert } from '@mui/material'
+import { CloudUpload } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { useToast } from '../../contexts/ToastContext'
 
 const AddProduct = () => {
   const { user } = useAuth()
   const { addProduct } = useProducts()
   const { t } = useLanguage()
+  const { showToast } = useToast()
   const navigate = useNavigate()
+  const fileInputRef = useRef(null)
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -42,7 +46,6 @@ const AddProduct = () => {
       'Organic Produce': 150,
       'Value-added Products': 200,
     }[formData.category] || 150
-    // adjust by unit
     const unitFactor = formData.unit === 'kg' ? 1 : formData.unit === 'liter' ? 0.9 : formData.unit === 'piece' ? 0.6 : 0.8
     const center = base * unitFactor
     return { min: Math.round(center * 0.9), max: Math.round(center * 1.1) }
@@ -63,6 +66,20 @@ const AddProduct = () => {
       ...formData,
       [e.target.name]: e.target.value
     })
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    if (file.size > 512000) {
+      showToast('Image must be under 500 KB', 'error')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      setFormData(prev => ({ ...prev, image: ev.target.result }))
+    }
+    reader.readAsDataURL(file)
   }
 
   const handleSubmit = (e) => {
@@ -196,17 +213,57 @@ const AddProduct = () => {
                 onChange={handleChange}
               />
             </Grid>
+
+            {/* Image Upload Section */}
             <Grid item xs={12}>
+              <Typography variant="body2" gutterBottom fontWeight="bold">
+                {t('upload_image') || 'Upload Image'}
+              </Typography>
+              {/* Hidden file input */}
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+              />
+              <Button
+                variant="outlined"
+                startIcon={<CloudUpload />}
+                onClick={() => fileInputRef.current?.click()}
+                sx={{ mr: 2, mb: 1 }}
+              >
+                Choose File
+              </Button>
+              {/* Image preview */}
+              {formData.image && formData.image.startsWith('data:') && (
+                <img
+                  src={formData.image}
+                  alt="preview"
+                  style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginTop: 8, display: 'block' }}
+                />
+              )}
+              {/* URL fallback */}
               <TextField
                 fullWidth
-                label="Product Image URL"
+                label="Or paste image URL"
                 name="image"
-                value={formData.image}
+                value={formData.image.startsWith('data:') ? '' : formData.image}
                 onChange={handleChange}
                 placeholder="https://example.com/product-image.jpg"
-                helperText="Enter a URL to an image of your product"
+                helperText="Enter a URL if you don't have a file to upload"
+                sx={{ mt: 2 }}
               />
+              {formData.image && !formData.image.startsWith('data:') && (
+                <img
+                  src={formData.image}
+                  alt="preview"
+                  style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginTop: 8, display: 'block' }}
+                  onError={(e) => { e.target.style.display = 'none' }}
+                />
+              )}
             </Grid>
+
             <Grid item xs={12}>
               <Box display="flex" gap={2} justifyContent="flex-end">
                 <Button
@@ -228,4 +285,3 @@ const AddProduct = () => {
 }
 
 export default AddProduct
-

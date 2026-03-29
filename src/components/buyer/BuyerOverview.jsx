@@ -4,8 +4,6 @@ import {
   Paper,
   Typography,
   Box,
-  Card,
-  CardContent,
   Button
 } from '@mui/material'
 import {
@@ -20,22 +18,7 @@ import { useOrders } from '../../contexts/OrderContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 import RecentlyViewed from './RecentlyViewed'
-
-const StatCard = ({ title, value, icon, color }) => (
-  <Card>
-    <CardContent>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
-          <Typography color="textSecondary" gutterBottom variant="body2">
-            {title}
-          </Typography>
-          <Typography variant="h4">{value}</Typography>
-        </Box>
-        <Box sx={{ color, fontSize: 40 }}>{icon}</Box>
-      </Box>
-    </CardContent>
-  </Card>
-)
+import StatCard from '../shared/StatCard'
 
 const BuyerOverview = () => {
   const { user } = useAuth()

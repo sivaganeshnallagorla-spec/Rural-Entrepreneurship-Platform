@@ -22,7 +22,7 @@ const AdminDashboard = () => {
           <Route path="analytics" element={<Analytics />} />
           <Route path="products" element={<ProductModeration />} />
           <Route path="orders" element={<OrderManagement />} />
-          <Route path="knowledge" element={<KnowledgeManagement />} />
+          <Route path="skill" element={<KnowledgeManagement />} />
           <Route path="drones" element={<DroneManagement />} />
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />

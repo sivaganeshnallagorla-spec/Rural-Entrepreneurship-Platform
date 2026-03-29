@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -15,13 +15,18 @@ import {
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { useReviews } from '../../contexts/ReviewContext'
 import { generateInvoice } from '../../utils/invoice'
+import ProductReview from './ProductReview'
 
 const BuyerOrders = () => {
   const { user } = useAuth()
   const { getOrdersByBuyer } = useOrders()
   const { t } = useLanguage()
+  const { hasReviewed } = useReviews()
   const orders = getOrdersByBuyer(user?.id)
+
+  const [reviewTarget, setReviewTarget] = useState(null) // { productId, farmerId }
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -52,7 +57,7 @@ const BuyerOrders = () => {
               <TableCell>Products</TableCell>
               <TableCell>Total</TableCell>
               <TableCell>{t('status')}</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Date / Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,10 +88,11 @@ const BuyerOrders = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" alignItems="center" gap={1}>
-                      {new Date(order.createdAt).toLocaleDateString()}
+                    <Box display="flex" flexDirection="column" gap={1}>
+                      <Typography variant="caption">
+                        {new Date(order.createdAt).toLocaleDateString()}
+                      </Typography>
                       <Button size="small" variant="outlined" onClick={() => {
-                        // For demo, create farmer object from order data
                         const farmer = {
                           name: order.farmerName,
                           location: 'Rural India',
@@ -97,6 +103,29 @@ const BuyerOrders = () => {
                       }}>
                         Download Invoice
                       </Button>
+                      {/* Write Review for delivered orders */}
+                      {order.status === 'delivered' && order.items?.map((item, idx) => {
+                        const alreadyReviewed = hasReviewed(item.productId, user.id)
+                        return alreadyReviewed ? (
+                          <Chip
+                            key={idx}
+                            label="Reviewed ✓"
+                            color="success"
+                            size="small"
+                            variant="outlined"
+                          />
+                        ) : (
+                          <Button
+                            key={idx}
+                            size="small"
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => setReviewTarget({ productId: item.productId, farmerId: order.farmerId })}
+                          >
+                            {t('write_review') || 'Write Review'}
+                          </Button>
+                        )
+                      })}
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -105,9 +134,17 @@ const BuyerOrders = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Review Dialog */}
+      {reviewTarget && (
+        <ProductReview
+          productId={reviewTarget.productId}
+          farmerId={reviewTarget.farmerId}
+          onClose={() => setReviewTarget(null)}
+        />
+      )}
     </Box>
   )
 }
 
 export default BuyerOrders
-

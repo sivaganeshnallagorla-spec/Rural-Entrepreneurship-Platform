@@ -133,10 +133,10 @@ const KnowledgeManagement = () => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Box>
           <Typography variant="h4" gutterBottom>
-            Knowledge Center Management
+            Skill Center Management
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Manage categories and learning resources for the Knowledge Center
+            Manage categories and learning resources for the Skill Center
           </Typography>
         </Box>
         <Button

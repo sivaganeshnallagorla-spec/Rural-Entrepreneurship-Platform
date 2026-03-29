@@ -75,7 +75,7 @@ const KnowledgeCenter = () => {
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" gutterBottom>
           <School sx={{ mr: 2, verticalAlign: 'middle', fontSize: '2rem' }} />
-          Knowledge Center
+          Skill Center
         </Typography>
         <Typography variant="body1" color="textSecondary" paragraph>
           Learn skills to grow your business. Access free resources on farming techniques, value-addition, branding, and more.

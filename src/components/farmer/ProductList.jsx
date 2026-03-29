@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -10,17 +10,24 @@ import {
   Button,
   Chip,
   IconButton,
-  Paper
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material'
 import {
   Edit,
   Delete,
-  Add
+  Add,
+  QrCode
 } from '@mui/icons-material'
+import { QRCodeCanvas as QRCode } from 'qrcode.react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { generateOriginUrl } from '../../utils/qrGenerator'
 
 const ProductList = () => {
   const { user } = useAuth()
@@ -28,6 +35,8 @@ const ProductList = () => {
   const { t } = useLanguage()
   const navigate = useNavigate()
   const products = getProductsByFarmer(user?.id)
+
+  const [qrProduct, setQrProduct] = useState(null)
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
@@ -121,15 +130,51 @@ const ProductList = () => {
                   >
                     {t('delete')}
                   </Button>
+                  <IconButton
+                    size="small"
+                    color="secondary"
+                    title="View QR Code"
+                    onClick={() => setQrProduct(product)}
+                  >
+                    <QrCode />
+                  </IconButton>
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
       )}
+
+      {/* QR Code Dialog */}
+      <Dialog open={Boolean(qrProduct)} onClose={() => setQrProduct(null)} maxWidth="xs">
+        <DialogTitle>Product QR Code</DialogTitle>
+        <DialogContent>
+          {qrProduct && (
+            <Box display="flex" flexDirection="column" alignItems="center" gap={2} py={2}>
+              <Typography variant="body2" color="textSecondary">
+                {qrProduct.name}
+              </Typography>
+              <QRCode value={generateOriginUrl(qrProduct.id)} size={180} />
+              <Typography variant="caption" color="textSecondary">
+                Origin URL: {generateOriginUrl(qrProduct.id)}
+              </Typography>
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setQrProduct(null)}>Close</Button>
+          {qrProduct && (
+            <Button
+              variant="outlined"
+              onClick={() => window.open(generateOriginUrl(qrProduct.id), '_blank')}
+            >
+              Open Origin Page
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
 
 export default ProductList
-

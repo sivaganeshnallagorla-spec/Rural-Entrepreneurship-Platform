@@ -243,25 +243,15 @@ const Landing = () => {
           </div>
           <div className="about-content">
             <p className="about-description">
-              Developed under project ID <strong>24SDCS01-S121-SDP-01</strong>, the Rural Entrepreneurship Platform promotes sustainable agriculture and entrepreneurship by connecting farmers and buyers worldwide.
+              The Rural Entrepreneurship Platform promotes sustainable agriculture and entrepreneurship by connecting farmers and buyers worldwide. We bridge the gap between rural producers and global markets through technology.
             </p>
             <div className="team-section">
-              <h3 className="team-title">Team Members</h3>
-              <div className="team-grid">
+              <h3 className="team-title">Developed by</h3>
+              <div className="team-grid" style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="team-member">
                   <div className="team-member-icon">👨‍💼</div>
                   <h4>Nallagorla Siva Ganesh</h4>
                   <p>2400090093</p>
-                </div>
-                <div className="team-member">
-                  <div className="team-member-icon">👨‍💼</div>
-                  <h4>Kamineni Bala Koteswara Rao</h4>
-                  <p>2400090121</p>
-                </div>
-                <div className="team-member">
-                  <div className="team-member-icon">👨‍💼</div>
-                  <h4>Gunja Nagendra Vara Prasad</h4>
-                  <p>2400090161</p>
                 </div>
               </div>
             </div>
@@ -397,15 +387,9 @@ const Landing = () => {
               <p>Connecting farmers with global markets for sustainable rural development.</p>
             </div>
             <div className="footer-section">
-              <h4 className="footer-heading">Project Information</h4>
-              <p><strong>Project ID:</strong> 24SDCS01-S121-SDP-01</p>
-              <p><strong>Problem Statement:</strong> FEDF-PS01</p>
-            </div>
-            <div className="footer-section">
-              <h4 className="footer-heading">Team</h4>
+              <h4 className="footer-heading">Developer</h4>
               <p>Nallagorla Siva Ganesh</p>
-              <p>Kamineni Bala Koteswara Rao</p>
-              <p>Gunja Nagendra Vara Prasad</p>
+              <p>(2400090093)</p>
             </div>
             <div className="footer-section">
               <h4 className="footer-heading">Contact</h4>
