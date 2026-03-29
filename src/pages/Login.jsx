@@ -39,6 +39,8 @@ const Login = () => {
         navigate('/farmer')
       } else if (role === 'buyer') {
         navigate('/buyer')
+      } else if (role === 'drone_operator') {
+        navigate('/drone-operator')
       }
     } else {
       setError(result.error)
@@ -74,7 +76,8 @@ const Login = () => {
                 <Typography variant="body2" component="div">
                   <strong>Admin:</strong> admin / admin123<br />
                   <strong>Farmer:</strong> farmer / farmer123<br />
-                  <strong>Buyer:</strong> buyer / buyer123
+                  <strong>Buyer:</strong> buyer / buyer123<br />
+                  <strong>Drone operator:</strong> drone / drone123
                 </Typography>
               </CardContent>
             </Card>

@@ -10,6 +10,10 @@ import NotificationsComponent from '../components/Notifications'
 import Profile from '../components/farmer/Profile'
 import KnowledgeCenter from '../components/farmer/KnowledgeCenter'
 import InteractiveTools from '../components/farmer/InteractiveTools'
+import ServicesHub from '../components/farmer/ServicesHub'
+import StageService from '../components/farmer/StageService'
+import DaaSMarketplace from '../components/farmer/DaaSMarketplace'
+import PricingCalculator from '../components/farmer/PricingCalculator'
 import { Container, Box } from '@mui/material'
 
 const FarmerDashboard = () => {
@@ -26,6 +30,10 @@ const FarmerDashboard = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="knowledge" element={<KnowledgeCenter />} />
           <Route path="tools" element={<InteractiveTools />} />
+          <Route path="services" element={<ServicesHub />} />
+          <Route path="services/:stage" element={<StageService />} />
+          <Route path="drone-booking" element={<DaaSMarketplace />} />
+          <Route path="pricing-calculator" element={<PricingCalculator />} />
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="*" element={<Navigate to="/farmer" replace />} />
         </Routes>

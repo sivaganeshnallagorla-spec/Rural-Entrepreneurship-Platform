@@ -49,6 +49,15 @@ const PREDEFINED_USERS = [
     name: 'Organic Market',
     email: 'info@organicmarket.in',
     location: 'Bangalore, India'
+  },
+  {
+    id: 'op1',
+    username: 'drone',
+    password: 'drone123',
+    role: 'drone_operator',
+    name: 'SkyFarmer Operator',
+    email: 'ops@skyfarmer.in',
+    location: 'Pune Regional'
   }
 ]
 

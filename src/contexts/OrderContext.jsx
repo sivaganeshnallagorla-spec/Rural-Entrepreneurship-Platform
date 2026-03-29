@@ -6,20 +6,42 @@ const DEFAULT_ORDERS = []
 
 export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([])
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     const stored = localStorage.getItem('orders')
-    if (stored) {
-      setOrders(JSON.parse(stored))
-    } else {
-      setOrders(DEFAULT_ORDERS)
-      localStorage.setItem('orders', JSON.stringify(DEFAULT_ORDERS))
-    }
+    if (stored) setOrders(JSON.parse(stored))
+    
+    const storedCart = localStorage.getItem('cart')
+    if (storedCart) setCart(JSON.parse(storedCart))
   }, [])
 
   useEffect(() => {
     localStorage.setItem('orders', JSON.stringify(orders))
   }, [orders])
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
+
+  const addToCart = (product, quantity = 1) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item => item.id === product.id 
+          ? { ...item, quantity: item.quantity + quantity } 
+          : item
+        );
+      }
+      return [...prev, { ...product, quantity }];
+    });
+  };
+
+  const removeFromCart = (productId) => {
+    setCart(prev => prev.filter(item => item.id !== productId));
+  };
+
+  const clearCart = () => setCart([]);
 
   const createOrder = (orderData) => {
     const newOrder = {
@@ -30,6 +52,7 @@ export const OrderProvider = ({ children }) => {
       updatedAt: new Date().toISOString()
     }
     setOrders(prev => [...prev, newOrder])
+    clearCart(); // Clear cart after order
     return newOrder
   }
 
@@ -61,6 +84,10 @@ export const OrderProvider = ({ children }) => {
 
   const value = {
     orders,
+    cart,
+    addToCart,
+    removeFromCart,
+    clearCart,
     createOrder,
     updateOrder,
     deleteOrder,

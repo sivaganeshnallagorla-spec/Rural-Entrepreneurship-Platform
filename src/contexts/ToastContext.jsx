@@ -1,38 +1,39 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
-import { Snackbar, Alert } from '@mui/material'
+import React, { createContext, useContext, useState } from 'react';
+import { Snackbar, Alert } from '@mui/material';
 
-const ToastContext = createContext()
+const ToastContext = createContext();
 
 export const ToastProvider = ({ children }) => {
-	const [open, setOpen] = useState(false)
-	const [message, setMessage] = useState('')
-	const [severity, setSeverity] = useState('info')
+  const [toast, setToast] = useState({ open: false, message: '', severity: 'info' });
 
-	const showToast = useCallback((msg, sev = 'info') => {
-		setMessage(msg)
-		setSeverity(sev)
-		setOpen(true)
-	}, [])
+  const showToast = (message, severity = 'info') => {
+    setToast({ open: true, message, severity });
+  };
 
-	const handleClose = (_, reason) => {
-		if (reason === 'clickaway') return
-		setOpen(false)
-	}
+  const showSuccess = (msg) => showToast(msg, 'success');
+  const showError = (msg) => showToast(msg, 'error');
+  const showInfo = (msg) => showToast(msg, 'info');
 
-	return (
-		<ToastContext.Provider value={{ showToast }}>
-			{children}
-			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-				<Alert onClose={handleClose} severity={severity} variant="filled" sx={{ width: '100%' }}>
-					{message}
-				</Alert>
-			</Snackbar>
-		</ToastContext.Provider>
-	)
-}
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setToast((prev) => ({ ...prev, open: false }));
+  };
 
-export const useToast = () => {
-	const ctx = useContext(ToastContext)
-	if (!ctx) throw new Error('useToast must be used within ToastProvider')
-	return ctx
-}
+  return (
+    <ToastContext.Provider value={{ showToast, showSuccess, showError, showInfo }}>
+      {children}
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleClose} severity={toast.severity} sx={{ width: '100%' }}>
+          {toast.message}
+        </Alert>
+      </Snackbar>
+    </ToastContext.Provider>
+  );
+};
+
+export const useToast = () => useContext(ToastContext);

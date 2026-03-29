@@ -15,5 +15,30 @@ body {
 
 #root {
   min-height: 100vh;
+  animation: appFadeIn 0.35s ease-out;
+}
+
+@keyframes appFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.MuiCard-root,
+.MuiPaper-root {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.MuiButton-root {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.MuiButton-root:active {
+  transform: scale(0.98);
 }
 
