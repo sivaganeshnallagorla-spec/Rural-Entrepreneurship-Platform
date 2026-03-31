@@ -73,3 +73,33 @@ export const calculateShipping = (originLocation, destination, weightKg, methodI
     distanceKm,
   };
 };
+
+/**
+ * Calculates cold chain logistics cost based on perishability and temperature requirements.
+ * @param {number} weightKg - The weight in kilograms.
+ * @param {number} distanceKm - The distance in kilometers.
+ * @param {string} perishability - 'fresh', 'dairy', 'frozen'.
+ * @returns {number} The estimated cold chain logistics cost in INR.
+ */
+export const calculateColdChainCost = (weightKg, distanceKm, perishability) => {
+  const baseRate = 100; // Higher baseline for cold chain
+  const ratePerKg = perishability === 'frozen' ? 20 : perishability === 'dairy' ? 15 : 10;
+  const ratePerKm = perishability === 'frozen' ? 1 : perishability === 'dairy' ? 0.8 : 0.5;
+
+  const cost = baseRate + (weightKg * ratePerKg) + (distanceKm * ratePerKm);
+  return Math.round(cost);
+};
+
+/**
+ * Recommends packaging and temperature requirements based on perishability.
+ * @param {string} perishability - 'fresh', 'dairy', 'frozen'.
+ * @returns {object} Recommended packaging and temperature.
+ */
+export const recommendColdChainRequirements = (perishability) => {
+  const recommendations = {
+    fresh: { packaging: 'Ventilated crates', temperature: '10-15°C' },
+    dairy: { packaging: 'Insulated boxes', temperature: '2-4°C' },
+    frozen: { packaging: 'Dry ice packs', temperature: '-18°C' },
+  };
+  return recommendations[perishability] || {};
+};

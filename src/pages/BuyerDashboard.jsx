@@ -12,7 +12,9 @@ import Wishlist from '../components/buyer/Wishlist'
 import RecentlyViewed from '../components/buyer/RecentlyViewed'
 import ProductComparison from '../components/buyer/ProductComparison'
 import Messaging from '../components/shared/Messaging'
+import BulkOrder from '../components/buyer/BulkOrder'
 import { Container, Box } from '@mui/material'
+import InternationalBuyerPortal from '../components/buyer/InternationalBuyerPortal'
 
 const BuyerDashboard = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -35,9 +37,13 @@ const BuyerDashboard = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="messages" element={<Messaging />} />
+          <Route path="bulk-order" element={<BulkOrder />} />
           <Route path="*" element={<Navigate to="/buyer" replace />} />
         </Routes>
       </Container>
+      <div className="buyer-dashboard-section">
+        <InternationalBuyerPortal />
+      </div>
       <Cart open={cartOpen} onClose={() => setCartOpen(false)} />
     </Box>
   )

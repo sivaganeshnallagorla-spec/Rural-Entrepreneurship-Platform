@@ -37,6 +37,7 @@ const AddProduct = () => {
     location: user?.location || '',
     image: ''
   })
+  const [productImage, setProductImage] = useState(null)
 
   const getSuggestedPriceRange = () => {
     const base = {
@@ -70,16 +71,15 @@ const AddProduct = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
-    if (!file) return
-    if (file.size > 512000) {
-      showToast('Image must be under 500 KB', 'error')
-      return
-    }
     const reader = new FileReader()
-    reader.onload = (ev) => {
-      setFormData(prev => ({ ...prev, image: ev.target.result }))
+
+    reader.onloadend = () => {
+      setProductImage(reader.result)
     }
-    reader.readAsDataURL(file)
+
+    if (file) {
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleSubmit = (e) => {
@@ -236,12 +236,15 @@ const AddProduct = () => {
                 Choose File
               </Button>
               {/* Image preview */}
-              {formData.image && formData.image.startsWith('data:') && (
-                <img
-                  src={formData.image}
-                  alt="preview"
-                  style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginTop: 8, display: 'block' }}
-                />
+              {productImage && (
+                <div>
+                  <h4>Preview:</h4>
+                  <img
+                    src={productImage}
+                    alt="Product Preview"
+                    style={{ width: '200px', height: 'auto' }}
+                  />
+                </div>
               )}
               {/* URL fallback */}
               <TextField

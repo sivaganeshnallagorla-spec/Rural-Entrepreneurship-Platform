@@ -36,14 +36,13 @@ A comprehensive web application that empowers farmers in rural India to transfor
 - **Impact Storytelling**: Upload photos/videos to showcase product origin and rural entrepreneurship journey
 
 ### 🧠 Skill Center (Farmer)
-- Rich learning hub at `/farmer/skill` with core modules:
-  - Crop Processing, Packaging, Branding & Marketing, Digital Skills, Business Skills, Exporter Guide
-- **Dynamic Content Management**: Admin-controlled modules that can be updated anytime
-- Curated resources (articles/videos) with topic tags and tabs
-- **External Resource Links**: Direct links to YouTube videos, blog posts, and articles from external websites
-- Resources can include URLs to external content (optional description)
-- Government schemes highlight
-- Interactive resource cards with external link support
+Modern, card-based learning hub at `/farmer/skill` with:
+   - Core modules: Crop Processing, Packaging, Branding & Marketing, Digital Skills, Business Skills, Exporter Guide
+   - Search and filter for resources
+   - Curated resources (articles/videos) with topic tags and tabs
+   - External resource links (YouTube, blogs, articles) open in new tabs
+   - Government schemes highlight
+   - Interactive resource cards with improved Material UI styling
 
 ### 📊 Interactive Tools (Farmer)
 - Dedicated tools page at `/farmer/tools`
@@ -264,7 +263,7 @@ netlify deploy --prod
 8. **Dark/Light Mode**: Theme toggle persisted to LocalStorage
 9. **AI Price Suggestion (UI)**: Contextual price hints in product forms
 10. **PDF Invoice**: Downloadable invoice for buyer orders
-11. **Dynamic Skill Center**: Admin-managed learning modules with external resource linking
+11. **Dynamic Skill Center**: Admin-managed learning modules with external resource linking and modern UI (search, filter, card layout)
 12. **External Resource Integration**: Link to YouTube videos, blogs, and articles from any website
 13. **Progressive Web App (PWA)**: Offline-ready, installable app
 14. **Direct Messaging**: Connect buyers and farmers for bulk order negotiations
@@ -311,7 +310,7 @@ This makes the platform feel alive and up-to-date, transforming static demo cont
 
 ## 📝 License
 
-This project is part of a frontend development framework assignment.
+This project is part of a frontend development framework .
 
 ## 👨‍💻 Development
 
@@ -321,4 +320,4 @@ Built with ❤️ for empowering rural entrepreneurship in India.
 
 **Note**: This is a frontend-only application using Local Storage for data persistence. For production use, integrate with a backend API.
 
-"# Rural-Entrepreneurship-Platform" 
+"# Rural-Entrepreneurship-Platform"

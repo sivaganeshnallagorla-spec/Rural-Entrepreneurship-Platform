@@ -39,3 +39,99 @@ export const mockAgmarknetPrices = {
   'Cotton': 70.00,
   'Wheat': 28.00
 };
+
+export const seedDemoData = () => {
+  if (!localStorage.getItem('seeded')) {
+    const demoProducts = [
+      {
+        id: 'dp1',
+        farmerId: 'farmer1',
+        farmerName: 'Rajesh Kumar',
+        name: 'Organic Rice',
+        category: 'Grains',
+        description: 'Premium quality organic rice grown without pesticides. Long grains and aromatic flavor.',
+        price: 50,
+        unit: 'kg',
+        stock: 500,
+        location: 'Punjab, India',
+        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=400',
+        certification: 'organic',
+        available: true,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: 'dp2',
+        farmerId: 'farmer1',
+        farmerName: 'Rajesh Kumar',
+        name: 'Mango Pulp',
+        category: 'Processed Foods',
+        description: 'Natural Alphonso mango pulp with no added sugar or preservatives. Perfect for desserts and juices.',
+        price: 120,
+        unit: 'kg',
+        stock: 150,
+        location: 'Punjab, India',
+        image: 'https://images.unsplash.com/photo-1591073113125-e46713c829ed?auto=format&fit=crop&q=80&w=400',
+        certification: 'FSSAI certified',
+        available: true,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: 'dp3',
+        farmerId: 'farmer2',
+        farmerName: 'Priya Sharma',
+        name: 'Turmeric Powder',
+        category: 'Spices',
+        description: 'High-curcumin turmeric powder, sun-dried and finely ground. Natural healing properties.',
+        price: 80,
+        unit: 'kg',
+        stock: 200,
+        location: 'Maharashtra, India',
+        image: 'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&q=80&w=400',
+        certification: 'organic',
+        available: true,
+        createdAt: new Date().toISOString()
+      }
+    ];
+
+    const demoOrders = [
+      {
+        id: 'do1',
+        buyerId: 'buyer1',
+        buyerName: 'Amit Shah',
+        farmerId: 'farmer1',
+        items: [
+          { productId: 'dp1', name: 'Organic Rice', quantity: 2, price: 50 }
+        ],
+        total: 100,
+        status: 'pending',
+        shippingMethod: 'standard',
+        paymentMethod: 'upi',
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: 'do2',
+        buyerId: 'buyer2',
+        buyerName: 'Sumit Gupta',
+        farmerId: 'farmer1',
+        items: [
+          { productId: 'dp2', name: 'Mango Pulp', quantity: 1, price: 120 }
+        ],
+        total: 120,
+        status: 'delivered',
+        shippingMethod: 'express',
+        paymentMethod: 'cod',
+        createdAt: new Date().toISOString()
+      }
+    ];
+
+    const demoNotifications = [
+      { id: 'n1', userId: 'farmer1', message: 'New order received for Organic Rice', type: 'order', read: false, createdAt: new Date().toISOString() },
+      { id: 'n2', userId: 'buyer1', message: 'Your order for Organic Rice is being processed', type: 'update', read: false, createdAt: new Date().toISOString() }
+    ];
+
+    localStorage.setItem('products', JSON.stringify(demoProducts));
+    localStorage.setItem('orders', JSON.stringify(demoOrders));
+    localStorage.setItem('notifications', JSON.stringify(demoNotifications));
+    localStorage.setItem('seeded', 'true');
+  }
+};

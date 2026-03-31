@@ -14,6 +14,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  DialogContentText,
   DialogActions
 } from '@mui/material'
 import {
@@ -22,7 +23,7 @@ import {
   Add,
   QrCode
 } from '@mui/icons-material'
-import { QRCodeCanvas as QRCode } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
@@ -37,11 +38,28 @@ const ProductList = () => {
   const products = getProductsByFarmer(user?.id)
 
   const [qrProduct, setQrProduct] = useState(null)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [productToDelete, setProductToDelete] = useState(null)
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      deleteProduct(id)
+    const product = products.find(p => p.id === id)
+    if (product) {
+      setProductToDelete(product)
+      setDeleteDialogOpen(true)
     }
+  }
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      deleteProduct(productToDelete.id)
+      setDeleteDialogOpen(false)
+      setProductToDelete(null)
+    }
+  }
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false)
+    setProductToDelete(null)
   }
 
   return (
@@ -154,7 +172,7 @@ const ProductList = () => {
               <Typography variant="body2" color="textSecondary">
                 {qrProduct.name}
               </Typography>
-              <QRCode value={generateOriginUrl(qrProduct.id)} size={180} />
+              <QRCodeCanvas value={generateOriginUrl(qrProduct.id)} size={180} />
               <Typography variant="caption" color="textSecondary">
                 Origin URL: {generateOriginUrl(qrProduct.id)}
               </Typography>
@@ -171,6 +189,24 @@ const ProductList = () => {
               Open Origin Page
             </Button>
           )}
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onClose={cancelDelete}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete {productToDelete?.name}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelDelete} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="secondary">
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

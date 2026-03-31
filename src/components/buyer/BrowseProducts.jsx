@@ -84,61 +84,62 @@ const BrowseProducts = () => {
   }
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Browse Products
-      </Typography>
-      <Typography variant="body2" color="textSecondary" gutterBottom sx={{ mb: 4 }}>
-        Discover value-added products from rural farmers
-      </Typography>
+    <Box sx={{ py: 2 }}>
+      <Box sx={{ mb: 6, textAlign: 'center' }}>
+        <Typography variant="h3" fontWeight="800" sx={{ mb: 2, background: 'linear-gradient(45deg, #2e7d32 30%, #ff6f00 90%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          Discover Rural Excellence
+        </Typography>
+        <Typography variant="h6" color="textSecondary" sx={{ maxWidth: 700, mx: 'auto', fontWeight: 400 }}>
+          High-quality, artisan-made products directly from rural entrepreneurs across India.
+        </Typography>
+      </Box>
 
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
+      <Paper className="glass" sx={{ p: 4, mb: 6, boxShadow: 'var(--shadow)', border: '1px solid var(--glass-border)' }}>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} md={5}>
             <TextField
               fullWidth
-              placeholder="Search products..."
+              placeholder="Search by product name, category, or origin..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Search />
+                    <Search sx={{ color: 'primary.main' }} />
                   </InputAdornment>
-                )
+                ),
+                sx: { borderRadius: 3, bgcolor: 'background.paper' }
               }}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} md={3.5}>
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
               <Select
                 value={filters.category}
                 onChange={(e) => handleFilterChange('category', e.target.value)}
                 label="Category"
+                sx={{ borderRadius: 3, bgcolor: 'background.paper' }}
               >
                 <MenuItem value="">All Categories</MenuItem>
                 {categories.filter(Boolean).map((cat) => (
-                  <MenuItem key={cat} value={cat}>
-                    {cat}
-                  </MenuItem>
+                  <MenuItem key={cat} value={cat}>{cat}</MenuItem>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} md={3.5}>
             <FormControl fullWidth>
               <InputLabel>Certification</InputLabel>
               <Select
                 value={filters.certification}
                 onChange={(e) => handleFilterChange('certification', e.target.value)}
                 label="Certification"
+                sx={{ borderRadius: 3, bgcolor: 'background.paper' }}
               >
-                <MenuItem value="">All</MenuItem>
+                <MenuItem value="">Any Certification</MenuItem>
                 {certifications.filter(Boolean).map((cert) => (
-                  <MenuItem key={cert} value={cert}>
-                    {cert}
-                  </MenuItem>
+                  <MenuItem key={cert} value={cert}>{cert}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -147,110 +148,121 @@ const BrowseProducts = () => {
       </Paper>
 
       {filtered.length === 0 ? (
-        <Paper sx={{ p: 4, textAlign: 'center' }}>
-          <Typography variant="h6" color="textSecondary">
-            No products found
+        <Paper className="glass" sx={{ p: 8, textAlign: 'center', borderRadius: 4 }}>
+          <Box sx={{ fontSize: 64, mb: 2 }}>🔍</Box>
+          <Typography variant="h5" color="textSecondary" gutterBottom>
+            No products found matching your criteria.
           </Typography>
+          <Button variant="text" onClick={() => { setSearchQuery(''); setFilters({ category: '', certification: '', location: '' }) }}>
+            Clear all filters
+          </Button>
         </Paper>
       ) : (
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           {filtered.map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <Card>
+              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+                <Box sx={{ position: 'absolute', top: 12, left: 12, zIndex: 1, display: 'flex', gap: 1 }}>
+                  {product.certification && (
+                    <Chip
+                      label={product.certification.toUpperCase()}
+                      color="success"
+                      size="small"
+                      sx={{ fontWeight: 'bold', backdropFilter: 'blur(4px)', bgcolor: 'rgba(46, 125, 50, 0.8)' }}
+                    />
+                  )}
+                </Box>
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="260"
                   image={product.image || `https://via.placeholder.com/400x300?text=${encodeURIComponent(product.name)}`}
                   alt={product.name}
-                  sx={{ objectFit: 'cover' }}
+                  sx={{ 
+                    transition: 'transform 0.5s ease',
+                    '&:hover': { transform: 'scale(1.05)' }
+                  }}
                 />
-                <CardContent>
-                  <Typography variant="h6" gutterBottom noWrap>
-                    {product.name}
+                <CardContent sx={{ flexGrow: 1, pt: 3 }}>
+                  <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={1}>
+                    <Typography variant="h6" fontWeight="700" noWrap sx={{ flex: 1 }}>
+                      {product.name}
+                    </Typography>
+                    <Typography variant="h6" color="primary.main" fontWeight="700">
+                      ₹{product.price}
+                    </Typography>
+                  </Box>
+                  
+                  <Typography variant="caption" color="textSecondary" display="block" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    📍 {product.location} • By {product.farmerName}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
-                    By: {product.farmerName}
+
+                  <Typography variant="body2" color="textSecondary" sx={{ mb: 2, minHeight: 40, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {product.description || 'Premium artisan-crafted product from our rural entrepreneurs.'}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
-                    {product.location}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, minHeight: 60 }}>
-                    {product.description ? (product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description) : 'No description available'}
-                  </Typography>
-                  <Box sx={{ mb: 1 }}>
+
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Chip
-                      label={`₹${product.price}/${product.unit}`}
-                      color="primary"
+                      label={`${product.unit}`}
                       size="small"
-                      sx={{ mr: 1 }}
+                      variant="outlined"
+                      sx={{ borderRadius: 1.5, fontSize: '0.7rem' }}
                     />
-                    {product.certification && (
-                      <Chip
-                        label={product.certification}
-                        color="success"
-                        size="small"
-                      />
+                    {getAverageRating(product.id) > 0 && (
+                      <Box display="flex" alignItems="center" gap={0.5}>
+                        <Rating value={getAverageRating(product.id)} precision={0.5} readOnly size="small" />
+                        <Typography variant="caption" fontWeight="bold">
+                          {getAverageRating(product.id)}
+                        </Typography>
+                      </Box>
                     )}
                   </Box>
-                  {getAverageRating(product.id) > 0 && (
-                    <Box display="flex" alignItems="center" gap={0.5}>
-                      <Rating value={getAverageRating(product.id)} precision={0.5} readOnly size="small" />
-                      <Typography variant="caption" color="textSecondary">
-                        {getAverageRating(product.id)}
-                      </Typography>
-                    </Box>
-                  )}
                 </CardContent>
-                <CardActions sx={{ flexWrap: 'wrap', gap: 1 }}>
+                <CardActions sx={{ p: 2, pt: 0, gap: 1 }}>
                   <Button
-                    size="small"
-                    startIcon={<Visibility />}
+                    variant="contained"
+                    fullWidth
+                    startIcon={<ShoppingCart />}
                     onClick={() => navigate(`/buyer/product/${product.id}`)}
+                    sx={{ py: 1 }}
                   >
                     {t('viewDetails')}
                   </Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    startIcon={<ShoppingCart />}
-                    onClick={() => navigate(`/buyer/product/${product.id}`)}
-                  >
-                    {t('addToCart')}
-                  </Button>
-                  <IconButton
-                    size="small"
-                    color={isInWishlist(product.id) ? 'error' : 'default'}
-                    onClick={() => {
-                      if (isInWishlist(product.id)) {
-                        removeFromWishlist(product.id)
-                        showToast('Removed from wishlist', 'info')
-                      } else {
-                        addToWishlist(product)
-                        showToast('Added to wishlist', 'success')
-                      }
-                    }}
-                    title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
-                  >
-                    <Favorite />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    color={isInComparison(product.id) ? 'primary' : 'default'}
-                    onClick={() => {
-                      if (isInComparison(product.id)) {
-                        removeFromComparison(product.id)
-                        showToast('Removed from comparison', 'info')
-                      } else if (canAddMore) {
-                        addToComparison(product)
-                        showToast('Added to comparison', 'success')
-                      } else {
-                        showToast('Maximum 3 products can be compared', 'warning')
-                      }
-                    }}
-                    title={isInComparison(product.id) ? 'Remove from comparison' : 'Add to comparison'}
-                  >
-                    <CompareArrows />
-                  </IconButton>
+                  <Box sx={{ display: 'flex', gap: 0.5 }}>
+                    <IconButton
+                      size="small"
+                      className="glass"
+                      color={isInWishlist(product.id) ? 'error' : 'default'}
+                      onClick={() => {
+                        if (isInWishlist(product.id)) {
+                          removeFromWishlist(product.id)
+                          showToast('Removed from wishlist', 'info')
+                        } else {
+                          addToWishlist(product)
+                          showToast('Added to wishlist', 'success')
+                        }
+                      }}
+                    >
+                      <Favorite />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      className="glass"
+                      color={isInComparison(product.id) ? 'primary' : 'default'}
+                      onClick={() => {
+                        if (isInComparison(product.id)) {
+                          removeFromComparison(product.id)
+                          showToast('Removed from comparison', 'info')
+                        } else if (canAddMore) {
+                          addToComparison(product)
+                          showToast('Added to comparison', 'success')
+                        } else {
+                          showToast('Max 3 products', 'warning')
+                        }
+                      }}
+                    >
+                      <CompareArrows />
+                    </IconButton>
+                  </Box>
                 </CardActions>
               </Card>
             </Grid>

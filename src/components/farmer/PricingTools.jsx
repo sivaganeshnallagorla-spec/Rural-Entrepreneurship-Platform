@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { usePricing } from '../../contexts/PricingContext';
 import { TrendingUp, Calculate, Insights } from '@mui/icons-material';
+import { fetchAIPricePrediction } from '../../api/anthropic';
 
 const PricingTools = () => {
   const { pricingData, calculateROI, getPriceSuggestion } = usePricing();
@@ -21,6 +22,7 @@ const PricingTools = () => {
   const [roiResult, setRoiResult] = useState(null);
   const [selectedCrop, setSelectedCrop] = useState('');
   const [suggestion, setSuggestion] = useState(null);
+  const [predictedPrice, setPredictedPrice] = useState(null);
 
   const handleRoiCalc = () => {
     const res = calculateROI({
@@ -34,6 +36,19 @@ const PricingTools = () => {
   const handleSuggest = (crop) => {
     setSelectedCrop(crop);
     setSuggestion(getPriceSuggestion(crop));
+  };
+
+  const handlePricePrediction = async () => {
+    try {
+      const response = await fetchAIPricePrediction({
+        crop: selectedCrop,
+        season: selectedSeason,
+        region: selectedRegion,
+      });
+      setPredictedPrice(response.price);
+    } catch (error) {
+      console.error('Error fetching AI price prediction:', error);
+    }
   };
 
   return (
@@ -80,6 +95,20 @@ const PricingTools = () => {
                   </CardContent>
                 </Card>
               </Box>
+            )}
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handlePricePrediction}
+            >
+              Get AI Price Prediction
+            </Button>
+
+            {predictedPrice && (
+              <Typography variant="h6" color="success.main">
+                Predicted Price: INR {predictedPrice}
+              </Typography>
             )}
           </Paper>
         </Grid>

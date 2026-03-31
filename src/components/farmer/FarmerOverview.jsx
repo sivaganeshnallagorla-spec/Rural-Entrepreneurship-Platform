@@ -55,12 +55,14 @@ const FarmerOverview = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        {t('welcome')}, {user?.name}!
-      </Typography>
-      <Typography variant="body1" color="textSecondary" gutterBottom sx={{ mb: 4 }}>
-        Manage your products, inventory, and orders
-      </Typography>
+      <Box sx={{ mb: 6 }}>
+        <Typography variant="h3" fontWeight="800" sx={{ mb: 1, color: 'primary.main' }}>
+          {t('welcome')}, {user?.name}! 👋
+        </Typography>
+        <Typography variant="h6" color="textSecondary" sx={{ fontWeight: 400 }}>
+          Manage your rural business journey with our modern digital tools.
+        </Typography>
+      </Box>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
@@ -115,48 +117,51 @@ const FarmerOverview = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3, bgcolor: '#e3f2fd' }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  <School sx={{ mr: 1, verticalAlign: 'middle' }} />
+          <Paper className="glass" sx={{ p: 4, bgcolor: 'rgba(227, 242, 253, 0.4)', border: '1px solid rgba(227, 242, 253, 0.6)' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
+              <Box sx={{ maxWidth: 350 }}>
+                <Typography variant="h5" fontWeight="700" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <School color="primary" fontSize="large" />
                   Skill Center
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Learn farming techniques, value-addition processing, branding, digital skills, and more.
+                  Master value-addition, branding, and processing to multiply your income.
                 </Typography>
               </Box>
               <Button
                 variant="contained"
-                color="primary"
+                size="large"
                 startIcon={<School />}
                 onClick={() => navigate('/farmer/skill')}
+                sx={{ px: 4, py: 1.5 }}
               >
-                Explore Resources
+                Learn Now
               </Button>
             </Box>
           </Paper>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3, bgcolor: '#e8f5e9' }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  <Calculate sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Interactive Tools
+          <Paper className="glass" sx={{ p: 4, bgcolor: 'rgba(232, 245, 233, 0.4)', border: '1px solid rgba(232, 245, 233, 0.6)' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
+              <Box sx={{ maxWidth: 350 }}>
+                <Typography variant="h5" fontWeight="700" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <Calculate color="success" fontSize="large" />
+                  Smart Tools
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Calculate prices, estimate profits, and optimize your business operations.
+                  Use our AI-powered calculators to estimate margins and pricing.
                 </Typography>
               </Box>
               <Button
                 variant="contained"
                 color="success"
+                size="large"
                 startIcon={<Calculate />}
                 onClick={() => navigate('/farmer/tools')}
+                sx={{ px: 4, py: 1.5 }}
               >
-                Open Tools
+                Explore Tools
               </Button>
             </Box>
           </Paper>

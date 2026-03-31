@@ -52,6 +52,18 @@ const Login = () => {
     }
   }
 
+  const handleRoleLogin = (role) => {
+    const credentials = {
+      farmer: { username: 'farmer_user', password: 'farmer_pass' },
+      buyer: { username: 'buyer_user', password: 'buyer_pass' },
+      admin: { username: 'admin_user', password: 'admin_pass' },
+    };
+    const { username, password } = credentials[role];
+    console.log(`Logging in as ${role} with username: ${username}`);
+    setUsername(username)
+    setPassword(password)
+  };
+
   return (
     <Box
       sx={{
@@ -82,6 +94,21 @@ const Login = () => {
                   <strong>Farmer:</strong> farmer / farmer123<br />
                   <strong>Buyer:</strong> buyer / buyer123<br />
                   <strong>Drone operator:</strong> drone / drone123
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box sx={{ mt: 4, mb: 3 }}>
+            <Card variant="outlined" sx={{ mb: 2, bgcolor: '#f5f5f5' }}>
+              <CardContent>
+                <Typography variant="subtitle2" gutterBottom>
+                  Role Guidance:
+                </Typography>
+                <Typography variant="body2" component="div">
+                  <strong>Farmer:</strong> Manage your products, orders, and access tools.<br />
+                  <strong>Buyer:</strong> Browse and purchase products from farmers.<br />
+                  <strong>Admin:</strong> Oversee platform operations and analytics.
                 </Typography>
               </CardContent>
             </Card>

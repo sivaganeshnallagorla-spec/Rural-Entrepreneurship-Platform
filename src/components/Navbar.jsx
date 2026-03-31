@@ -12,7 +12,8 @@ import {
   Badge,
   Select,
   FormControl,
-  InputLabel
+  InputLabel,
+  Divider
 } from '@mui/material'
 import {
   ShoppingCart,
@@ -82,115 +83,135 @@ const Navbar = ({ onCartClick }) => {
   }
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 0, mr: 4 }}>
-          🌾 Rural Platform
-        </Typography>
-
-        <Box sx={{ flexGrow: 1, display: 'flex', gap: 2 }}>
-          <Button
-            color="inherit"
-            onClick={() => navigate(`/${rolePathSegment}`)}
+    <AppBar 
+      position="sticky" 
+      sx={{ 
+        bgcolor: 'rgba(255, 255, 255, 0.7)', 
+        backdropFilter: 'blur(12px)', 
+        borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
+        boxShadow: 'none',
+        color: 'text.primary',
+        top: 0,
+        zIndex: 1100
+      }}
+    >
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography 
+            variant="h5" 
+            component="div" 
+            sx={{ 
+              fontWeight: 800, 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5,
+              cursor: 'pointer',
+              background: 'linear-gradient(45deg, #2e7d32 30%, #4caf50 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+            onClick={() => navigate('/')}
           >
-            {t('dashboard')}
-          </Button>
-          {user?.role === 'farmer' && (
-            <>
-              <Button color="inherit" onClick={() => navigate('/farmer/products')}>
-                {t('products')}
-              </Button>
+            <span style={{ fontSize: '1.8rem', filter: 'drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2))' }}>🌾</span>
+            RuralPlatform
+          </Typography>
 
-              <Button color="inherit" onClick={() => navigate('/farmer/services')}>
-                Services Marketplace
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/orders')}>
-                {t('orders')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/skill')}>
-                {t('knowledge_center')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/schemes')}>
-                Schemes
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/farmer/tools')}>
-                {t('nav_tools')}
-              </Button>
-            </>
-          )}
-          {user?.role === 'buyer' && (
-            <>
-              <Button color="inherit" onClick={() => navigate('/buyer/browse')}>
-                {t('marketplace')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/buyer/orders')}>
-                {t('orders')}
-              </Button>
-            </>
-          )}
-          {user?.role === 'drone_operator' && (
-            <>
-              <Button color="inherit" onClick={() => navigate('/drone-operator/bookings')}>
-                {t('manage_bookings')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/drone-operator/sessions')}>
-                {t('flight_logs')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/drone-operator/availability')}>
-                {t('availability')}
-              </Button>
-            </>
-          )}
-          {user?.role === 'admin' && (
-            <>
-              <Button color="inherit" onClick={() => navigate('/admin/users')}>
-                {t('users')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/admin/products')}>
-                {t('moderation')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/admin/analytics')}>
-                {t('analytics')}
-              </Button>
-              <Button color="inherit" onClick={() => navigate('/admin/drones')}>
-                {t('drone_admin')}
-              </Button>
-            </>
-          )}
-
+          <Box sx={{ ml: 4, display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Button
+              color="inherit"
+              onClick={() => navigate(`/${rolePathSegment}`)}
+              sx={{ opacity: location.pathname === `/${rolePathSegment}` ? 1 : 0.7 }}
+            >
+              {t('dashboard')}
+            </Button>
+            {user?.role === 'farmer' && (
+              <>
+                <Button color="inherit" onClick={() => navigate('/farmer/products')} sx={{ opacity: 0.7 }}>
+                  {t('products')}
+                </Button>
+                <Button color="inherit" onClick={() => navigate('/farmer/services')} sx={{ opacity: 0.7 }}>
+                  Services
+                </Button>
+                <Button color="inherit" onClick={() => navigate('/farmer/orders')} sx={{ opacity: 0.7 }}>
+                  {t('orders')}
+                </Button>
+                <Button color="inherit" onClick={() => navigate('/farmer/skill')} sx={{ opacity: 0.7 }}>
+                  Skill Center
+                </Button>
+                <Button 
+                  color="inherit" 
+                  onClick={() => navigate('/farmer/equipment-marketplace')} 
+                  sx={{ 
+                    opacity: location.pathname === '/farmer/equipment-marketplace' ? 1 : 0.7,
+                    fontWeight: location.pathname === '/farmer/equipment-marketplace' ? 700 : 400
+                  }}
+                >
+                  Buy Equipment
+                </Button>
+                <Button 
+                  color="inherit" 
+                  onClick={() => navigate('/farmer/tools')} 
+                  sx={{ 
+                    opacity: location.pathname === '/farmer/tools' ? 1 : 0.7,
+                    fontWeight: location.pathname === '/farmer/tools' ? 700 : 400
+                  }}
+                >
+                  Business Tools
+                </Button>
+              </>
+            )}
+            {user?.role === 'buyer' && (
+              <>
+                <Button 
+                  color="inherit" 
+                  onClick={() => navigate('/buyer/browse')}
+                  sx={{ 
+                    fontWeight: 600,
+                    opacity: location.pathname === '/buyer/browse' ? 1 : 0.7,
+                    color: location.pathname === '/buyer/browse' ? 'primary.main' : 'inherit'
+                  }}
+                >
+                  {t('marketplace')}
+                </Button>
+                <Button color="inherit" onClick={() => navigate('/buyer/orders')} sx={{ opacity: 0.7 }}>
+                  {t('orders')}
+                </Button>
+              </>
+            )}
+          </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1.5 } }}>
           {user?.role === 'buyer' && (
-            <>
-              <IconButton color="inherit" onClick={() => navigate('/buyer/wishlist')}>
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 0.5 }}>
+              <IconButton color="inherit" onClick={() => navigate('/buyer/wishlist')} size="small">
                 <Badge badgeContent={wishlist.length} color="error">
-                  <Favorite />
+                  <Favorite fontSize="small" />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit" onClick={() => navigate('/buyer/compare')}>
+              <IconButton color="inherit" onClick={() => navigate('/buyer/compare')} size="small">
                 <Badge badgeContent={comparisonItems.length} color="primary">
-                  <CompareArrows />
+                  <CompareArrows fontSize="small" />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit" onClick={onCartClick}>
+              <IconButton color="primary" onClick={onCartClick} size="small" sx={{ bgcolor: 'rgba(46, 125, 50, 0.1)', '&:hover': { bgcolor: 'rgba(46, 125, 50, 0.2)' } }}>
                 <Badge badgeContent={0} color="error">
-                  <ShoppingCart />
+                  <ShoppingCart fontSize="small" />
                 </Badge>
               </IconButton>
-            </>
+            </Box>
           )}
 
-          {/* Messages icon for farmers and buyers */}
+          <Divider orientation="vertical" flexItem sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }} />
+
           {(user?.role === 'farmer' || user?.role === 'buyer') && (
             <IconButton
               color="inherit"
               onClick={() => navigate(`/${rolePathSegment}/messages`)}
-              title={t('messages') || 'Messages'}
+              size="small"
             >
               <Badge badgeContent={msgUnreadCount} color="error">
-                <Message />
+                <Message fontSize="small" />
               </Badge>
             </IconButton>
           )}
@@ -198,56 +219,59 @@ const Navbar = ({ onCartClick }) => {
           <IconButton
             color="inherit"
             onClick={() => navigate(`/${rolePathSegment}/notifications`)}
+            size="small"
           >
             <Badge badgeContent={unreadCount} color="error">
-              <Notifications />
+              <Notifications fontSize="small" />
             </Badge>
           </IconButton>
 
-          <IconButton size="large" onClick={handleMenu} color="inherit">
-            <AccountCircle />
+          <IconButton 
+            onClick={handleMenu} 
+            sx={{ 
+              p: 0.5, 
+              border: '2px solid', 
+              borderColor: 'primary.light',
+              transition: 'transform 0.2s',
+              '&:hover': { transform: 'scale(1.1)' }
+            }}
+          >
+            <AccountCircle color="primary" />
           </IconButton>
+
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            PaperProps={{
+              sx: {
+                mt: 1.5,
+                width: 200,
+                borderRadius: 3,
+                boxShadow: 'var(--shadow-lg)',
+                border: '1px solid var(--glass-border)',
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(10px)'
+              }
+            }}
           >
-            <MenuItem disabled>
-              <Typography variant="body2">{user?.name}</Typography>
-            </MenuItem>
-            <MenuItem disabled>
-              <Typography variant="caption">{getRoleLabel()}</Typography>
-            </MenuItem>
-            <MenuItem onClick={toggleMode}>
-              {mode === 'dark' ? <LightMode sx={{ mr: 1 }} /> : <DarkMode sx={{ mr: 1 }} />}
-              {mode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            </MenuItem>
-            <Box sx={{ px: 2, py: 1 }}>
-              <FormControl size="small" fullWidth>
-                <InputLabel>{t('language') || 'Language'}</InputLabel>
-                <Select
-                  value={language}
-                  label={t('language') || 'Language'}
-                  onChange={(e) => {
-                    setLanguage(e.target.value)
-                  }}
-                >
-                  {availableLanguages.map((lang) => (
-                    <MenuItem key={lang} value={lang}>
-                      {languageLabels[lang]}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Box sx={{ px: 2, py: 1.5 }}>
+              <Typography variant="subtitle2" fontWeight="700">{user?.name}</Typography>
+              <Typography variant="caption" color="textSecondary">{getRoleLabel()}</Typography>
             </Box>
-            <MenuItem onClick={() => {
-              navigate(`/${rolePathSegment}/profile`)
-              handleClose()
-            }}>
-              <AccountCircle sx={{ mr: 1 }} /> {t('profile') || 'Profile'}
+            <Divider />
+            <MenuItem onClick={toggleMode} sx={{ py: 1.5 }}>
+              {mode === 'dark' ? <LightMode sx={{ mr: 1.5, fontSize: 20 }} /> : <DarkMode sx={{ mr: 1.5, fontSize: 20 }} />}
+              <Typography variant="body2">{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</Typography>
             </MenuItem>
-            <MenuItem onClick={handleLogout}>
-              <ExitToApp sx={{ mr: 1 }} /> {t('logout')}
+            <MenuItem onClick={() => { navigate(`/${rolePathSegment}/profile`); handleClose(); }} sx={{ py: 1.5 }}>
+              <AccountCircle sx={{ mr: 1.5, fontSize: 20 }} />
+              <Typography variant="body2">Profile Settings</Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout} sx={{ py: 1.5, color: 'error.main' }}>
+              <ExitToApp sx={{ mr: 1.5, fontSize: 20 }} />
+              <Typography variant="body2" fontWeight="600">{t('logout')}</Typography>
             </MenuItem>
           </Menu>
         </Box>

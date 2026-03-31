@@ -27,7 +27,7 @@ import {
   CompareArrows,
   Message
 } from '@mui/icons-material'
-import { QRCodeCanvas as QRCode } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useAuth } from '../../contexts/AuthContext'
@@ -158,6 +158,8 @@ const ProductDetails = () => {
   const reviews = getReviewsByProduct(product.id)
   const recentReviews = reviews.slice(-3).reverse()
 
+  const [activeTab, setActiveTab] = useState('details')
+
   return (
     <Box>
       <Button
@@ -270,7 +272,7 @@ const ProductDetails = () => {
               <Typography variant="caption" display="block" gutterBottom>
                 {t('scan_qr') || 'Scan to verify origin'}
               </Typography>
-              <QRCode value={generateOriginUrl(product.id)} size={120} />
+              <QRCodeCanvas value={generateOriginUrl(product.id)} size={120} />
               <Typography variant="caption" display="block" sx={{ mt: 1 }}>
                 Product ID: {product.id}
               </Typography>
@@ -430,6 +432,31 @@ const ProductDetails = () => {
           ))}
         </Paper>
       )}
+
+      {/* Product Journey Tab */}
+      <Paper sx={{ p: 3, mt: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Product Journey
+        </Typography>
+        <Box display="flex" alignItems="center" gap={1} mb={2}>
+          <Rating value={avgRating} precision={0.5} readOnly />
+          <Typography variant="body2" color="textSecondary">
+            {avgRating} out of 5 ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+          </Typography>
+        </Box>
+        <Divider sx={{ mb: 2 }} />
+        {product.journey && (
+          <Box>
+            <h4>Product Journey</h4>
+            <p>Farm Origin: {product.journey.origin}</p>
+            <p>Processing Method: {product.journey.processing}</p>
+            <p>Quality Grade: {product.journey.quality}</p>
+            <p>Packaging Type: {product.journey.packaging}</p>
+            <p>Certifications: {product.journey.certifications.join(', ')}</p>
+            <p>Estimated Dispatch: {product.journey.dispatch}</p>
+          </Box>
+        )}
+      </Paper>
     </Box>
   )
 }

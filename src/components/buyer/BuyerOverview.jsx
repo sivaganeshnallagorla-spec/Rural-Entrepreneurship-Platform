@@ -45,12 +45,14 @@ const BuyerOverview = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        {t('welcome')}, {user?.name}!
-      </Typography>
-      <Typography variant="body1" color="textSecondary" gutterBottom sx={{ mb: 4 }}>
-        Discover unique rural products and support local farmers
-      </Typography>
+      <Box sx={{ mb: 6 }}>
+        <Typography variant="h3" fontWeight="800" sx={{ mb: 1, color: 'primary.main' }}>
+          {t('welcome')}, {user?.name}! 🛒
+        </Typography>
+        <Typography variant="h6" color="textSecondary" sx={{ fontWeight: 400 }}>
+          Discover unique rural excellence and support our farming communities.
+        </Typography>
+      </Box>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={4}>
@@ -79,20 +81,26 @@ const BuyerOverview = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Paper sx={{ p: 3 }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-              <Typography variant="h6">Start Shopping</Typography>
+          <Paper className="glass" sx={{ p: 4, mt: 2, border: '1px solid var(--glass-border)' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
+              <Box>
+                <Typography variant="h6" fontWeight="700" gutterBottom>
+                  Ready to explore?
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Discover curated artisan collections and premium farm-fresh processed goods.
+                </Typography>
+              </Box>
               <Button
                 variant="contained"
+                size="large"
                 startIcon={<Explore />}
                 onClick={() => navigate('/buyer/browse')}
+                sx={{ borderRadius: 2, px: 4, py: 1.5 }}
               >
-                Browse Products
+                Start Shopping
               </Button>
             </Box>
-            <Typography variant="body2" color="textSecondary">
-              Explore a wide range of value-added products from rural farmers across India.
-            </Typography>
           </Paper>
         </Grid>
 

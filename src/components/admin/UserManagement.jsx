@@ -11,12 +11,22 @@ import {
   TableRow,
   Chip,
   IconButton,
-  Tooltip
+  Tooltip,
+  Avatar,
+  Button,
+  TextField,
+  InputAdornment
 } from '@mui/material'
 import {
   Edit,
   Block,
-  CheckCircle
+  CheckCircle,
+  Search,
+  PersonAdd,
+  FilterList,
+  ContactPhone,
+  Mail,
+  FmdGood
 } from '@mui/icons-material'
 import { useAuth } from '../../contexts/AuthContext'
 import { useLanguage } from '../../contexts/LanguageContext'
@@ -24,70 +34,123 @@ import { useLanguage } from '../../contexts/LanguageContext'
 const UserManagement = () => {
   const { predefinedUsers } = useAuth()
   const { t } = useLanguage()
-  const [users, setUsers] = useState(predefinedUsers || [])
+  const [users] = useState(predefinedUsers || [])
+  const [search, setSearch] = useState('')
 
   const getRoleColor = (role) => {
-    switch (role) {
+    switch (role?.toLowerCase()) {
       case 'admin': return 'error'
       case 'farmer': return 'success'
       case 'buyer': return 'info'
+      case 'drone': return 'secondary'
       default: return 'default'
     }
   }
 
+  const filteredUsers = users.filter(user => 
+    user.name?.toLowerCase().includes(search.toLowerCase()) ||
+    user.username?.toLowerCase().includes(search.toLowerCase()) ||
+    user.email?.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        {t('users')} Management
-      </Typography>
-      <Typography variant="body2" color="textSecondary" gutterBottom sx={{ mb: 4 }}>
-        Manage farmer and buyer accounts
-      </Typography>
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <Box>
+          <Typography variant="h4" fontWeight="900" sx={{ letterSpacing: '-1.5px', mb: 1 }}>
+            User Accounts
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Review and manage platform roles, permissions, and account statuses.
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <TextField
+            size="small"
+            placeholder="Search users..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start"><Search fontSize="small" /></InputAdornment>,
+              sx: { borderRadius: 2, bgcolor: 'white' }
+            }}
+          />
+          <Button variant="outlined" startIcon={<FilterList />} sx={{ borderRadius: 2 }}>Filters</Button>
+          <Button variant="contained" startIcon={<PersonAdd />} sx={{ borderRadius: 2 }}>Create Account</Button>
+        </Box>
+      </Box>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} elevation={0} sx={{ border: '1px solid var(--glass-border)', borderRadius: 4, overflow: 'hidden' }}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ bgcolor: 'rgba(0,0,0,0.02)' }}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell sx={{ fontWeight: 700, py: 2 }}>User Identity</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>Contact Details</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>Platform Role</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>Location</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>Account Status</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 700 }}>Management</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
+            {filteredUsers.map((user) => (
+              <TableRow key={user.id} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Avatar sx={{ bgcolor: 'primary.main', fontWeight: 800 }}>
+                      {user.name?.[0]}
+                    </Avatar>
+                    <Box>
+                      <Typography variant="subtitle2" fontWeight="700">{user.name}</Typography>
+                      <Typography variant="caption" color="textSecondary">@{user.username}</Typography>
+                    </Box>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Mail sx={{ fontSize: '0.85rem', opacity: 0.5 }} />
+                      <Typography variant="caption" color="textSecondary">{user.email}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <ContactPhone sx={{ fontSize: '0.85rem', opacity: 0.5 }} />
+                      <Typography variant="caption" color="textSecondary">+91 9876543210</Typography>
+                    </Box>
+                  </Box>
+                </TableCell>
                 <TableCell>
                   <Chip
-                    label={user.role}
+                    label={user.role?.toUpperCase()}
                     color={getRoleColor(user.role)}
                     size="small"
+                    sx={{ fontWeight: 900, fontSize: '0.65rem' }}
                   />
                 </TableCell>
-                <TableCell>{user.location || '-'}</TableCell>
+                <TableCell>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <FmdGood sx={{ fontSize: '1rem', color: 'error.light' }} />
+                    <Typography variant="body2">{user.location || 'Maharashtra, India'}</Typography>
+                  </Box>
+                </TableCell>
                 <TableCell>
                   <Chip
-                    label="Active"
+                    label="VERIFIED"
                     color="success"
+                    variant="outlined"
                     size="small"
-                    icon={<CheckCircle />}
+                    icon={<CheckCircle sx={{ fontSize: '1rem !important' }} />}
+                    sx={{ fontWeight: 800, fontSize: '0.65rem' }}
                   />
                 </TableCell>
                 <TableCell align="right">
-                  <Tooltip title="Edit">
-                    <IconButton size="small" color="primary">
-                      <Edit />
+                  <Tooltip title="Edit Permissions">
+                    <IconButton size="small" sx={{ mr: 1, color: 'primary.main' }}>
+                      <Edit fontSize="small" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Deactivate">
+                  <Tooltip title="Suspend Account">
                     <IconButton size="small" color="error">
-                      <Block />
+                      <Block fontSize="small" />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
@@ -101,4 +164,3 @@ const UserManagement = () => {
 }
 
 export default UserManagement
-

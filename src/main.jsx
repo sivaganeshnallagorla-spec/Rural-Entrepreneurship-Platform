@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { HashRouter } from 'react-router-dom'
+import { seedDemoData } from './api/demoData'
 
 console.log('Main.jsx: Entry point reached');
 
@@ -19,7 +20,12 @@ try {
   console.log('Main.jsx: Root created');
   root.render(
     <React.StrictMode>
-      <HashRouter>
+      <HashRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <App />
       </HashRouter>
     </React.StrictMode>
@@ -28,3 +34,5 @@ try {
 } catch (err) {
   console.error('Main.jsx: Mounting error:', err);
 }
+
+seedDemoData();
