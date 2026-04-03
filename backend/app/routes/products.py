@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import Session, select
 from typing import List, Optional
 from app.models.product import Product
+from app.models.user import User
+from app.routes.auth import get_current_user
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine
@@ -33,17 +35,35 @@ def get_product(product_id: int, session: Session = Depends(get_session)):
     return product
 
 @router.post("/", response_model=Product)
-def create_product(product: Product, session: Session = Depends(get_session)):
+def create_product(
+    product: Product, 
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role != "farmer" and current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Only farmers can create products")
+        
+    product.farmer_id = current_user.username
+    product.farmer_name = current_user.full_name
+    
     session.add(product)
     session.commit()
     session.refresh(product)
     return product
 
 @router.patch("/{product_id}", response_model=Product)
-def update_product(product_id: int, product_data: dict, session: Session = Depends(get_session)):
+def update_product(
+    product_id: int, 
+    product_data: dict, 
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user)
+):
     db_product = session.get(Product, product_id)
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
+        
+    if db_product.farmer_id != current_user.username and current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Not authorized to update this product")
     
     for key, value in product_data.items():
         setattr(db_product, key, value)
@@ -54,10 +74,17 @@ def update_product(product_id: int, product_data: dict, session: Session = Depen
     return db_product
 
 @router.delete("/{product_id}")
-def delete_product(product_id: int, session: Session = Depends(get_session)):
+def delete_product(
+    product_id: int, 
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user)
+):
     product = session.get(Product, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
+        
+    if product.farmer_id != current_user.username and current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Not authorized to delete this product")
     
     session.delete(product)
     session.commit()

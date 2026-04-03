@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 from app.db import create_db_and_tables, engine
-from app.routes import products
+from app.routes import products, auth
 
 load_dotenv()
 
@@ -37,4 +37,4 @@ def on_startup():
 
 # Include Routers
 app.include_router(products.router, prefix="/api/products", tags=["Products"])
-# app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
