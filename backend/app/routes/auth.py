@@ -1,87 +1,154 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from sqlmodel import Session, select
-from datetime import timedelta
-from jose import JWTError, jwt
-import os
+from fastapi import APIRouter, HTTPException, Depends
+from app.config.supabase import get_supabase, get_supabase_admin, get_settings
+from app.middleware.auth import get_current_user
+from app.schemas.models import RegisterRequest, LoginRequest, UpdateProfileRequest, UpdatePasswordRequest
 
-from app.db import get_session
-from app.models.user import User
-from app.schemas.user import UserCreate, UserRead, Token, TokenData
-from app.utils.auth import (
-    verify_password, 
-    get_password_hash, 
-    create_access_token, 
-    SECRET_KEY, 
-    ALGORITHM
-)
+router = APIRouter(prefix="/api/auth", tags=["Auth"])
 
-router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
-@router.post("/register", response_model=UserRead)
-def register(user_in: UserCreate, session: Session = Depends(get_session)):
-    # Check if user already exists
-    statement = select(User).where((User.username == user_in.username) | (User.email == user_in.email))
-    existing_user = session.exec(statement).first()
-    if existing_user:
-        raise HTTPException(
-            status_code=400,
-            detail="User with this username or email already exists"
-        )
-    
-    # Create new user
-    db_user = User(
-        username=user_in.username,
-        email=user_in.email,
-        full_name=user_in.full_name,
-        hashed_password=get_password_hash(user_in.password),
-        role=user_in.role,
-        location=user_in.location
-    )
-    session.add(db_user)
-    session.commit()
-    session.refresh(db_user)
-    return db_user
+@router.post("/register", status_code=201)
+async def register(data: RegisterRequest):
+    """
+    Register a new farmer or buyer.
+    1. Creates Supabase Auth user (email + password)
+    2. Inserts profile row (username, name, role, etc.)
+    """
+    supabase = get_supabase()
+    admin    = get_supabase_admin()
 
-@router.post("/login", response_model=Token)
-def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
-    # Find user by username
-    statement = select(User).where(User.username == form_data.username)
-    user = session.exec(statement).first()
-    
-    # Verify user exists and password matches
-    if not user or not verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    
-    # Generate JWT token
-    access_token = create_access_token(data={"sub": user.username})
+    # Check username uniqueness (profiles table)
+    existing = admin.table("profiles").select("id").eq("username", data.username).execute()
+    if existing.data:
+        raise HTTPException(status_code=400, detail="Username already taken")
+
+    # Create Supabase Auth user
+    try:
+        auth_response = supabase.auth.sign_up({
+            "email":    data.email,
+            "password": data.password,
+        })
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    if not auth_response.user:
+        raise HTTPException(status_code=400, detail="Registration failed")
+
+    user_id = auth_response.user.id
+
+    # Insert into profiles table
+    profile = {
+        "id":       user_id,
+        "username": data.username,
+        "name":     data.name,
+        "email":    data.email,
+        "phone":    data.phone,
+        "role":     data.role,
+        "address":  data.address.model_dump() if data.address else None,
+        "language": data.language,
+        "is_active": True,
+        "is_verified": False,
+    }
+    admin.table("profiles").insert(profile).execute()
+
     return {
-        "access_token": access_token, 
-        "token_type": "bearer",
-        "user": user # Matching the Token schema's user field
+        "success": True,
+        "message": "Registration successful. Please check your email to confirm your account.",
+        "user_id": user_id,
     }
 
-async def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+
+@router.post("/login")
+async def login(data: LoginRequest):
+    """
+    Login with email + password.
+    Returns Supabase session (access_token, refresh_token) + profile.
+    """
+    supabase = get_supabase()
+    admin    = get_supabase_admin()
+
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise credentials_exception
-        token_data = TokenData(username=username)
-    except JWTError:
-        raise credentials_exception
-    
-    user = session.exec(select(User).where(User.username == token_data.username)).first()
-    if user is None:
-        raise credentials_exception
-    return user
+        auth_response = supabase.auth.sign_in_with_password({
+            "email":    data.email,
+            "password": data.password,
+        })
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    if not auth_response.session:
+        raise HTTPException(status_code=401, detail="Login failed")
+
+    user_id = auth_response.user.id
+
+    # Fetch profile
+    profile_res = admin.table("profiles").select("*").eq("id", user_id).single().execute()
+    if not profile_res.data:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    profile = profile_res.data
+    if not profile.get("is_active", True):
+        raise HTTPException(status_code=403, detail="Account deactivated. Contact admin.")
+
+    # Update last_login
+    admin.table("profiles").update({"last_login": "now()"}).eq("id", user_id).execute()
+
+    return {
+        "success":       True,
+        "access_token":  auth_response.session.access_token,
+        "refresh_token": auth_response.session.refresh_token,
+        "token_type":    "Bearer",
+        "user":          profile,
+    }
+
+
+@router.post("/refresh")
+async def refresh_token(refresh_token: str):
+    """Refresh an expired access token using the refresh_token."""
+    supabase = get_supabase()
+    try:
+        session = supabase.auth.refresh_session(refresh_token)
+        return {
+            "success":      True,
+            "access_token": session.session.access_token,
+            "refresh_token": session.session.refresh_token,
+        }
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+
+@router.get("/me")
+async def get_me(current_user: dict = Depends(get_current_user)):
+    """Get the current logged-in user's full profile."""
+    return {"success": True, "user": current_user}
+
+
+@router.put("/profile")
+async def update_profile(
+    data: UpdateProfileRequest,
+    current_user: dict = Depends(get_current_user),
+):
+    """Update name, phone, address, bio, farm info, etc."""
+    admin = get_supabase_admin()
+    updates = {k: v for k, v in data.model_dump(exclude_none=True).items()}
+    if "address" in updates and updates["address"]:
+        updates["address"] = updates["address"]  # already a dict from Pydantic
+
+    result = admin.table("profiles").update(updates).eq("id", current_user["id"]).execute()
+    return {"success": True, "user": result.data[0] if result.data else current_user}
+
+
+@router.put("/password")
+async def update_password(
+    data: UpdatePasswordRequest,
+    current_user: dict = Depends(get_current_user),
+):
+    """Update the user's password via Supabase Admin Auth API."""
+    admin = get_supabase_admin()
+    try:
+        admin.auth.admin.update_user_by_id(
+            current_user["id"],
+            {"password": data.new_password}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    return {"success": True, "message": "Password updated successfully"}

@@ -299,25 +299,36 @@ This makes the platform feel alive and up-to-date, transforming static demo cont
 
 ## 🔮 Future Enhancements
 
-- Backend API integration
 - Aadhaar/UPI authentication
 - Payment gateway integration
-- Real-time messaging
-- Image upload functionality
-- QR code traceability
-- Micro-credit and insurance integration
-- AI-driven pricing suggestions (server-backed)
+- Image upload functionality to Supabase Buckets
+- QR code traceability integration
+- Real-time messaging implementation
+- Micro-credit and insurance modules
+- AI-driven pricing suggestions
+
+## 🚀 Fully Integrated Backend
+
+The platform now features a fully integrated logic API!
+- **FastAPI** for high performance asynchronous operations
+- **Supabase** for Auth, PostgreSQL Database, and Storage
+- **JWT Middleware** & **Pydantic** for security and validation
+
+### Starting the Backend
+A convenient npm command handles starting your Uvicorn server:
+```bash
+npm run start:backend
+```
+*(Remember to configure your Supabase variables in `backend/.env` first!)*
 
 ## 📝 License
 
-This project is part of a frontend development framework .
+This project was built for empowering rural entrepreneurship in India.
 
 ## 👨‍💻 Development
 
-Built with ❤️ for empowering rural entrepreneurship in India.
+Built with ❤️ to transform raw crops into value-added products.
 
 ---
 
-**Note**: This is a frontend-only application using Local Storage for data persistence. For production use, integrate with a backend API.
-
-"# Rural-Entrepreneurship-Platform"
+**Note**: The backend APIs have been successfully integrated. Update your frontend `Axios` instances to point to `http://localhost:8000` to completely hook up the Local Storage UI to the Supabase endpoints!

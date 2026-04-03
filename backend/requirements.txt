@@ -1,8 +1,12 @@
 fastapi
 uvicorn[standard]
-sqlmodel
+supabase
+python-dotenv
+pydantic
+pydantic-settings
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
-python-dotenv
-cors
+httpx
+slowapi
+email-validator
