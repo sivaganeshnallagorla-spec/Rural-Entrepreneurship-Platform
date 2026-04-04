@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const ProductContext = createContext()
 
@@ -73,18 +74,18 @@ export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('products')
-    if (stored) {
-      setProducts(JSON.parse(stored))
+    const stored = secureStorage.get('products')
+    if (stored && stored.length > 0) {
+      setProducts(stored)
     } else {
       setProducts(DEFAULT_PRODUCTS)
-      localStorage.setItem('products', JSON.stringify(DEFAULT_PRODUCTS))
+      secureStorage.set('products', DEFAULT_PRODUCTS)
     }
   }, [])
 
   useEffect(() => {
     if (products.length > 0) {
-      localStorage.setItem('products', JSON.stringify(products))
+      secureStorage.set('products', products)
     }
   }, [products])
 

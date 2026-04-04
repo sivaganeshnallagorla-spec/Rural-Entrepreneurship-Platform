@@ -1,23 +1,19 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const ReviewContext = createContext()
 
 const STORAGE_KEY = 'platform_reviews'
 
 const loadReviews = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? JSON.parse(stored) : []
-  } catch {
-    return []
-  }
+  return secureStorage.get(STORAGE_KEY) || []
 }
 
 export const ReviewProvider = ({ children }) => {
   const [reviews, setReviews] = useState(loadReviews)
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews))
+    secureStorage.set(STORAGE_KEY, reviews)
   }, [reviews])
 
   const addReview = useCallback((reviewData) => {

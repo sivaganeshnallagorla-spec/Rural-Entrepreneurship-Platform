@@ -1,15 +1,16 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { createTheme } from '@mui/material/styles';
+import { secureStorage } from '../utils/secureStorage';
 
 export const ThemeModeContext = createContext();
 
 export const ThemeModeProvider = ({ children }) => {
   const [mode, setMode] = useState(() => {
-    return localStorage.getItem('themeMode') || 'light';
+    return secureStorage.get('themeMode') || 'light';
   });
 
   useEffect(() => {
-    localStorage.setItem('themeMode', mode);
+    secureStorage.set('themeMode', mode);
   }, [mode]);
 
   const toggleMode = () => {

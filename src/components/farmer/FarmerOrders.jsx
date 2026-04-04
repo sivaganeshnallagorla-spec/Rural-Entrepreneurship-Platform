@@ -16,7 +16,8 @@ import {
 import {
   CheckCircle,
   Cancel,
-  Visibility
+  Visibility,
+  Download
 } from '@mui/icons-material'
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
@@ -27,6 +28,29 @@ const FarmerOrders = () => {
   const { getOrdersByFarmer, updateOrder } = useOrders()
   const { t } = useLanguage()
   const orders = getOrdersByFarmer(user?.id)
+
+  const exportToCSV = () => {
+    if (orders.length === 0) return;
+    const headers = ['Order ID', 'Buyer Name', 'Items Count', 'Total Amount', 'Status', 'Date'];
+    const rows = orders.map(o => [
+      o.id,
+      `"${o.buyerName || 'Buyer'}"`,
+      o.items?.length || 0,
+      o.total || 0,
+      o.status,
+      new Date(o.createdAt).toLocaleDateString()
+    ]);
+    const csvContent = [headers, ...rows].map(e => e.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `orders_export_${user?.username || 'farmer'}_${Date.now()}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -53,12 +77,25 @@ const FarmerOrders = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        {t('orders')}
-      </Typography>
-      <Typography variant="body2" color="textSecondary" gutterBottom sx={{ mb: 4 }}>
-        Manage incoming orders from buyers
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 3 }}>
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            {t('orders')}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Manage incoming orders from buyers
+          </Typography>
+        </Box>
+        <Button
+          variant="contained"
+          startIcon={<Download />}
+          onClick={exportToCSV}
+          disabled={orders.length === 0}
+          color="secondary"
+        >
+          Export CSV
+        </Button>
+      </Box>
 
       <TableContainer component={Paper}>
         <Table>

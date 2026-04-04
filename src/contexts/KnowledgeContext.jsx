@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const KnowledgeContext = createContext()
 
@@ -231,29 +232,29 @@ export const KnowledgeProvider = ({ children }) => {
   const [resources, setResources] = useState({})
 
   useEffect(() => {
-    const storedCategories = localStorage.getItem('knowledgeCategories')
-    const storedResources = localStorage.getItem('knowledgeResources')
+    const storedCategories = secureStorage.get('knowledgeCategories')
+    const storedResources = secureStorage.get('knowledgeResources')
 
     if (storedCategories && storedResources) {
-      setCategories(JSON.parse(storedCategories))
-      setResources(JSON.parse(storedResources))
+      setCategories(storedCategories)
+      setResources(storedResources)
     } else {
       setCategories(DEFAULT_CATEGORIES)
       setResources(DEFAULT_RESOURCES)
-      localStorage.setItem('knowledgeCategories', JSON.stringify(DEFAULT_CATEGORIES))
-      localStorage.setItem('knowledgeResources', JSON.stringify(DEFAULT_RESOURCES))
+      secureStorage.set('knowledgeCategories', DEFAULT_CATEGORIES)
+      secureStorage.set('knowledgeResources', DEFAULT_RESOURCES)
     }
   }, [])
 
   useEffect(() => {
     if (categories.length > 0) {
-      localStorage.setItem('knowledgeCategories', JSON.stringify(categories))
+      secureStorage.set('knowledgeCategories', categories)
     }
   }, [categories])
 
   useEffect(() => {
-    if (Object.keys(resources).length > 0) {
-      localStorage.setItem('knowledgeResources', JSON.stringify(resources))
+    if (resources && Object.keys(resources).length > 0) {
+      secureStorage.set('knowledgeResources', resources)
     }
   }, [resources])
 

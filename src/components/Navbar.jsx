@@ -158,6 +158,16 @@ const Navbar = ({ onCartClick }) => {
                 >
                   Business Tools
                 </Button>
+                <Button 
+                  color="inherit" 
+                  onClick={() => navigate('/farmer/mandi-prices')} 
+                  sx={{ 
+                    opacity: location.pathname === '/farmer/mandi-prices' ? 1 : 0.7,
+                    fontWeight: location.pathname === '/farmer/mandi-prices' ? 700 : 400
+                  }}
+                >
+                  Mandi Prices
+                </Button>
               </>
             )}
             {user?.role === 'buyer' && (
@@ -267,6 +277,10 @@ const Navbar = ({ onCartClick }) => {
             <MenuItem onClick={() => { navigate(`/${rolePathSegment}/profile`); handleClose(); }} sx={{ py: 1.5 }}>
               <AccountCircle sx={{ mr: 1.5, fontSize: 20 }} />
               <Typography variant="body2">Profile Settings</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => { navigate('/help-center'); handleClose(); }} sx={{ py: 1.5 }}>
+              <Notifications sx={{ mr: 1.5, fontSize: 20 }} />
+              <Typography variant="body2">Help Center</Typography>
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleLogout} sx={{ py: 1.5, color: 'error.main' }}>

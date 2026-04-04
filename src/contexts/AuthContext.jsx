@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const AuthContext = createContext()
 
@@ -12,20 +13,20 @@ async function hashPassword(plaintext) {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-// Predefined credentials (plain-text passwords are acceptable for hardcoded demo users)
+// Predefined credentials from environment variables for security
 const PREDEFINED_USERS = [
   {
     id: 'admin1',
-    username: 'admin',
-    password: 'admin123',
+    username: import.meta.env.VITE_DEMO_ADMIN_USER || 'admin',
+    password: import.meta.env.VITE_DEMO_ADMIN_PASS || 'admin123',
     role: 'admin',
     name: 'Platform Admin',
     email: 'admin@ruralplatform.in'
   },
   {
     id: 'farmer1',
-    username: 'farmer',
-    password: 'farmer123',
+    username: import.meta.env.VITE_DEMO_FARMER_USER || 'farmer',
+    password: import.meta.env.VITE_DEMO_FARMER_PASS || 'farmer123',
     role: 'farmer',
     name: 'Rajesh Kumar',
     email: 'rajesh@farm.in',
@@ -35,7 +36,7 @@ const PREDEFINED_USERS = [
   {
     id: 'farmer2',
     username: 'farmer2',
-    password: 'farmer123',
+    password: import.meta.env.VITE_DEMO_FARMER_PASS || 'farmer123',
     role: 'farmer',
     name: 'Priya Sharma',
     email: 'priya@farm.in',
@@ -44,8 +45,8 @@ const PREDEFINED_USERS = [
   },
   {
     id: 'buyer1',
-    username: 'buyer',
-    password: 'buyer123',
+    username: import.meta.env.VITE_DEMO_BUYER_USER || 'buyer',
+    password: import.meta.env.VITE_DEMO_BUYER_PASS || 'buyer123',
     role: 'buyer',
     name: 'Global Food Co.',
     email: 'contact@globalfood.com',
@@ -54,7 +55,7 @@ const PREDEFINED_USERS = [
   {
     id: 'buyer2',
     username: 'buyer2',
-    password: 'buyer123',
+    password: import.meta.env.VITE_DEMO_BUYER_PASS || 'buyer123',
     role: 'buyer',
     name: 'Organic Market',
     email: 'info@organicmarket.in',
@@ -62,8 +63,8 @@ const PREDEFINED_USERS = [
   },
   {
     id: 'op1',
-    username: 'drone',
-    password: 'drone123',
+    username: import.meta.env.VITE_DEMO_DRONE_USER || 'drone',
+    password: import.meta.env.VITE_DEMO_DRONE_PASS || 'drone123',
     role: 'drone_operator',
     name: 'SkyFarmer Operator',
     email: 'ops@skyfarmer.in',
@@ -77,20 +78,23 @@ export const AuthProvider = ({ children }) => {
 
   // Get all registered users from localStorage
   const getRegisteredUsers = () => {
-    const stored = localStorage.getItem('registeredUsers')
-    return stored ? JSON.parse(stored) : []
+    return secureStorage.get('registeredUsers') || []
   }
 
-  // Save registered users to localStorage
+  // Save registered users to secureStorage
   const saveRegisteredUsers = (users) => {
-    localStorage.setItem('registeredUsers', JSON.stringify(users))
+    secureStorage.set('registeredUsers', users)
   }
 
   useEffect(() => {
-    // Load user from localStorage on mount
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    // Load user from session with expiry check
+    const session = secureStorage.get('auth_session')
+    if (session) {
+      if (session.expiresAt && Date.now() > session.expiresAt) {
+        logout()
+      } else {
+        setUser(session.user)
+      }
     }
     setLoading(false)
   }, [])
@@ -115,7 +119,14 @@ export const AuthProvider = ({ children }) => {
       delete userData.password // Don't store password
       delete userData.passwordHash // Don't keep hash in session
       setUser(userData)
-      localStorage.setItem('user', JSON.stringify(userData))
+      
+      const session = {
+        user: userData,
+        role: userData.role,
+        loginAt: Date.now(),
+        expiresAt: Date.now() + 8 * 60 * 60 * 1000 // 8 hours session
+      }
+      secureStorage.set('auth_session', session)
       return { success: true, user: userData }
     }
     
@@ -141,6 +152,15 @@ export const AuthProvider = ({ children }) => {
     
     if (registeredUsers.some(u => u.email === formData.email)) {
       return { success: false, error: 'Email already registered' }
+    }
+
+    // Password validation rule: 8+ chars, 1 uppercase, 1 number, 1 special char
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    if (!passwordRegex.test(formData.password)) {
+      return { 
+        success: false, 
+        error: 'Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.' 
+      }
     }
 
     // Hash password before storing — never store plain-text passwords
@@ -170,14 +190,19 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('user')
+    secureStorage.remove('auth_session')
     // Don't remove products and orders on logout
   }
 
   const updateUser = (updates) => {
     const updatedUser = { ...user, ...updates }
     setUser(updatedUser)
-    localStorage.setItem('user', JSON.stringify(updatedUser))
+    
+    const session = secureStorage.get('auth_session')
+    if (session) {
+      session.user = updatedUser
+      secureStorage.set('auth_session', session)
+    }
 
     // Also update in registered users if it's a registered user
     const registeredUsers = getRegisteredUsers()

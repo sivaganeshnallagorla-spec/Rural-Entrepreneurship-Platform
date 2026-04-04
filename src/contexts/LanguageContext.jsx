@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../i18n/translations';
+import { secureStorage } from '../utils/secureStorage';
 
 const LanguageContext = createContext();
 
@@ -8,11 +9,11 @@ export const AVAILABLE_LANGUAGES = ['en', 'hi', 'te', 'ta'];
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('language') || 'en';
+    return secureStorage.get('language') || 'en';
   });
 
   useEffect(() => {
-    localStorage.setItem('language', language);
+    secureStorage.set('language', language);
   }, [language]);
 
   const t = (key) => {

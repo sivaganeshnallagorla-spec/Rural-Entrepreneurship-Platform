@@ -1,20 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const MessagingContext = createContext()
 
 const STORAGE_KEY = 'platform_messages'
 
 const loadFromStorage = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? JSON.parse(stored) : { threads: [] }
-  } catch {
-    return { threads: [] }
-  }
+  return secureStorage.get(STORAGE_KEY) || { threads: [] }
 }
 
 const saveToStorage = (data) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  secureStorage.set(STORAGE_KEY, data)
 }
 
 export const MessagingProvider = ({ children }) => {

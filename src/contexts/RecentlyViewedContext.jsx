@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const RecentlyViewedContext = createContext()
 
@@ -8,18 +9,14 @@ export const RecentlyViewedProvider = ({ children }) => {
   const [recentlyViewed, setRecentlyViewed] = useState([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('recentlyViewed')
+    const stored = secureStorage.get('recentlyViewed')
     if (stored) {
-      try {
-        setRecentlyViewed(JSON.parse(stored))
-      } catch (e) {
-        setRecentlyViewed([])
-      }
+      setRecentlyViewed(stored)
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
+    secureStorage.set('recentlyViewed', recentlyViewed)
   }, [recentlyViewed])
 
   const addToRecentlyViewed = (product) => {

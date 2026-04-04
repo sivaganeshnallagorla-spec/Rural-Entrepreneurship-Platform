@@ -18,6 +18,7 @@ import Messaging from '../components/shared/Messaging'
 import FarmerSchemes from '../components/farmer/FarmerSchemes'
 import SkillModule from '../components/farmer/SkillModule'
 import EquipmentMarketplace from '../components/farmer/EquipmentMarketplace'
+import MandiDashboard from '../components/farmer/MandiDashboard'
 import { Container, Box } from '@mui/material'
 
 const FarmerDashboard = () => {
@@ -58,6 +59,7 @@ const FarmerDashboard = () => {
           <Route path="messages" element={<Messaging />} />
           <Route path="schemes" element={<FarmerSchemes />} />
           <Route path="equipment-marketplace" element={<EquipmentMarketplace />} />
+          <Route path="mandi-prices" element={<MandiDashboard />} />
           <Route path="*" element={<Navigate to="/farmer" replace />} />
         </Routes>
       </Container>

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const OrderContext = createContext()
 
@@ -9,19 +10,19 @@ export const OrderProvider = ({ children }) => {
   const [cart, setCart] = useState([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('orders')
-    if (stored) setOrders(JSON.parse(stored))
+    const stored = secureStorage.get('orders')
+    if (stored) setOrders(stored)
     
-    const storedCart = localStorage.getItem('cart')
-    if (storedCart) setCart(JSON.parse(storedCart))
+    const storedCart = secureStorage.get('cart')
+    if (storedCart) setCart(storedCart)
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('orders', JSON.stringify(orders))
+    secureStorage.set('orders', orders)
   }, [orders])
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
+    secureStorage.set('cart', cart)
   }, [cart])
 
   const addToCart = (product, quantity = 1) => {

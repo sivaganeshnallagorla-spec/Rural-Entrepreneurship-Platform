@@ -46,7 +46,8 @@ const BrowseProducts = () => {
   const [filters, setFilters] = useState({
     category: '',
     certification: '',
-    location: ''
+    location: '',
+    special: ''
   })
 
   // Safety checks
@@ -65,11 +66,18 @@ const BrowseProducts = () => {
 
   let filtered = searchQuery ? searchProducts(searchQuery) : products
   
-  if (filters.category || filters.certification || filters.location) {
-    filtered = filterProducts({
-      ...filters,
-      available: true
-    })
+  if (filters.category || filters.certification || filters.location || filters.special) {
+    const filterParams = { ...filters, available: true }
+    
+    if (filters.special === 'organic') filterParams.certification = 'organic'
+    if (filters.special === 'under500') filterParams.maxPrice = 500
+    
+    filtered = filterProducts(filterParams)
+
+    if (filters.special === 'bestseller') {
+      // Simulate bestsellers by filtering products with higher price (mock logic)
+      filtered = filtered.filter(p => p.price > 100)
+    }
   }
 
   const categories = ['', ...new Set(products.map(p => p?.category).filter(Boolean))]
@@ -112,7 +120,7 @@ const BrowseProducts = () => {
               }}
             />
           </Grid>
-          <Grid item xs={6} md={3.5}>
+          <Grid item xs={6} md={2.5}>
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
               <Select
@@ -128,7 +136,23 @@ const BrowseProducts = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} md={3.5}>
+          <Grid item xs={6} md={2.5}>
+            <FormControl fullWidth>
+              <InputLabel>Special Filters</InputLabel>
+              <Select
+                value={filters.special}
+                onChange={(e) => handleFilterChange('special', e.target.value)}
+                label="Special Filters"
+                sx={{ borderRadius: 3, bgcolor: 'background.paper' }}
+              >
+                <MenuItem value="">None</MenuItem>
+                <MenuItem value="organic">Organic Only</MenuItem>
+                <MenuItem value="under500">Under ₹500</MenuItem>
+                <MenuItem value="bestseller">Bestsellers</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Certification</InputLabel>
               <Select
@@ -137,7 +161,7 @@ const BrowseProducts = () => {
                 label="Certification"
                 sx={{ borderRadius: 3, bgcolor: 'background.paper' }}
               >
-                <MenuItem value="">Any Certification</MenuItem>
+                <MenuItem value="">Any</MenuItem>
                 {certifications.filter(Boolean).map((cert) => (
                   <MenuItem key={cert} value={cert}>{cert}</MenuItem>
                 ))}
@@ -153,7 +177,7 @@ const BrowseProducts = () => {
           <Typography variant="h5" color="textSecondary" gutterBottom>
             No products found matching your criteria.
           </Typography>
-          <Button variant="text" onClick={() => { setSearchQuery(''); setFilters({ category: '', certification: '', location: '' }) }}>
+          <Button variant="text" onClick={() => { setSearchQuery(''); setFilters({ category: '', certification: '', location: '', special: '' }) }}>
             Clear all filters
           </Button>
         </Paper>

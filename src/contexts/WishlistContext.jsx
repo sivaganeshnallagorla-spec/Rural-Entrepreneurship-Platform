@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const WishlistContext = createContext()
 
@@ -6,20 +7,14 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('wishlist')
+    const stored = secureStorage.get('wishlist')
     if (stored) {
-      try {
-        setWishlist(JSON.parse(stored))
-      } catch (e) {
-        setWishlist([])
-      }
+      setWishlist(stored)
     }
   }, [])
 
   useEffect(() => {
-    if (wishlist.length >= 0) {
-      localStorage.setItem('wishlist', JSON.stringify(wishlist))
-    }
+    secureStorage.set('wishlist', wishlist)
   }, [wishlist])
 
   const addToWishlist = (product) => {

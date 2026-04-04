@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
+import { secureStorage } from '../utils/secureStorage'
 
 const NotificationContext = createContext()
 
@@ -6,14 +7,14 @@ export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('notifications')
+    const stored = secureStorage.get('notifications')
     if (stored) {
-      setNotifications(JSON.parse(stored))
+      setNotifications(stored)
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('notifications', JSON.stringify(notifications))
+    secureStorage.set('notifications', notifications)
   }, [notifications])
 
   const addNotification = (notification) => {

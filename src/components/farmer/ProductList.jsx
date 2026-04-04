@@ -120,9 +120,15 @@ const ProductList = () => {
                     />
                     <Chip
                       label={`Stock: ${product.stock}`}
-                      color={product.stock > 0 ? 'success' : 'error'}
+                      color={product.stock < 5 ? 'error' : (product.stock < 10 ? 'warning' : 'success')}
                       size="small"
+                      variant={product.stock < 5 ? 'filled' : 'outlined'}
                     />
+                    {product.stock < 5 && (
+                      <Typography variant="caption" color="error" sx={{ display: 'block', fontWeight: 'bold', mt: 1 }}>
+                        Low Stock Alert!
+                      </Typography>
+                    )}
                   </Box>
                   {product.certification && (
                     <Chip

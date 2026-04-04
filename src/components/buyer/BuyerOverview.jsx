@@ -4,8 +4,19 @@ import {
   Paper,
   Typography,
   Box,
-  Button
+  Button,
+  Card
 } from '@mui/material'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell
+} from 'recharts'
 import {
   ShoppingBag,
   Inventory,
@@ -32,6 +43,8 @@ const BuyerOverview = () => {
     pendingOrders: 0
   })
 
+  const [spendData, setSpendData] = useState([])
+
   useEffect(() => {
     const orders = getOrdersByBuyer(user?.id)
     const pendingOrders = orders.filter(o => o.status !== 'delivered' && o.status !== 'cancelled').length
@@ -41,6 +54,26 @@ const BuyerOverview = () => {
       totalProducts: products.length,
       pendingOrders
     })
+
+    // Process spend data for chart
+    const monthlySpend = orders.reduce((acc, order) => {
+      const date = new Date(order.createdAt)
+      const month = date.toLocaleString('default', { month: 'short' })
+      const year = date.getFullYear()
+      const key = `${month} ${year}`
+      
+      const existing = acc.find(d => d.name === key)
+      if (existing) {
+        existing.spend += order.total || 0
+      } else {
+        acc.push({ name: key, spend: order.total || 0, sortKey: date.getTime() })
+      }
+      return acc
+    }, [])
+
+    // Sort by date
+    monthlySpend.sort((a, b) => a.sortKey - b.sortKey)
+    setSpendData(monthlySpend)
   }, [user, getOrdersByBuyer, products])
 
   return (
@@ -78,6 +111,41 @@ const BuyerOverview = () => {
             icon={<Favorite />}
             color="#f44336"
           />
+        </Grid>
+
+        <Grid item xs={12} md={8}>
+          <Paper className="glass" sx={{ p: 3, border: '1px solid var(--glass-border)', height: '400px' }}>
+            <Typography variant="h6" fontWeight="700" gutterBottom>
+              Track My Spend
+            </Typography>
+            <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
+              Monthly overview of your purchases
+            </Typography>
+            {spendData.length > 0 ? (
+              <ResponsiveContainer width="100%" height="80%">
+                <BarChart data={spendData}>
+                  <defs>
+                    <linearGradient id="spendGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--primary-main)" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="var(--primary-main)" stopOpacity={0.2}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E0E0E0" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip 
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                    cursor={{ fill: 'rgba(0,0,0,0.05)' }}
+                  />
+                  <Bar dataKey="spend" radius={[6, 6, 0, 0]} fill="url(#spendGradient)" />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <Box display="flex" justifyContent="center" alignItems="center" height="70%">
+                <Typography color="textSecondary">No spending data available yet</Typography>
+              </Box>
+            )}
+          </Paper>
         </Grid>
 
         <Grid item xs={12}>

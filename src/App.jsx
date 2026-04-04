@@ -20,6 +20,7 @@ import { PricingProvider } from './contexts/PricingContext'
 import { MessagingProvider } from './contexts/MessagingContext'
 import { ReviewProvider } from './contexts/ReviewContext'
 import ErrorBoundary from './components/ErrorBoundary'
+import SupportChat from './components/SupportChat'
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -32,6 +33,7 @@ const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'))
 const FarmerDashboard = React.lazy(() => import('./pages/FarmerDashboard'))
 const BuyerDashboard = React.lazy(() => import('./pages/BuyerDashboard'))
 const DroneOperatorDashboard = React.lazy(() => import('./pages/DroneOperatorDashboard'))
+const HelpCenter = React.lazy(() => import('./pages/HelpCenter'))
 
 function App() {
   return (
@@ -96,8 +98,10 @@ function App() {
                                                 </ProtectedRoute>
                                               }
                                             />
+                                            <Route path="/help-center" element={<HelpCenter />} />
                                             <Route path="*" element={<Navigate to="/" replace />} />
                                           </Routes>
+                                          <SupportChat />
                                         </React.Suspense>
                                       </ReviewProvider>
                                     </MessagingProvider>
