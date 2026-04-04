@@ -87,15 +87,15 @@ const HelpCenter = () => {
               <Box sx={{ mt: 6, display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <EmailIcon color="primary" />
-                  <Typography variant="body2">support@antigravity-rural.com</Typography>
+                  <Typography variant="body2">2400090093@kluniversity.in</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <PhoneIcon color="primary" />
-                  <Typography variant="body2">+91 1800-RURAL-HELP</Typography>
+                  <Typography variant="body2">8185818665</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <LocationOnIcon color="primary" />
-                  <Typography variant="body2">Innovation Hub, New Delhi, India</Typography>
+                  <Typography variant="body2">kl university,vadrswerm.guntur dst,andra pradesh</Typography>
                 </Box>
               </Box>
             </Paper>
