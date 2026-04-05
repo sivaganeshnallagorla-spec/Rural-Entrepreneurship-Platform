@@ -1,5 +1,8 @@
 import React from 'react'
-import { Card, CardContent, Box, Typography } from '@mui/material'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 const StatCard = ({ title, value, icon, color }) => (
   <Card className="glass" sx={{ border: `1px solid ${color}33`, position: 'relative', overflow: 'hidden' }}>

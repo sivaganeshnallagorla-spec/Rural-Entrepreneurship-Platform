@@ -1,23 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
-import {
-  Box,
-  Fab,
-  Paper,
-  Typography,
-  TextField,
-  IconButton,
-  List,
-  ListItem,
-  Avatar,
-  Fade,
-  InputAdornment
-} from '@mui/material'
-import {
-  Chat as ChatIcon,
-  Close,
-  Send,
-  SmartToy
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Fab from '@mui/material/Fab'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import Avatar from '@mui/material/Avatar'
+import Fade from '@mui/material/Fade'
+import InputAdornment from '@mui/material/InputAdornment'
+import ChatIcon from '@mui/icons-material/Chat'
+import Close from '@mui/icons-material/Close'
+import Send from '@mui/icons-material/Send'
+import SmartToy from '@mui/icons-material/SmartToy'
 
 const SupportChat = () => {
   const [isOpen, setIsOpen] = useState(false)

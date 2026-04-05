@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Avatar,
-  Card,
-  CardContent,
-  Divider
-} from '@mui/material'
-import {
-  Edit,
-  Save,
-  Cancel
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Edit from '@mui/icons-material/Edit'
+import Save from '@mui/icons-material/Save'
+import Cancel from '@mui/icons-material/Cancel'
 import { useAuth } from '../../contexts/AuthContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 

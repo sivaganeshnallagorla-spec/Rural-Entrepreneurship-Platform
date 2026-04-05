@@ -28,6 +28,8 @@ import SignUp from './pages/SignUp'
 import ProductOriginPage from './pages/ProductOriginPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
+import SystemBanner from './components/shared/SystemBanner'
+
 // Code-split dashboard pages for better bundle size
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'))
 const FarmerDashboard = React.lazy(() => import('./pages/FarmerDashboard'))
@@ -56,6 +58,7 @@ function App() {
                                   <PricingProvider>
                                     <MessagingProvider>
                                       <ReviewProvider>
+                                        <SystemBanner />
                                         <React.Suspense fallback={
                                           <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
                                             <CircularProgress />

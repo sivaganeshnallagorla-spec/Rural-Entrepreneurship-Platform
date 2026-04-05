@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Avatar,
-  Badge,
-  Divider,
-  useMediaQuery,
-  useTheme,
-  IconButton
-} from '@mui/material'
-import { Send, ArrowBack } from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Divider from '@mui/material/Divider'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles'
+import IconButton from '@mui/material/IconButton'
+import Send from '@mui/icons-material/Send'
+import ArrowBack from '@mui/icons-material/ArrowBack'
 import { useAuth } from '../../contexts/AuthContext'
 import { useMessaging } from '../../contexts/MessagingContext'
 import { useSearchParams } from 'react-router-dom'

@@ -5,7 +5,7 @@ import { secureStorage } from '../utils/secureStorage';
 const LanguageContext = createContext();
 
 /** Keys must match top-level keys in `translations`. */
-export const AVAILABLE_LANGUAGES = ['en', 'hi', 'te', 'ta'];
+export const AVAILABLE_LANGUAGES = ['en', 'hi', 'te', 'ta', 'kn', 'mr'];
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {

@@ -13,7 +13,8 @@ import RecentlyViewed from '../components/buyer/RecentlyViewed'
 import ProductComparison from '../components/buyer/ProductComparison'
 import Messaging from '../components/shared/Messaging'
 import BulkOrder from '../components/buyer/BulkOrder'
-import { Container, Box } from '@mui/material'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
 import InternationalBuyerPortal from '../components/buyer/InternationalBuyerPortal'
 
 const BuyerDashboard = () => {

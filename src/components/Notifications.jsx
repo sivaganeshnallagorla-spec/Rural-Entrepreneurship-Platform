@@ -1,21 +1,17 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  IconButton,
-  Chip,
-  Divider
-} from '@mui/material'
-import {
-  Notifications,
-  Delete,
-  CheckCircle
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import IconButton from '@mui/material/IconButton'
+import Chip from '@mui/material/Chip'
+import Divider from '@mui/material/Divider'
+import Notifications from '@mui/icons-material/Notifications'
+import Delete from '@mui/icons-material/Delete'
+import CheckCircle from '@mui/icons-material/CheckCircle'
 import { useAuth } from '../contexts/AuthContext'
 import { useNotifications } from '../contexts/NotificationContext'
 import { useLanguage } from '../contexts/LanguageContext'

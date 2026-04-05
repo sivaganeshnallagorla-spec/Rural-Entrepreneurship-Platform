@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  Button,
-  Avatar,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  LinearProgress,
-  Chip
-} from '@mui/material'
-import {
-  People,
-  ShoppingBag,
-  Inventory,
-  TrendingUp,
-  NotificationsActive,
-  Assessment,
-  Gavel,
-  History
-} from '@mui/icons-material'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import Divider from '@mui/material/Divider'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemText from '@mui/material/ListItemText'
+import LinearProgress from '@mui/material/LinearProgress'
+import Chip from '@mui/material/Chip'
+import People from '@mui/icons-material/People'
+import ShoppingBag from '@mui/icons-material/ShoppingBag'
+import Inventory from '@mui/icons-material/Inventory'
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import NotificationsActive from '@mui/icons-material/NotificationsActive'
+import Assessment from '@mui/icons-material/Assessment'
+import Gavel from '@mui/icons-material/Gavel'
+import History from '@mui/icons-material/History'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'

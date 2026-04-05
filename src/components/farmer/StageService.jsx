@@ -1,24 +1,20 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  Box, 
-  Typography, 
-  Paper, 
-  Button, 
-  Breadcrumbs, 
-  Link,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from '@mui/material';
-import { 
-  ArrowBack, 
-  CheckCircle, 
-  Info, 
-  Launch 
-} from '@mui/icons-material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+import Link from '@mui/material/Link'
+import Divider from '@mui/material/Divider'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import ArrowBack from '@mui/icons-material/ArrowBack'
+import CheckCircle from '@mui/icons-material/CheckCircle'
+import Info from '@mui/icons-material/Info'
+import Launch from '@mui/icons-material/Launch'
 
 const stageContent = {
   stage1: {

@@ -1,21 +1,17 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  Paper,
-  Grid
-} from '@mui/material'
-import {
-  AccountBalance,
-  CreditCard,
-  PhoneAndroid,
-  LocalAtm
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import AccountBalance from '@mui/icons-material/AccountBalance'
+import CreditCard from '@mui/icons-material/CreditCard'
+import PhoneAndroid from '@mui/icons-material/PhoneAndroid'
+import LocalAtm from '@mui/icons-material/LocalAtm'
 
 const paymentMethods = [
   {

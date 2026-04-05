@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Chip,
-  Button
-} from '@mui/material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Chip from '@mui/material/Chip'
+import Button from '@mui/material/Button'
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'
 import { useLanguage } from '../../contexts/LanguageContext'
@@ -94,10 +92,11 @@ const BuyerOrders = () => {
                       </Typography>
                       <Button size="small" variant="outlined" onClick={() => {
                         const farmer = {
-                          name: order.farmerName,
-                          location: 'Rural India',
-                          email: 'farmer@example.com',
-                          phone: 'N/A'
+                          name: order.farmerName || 'REP Farmer',
+                          location: order.farmerLocation || 'KL University, Vaddeswaram, AP',
+                          state: order.farmerState || 'Andhra Pradesh',
+                          email: order.farmerEmail || 'farmer@kisanmart.in',
+                          gstin: order.farmerGstin || null,
                         }
                         generateInvoice(order, user, farmer)
                       }}>

@@ -1,14 +1,13 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  Chip
-} from '@mui/material'
-import { AccountBalance, Verified } from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import AccountBalance from '@mui/icons-material/AccountBalance'
+import Verified from '@mui/icons-material/Verified'
 
 const SCHEMES = [
   {

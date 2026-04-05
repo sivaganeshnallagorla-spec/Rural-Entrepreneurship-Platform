@@ -1,33 +1,29 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Chip,
-  IconButton,
-  Button,
-  Avatar,
-  TextField,
-  InputAdornment,
-  Tooltip
-} from '@mui/material'
-import {
-  Edit,
-  Delete,
-  Add,
-  Search,
-  Inventory,
-  SettingsSuggest,
-  Visibility,
-  CheckCircle,
-  Warning
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Tooltip from '@mui/material/Tooltip'
+import Edit from '@mui/icons-material/Edit'
+import Delete from '@mui/icons-material/Delete'
+import Add from '@mui/icons-material/Add'
+import Search from '@mui/icons-material/Search'
+import Inventory from '@mui/icons-material/Inventory'
+import SettingsSuggest from '@mui/icons-material/SettingsSuggest'
+import Visibility from '@mui/icons-material/Visibility'
+import CheckCircle from '@mui/icons-material/CheckCircle'
+import Warning from '@mui/icons-material/Warning'
 
 const EquipmentManagement = () => {
   const [search, setSearch] = useState('')

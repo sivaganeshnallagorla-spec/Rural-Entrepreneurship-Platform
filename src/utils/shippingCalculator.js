@@ -5,9 +5,9 @@
  * @returns {number} The estimated shipping cost in INR.
  */
 export const estimateShipping = (weightKg, distanceKm) => {
-  const baseRate = 50; // INR baseline
-  const ratePerKg = 10;
-  const ratePerKm = 0.5;
+  const baseRate = 40; // INR baseline for rural India
+  const ratePerKg = 12;
+  const ratePerKm = 0.45;
 
   const cost = baseRate + (weightKg * ratePerKg) + (distanceKm * ratePerKm);
   return Math.round(cost);
@@ -40,12 +40,12 @@ const approximateDistanceKm = (origin, destination) => {
 };
 
 /**
- * Shipping method options for product checkout UI.
+ * Shipping method options for product checkout UI with Indian carriers.
  */
 export const getShippingMethods = () => [
-  { id: 'standard', name: 'Standard', description: 'Reliable delivery', icon: '📦' },
-  { id: 'express', name: 'Express', description: 'Faster delivery', icon: '⚡' },
-  { id: 'economy', name: 'Economy', description: 'Lowest cost', icon: '🐢' },
+  { id: 'standard', name: 'India Post (Speed Post)', description: 'Government reliable delivery', icon: '📮' },
+  { id: 'express', name: 'Delhivery Express', description: 'Fast private courier', icon: '⚡' },
+  { id: 'economy', name: 'Delhivery Surface', description: 'Cost effective for heavy items', icon: '🚛' },
 ];
 
 /**

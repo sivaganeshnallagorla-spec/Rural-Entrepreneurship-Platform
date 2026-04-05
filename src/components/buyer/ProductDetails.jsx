@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  TextField,
-  Chip,
-  Card,
-  CardMedia,
-  CardContent,
-  Divider,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Alert,
-  IconButton,
-  Rating
-} from '@mui/material'
-import {
-  ShoppingCart,
-  ArrowBack,
-  Favorite,
-  CompareArrows,
-  Message
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Chip from '@mui/material/Chip'
+import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Alert from '@mui/material/Alert'
+import IconButton from '@mui/material/IconButton'
+import Rating from '@mui/material/Rating'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import ArrowBack from '@mui/icons-material/ArrowBack'
+import Favorite from '@mui/icons-material/Favorite'
+import CompareArrows from '@mui/icons-material/CompareArrows'
+import Message from '@mui/icons-material/Message'
 import { QRCodeCanvas } from 'qrcode.react'
 import { useProducts } from '../../contexts/ProductContext'
 import { useOrders } from '../../contexts/OrderContext'

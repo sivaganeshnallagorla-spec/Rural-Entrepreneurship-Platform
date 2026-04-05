@@ -1,29 +1,25 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Paper,
-  Tabs,
-  Tab,
-  Card,
-  CardContent,
-  IconButton,
-  Tooltip,
-  Divider,
-  Chip
-} from '@mui/material'
-import {
-  Calculate,
-  AttachMoney,
-  TrendingUp,
-  Analytics,
-  School,
-  Inventory,
-  Bolt,
-  AssignmentLate,
-  Timeline
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import Divider from '@mui/material/Divider'
+import Chip from '@mui/material/Chip'
+import Calculate from '@mui/icons-material/Calculate'
+import AttachMoney from '@mui/icons-material/AttachMoney'
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import Analytics from '@mui/icons-material/Analytics'
+import School from '@mui/icons-material/School'
+import Inventory from '@mui/icons-material/Inventory'
+import Bolt from '@mui/icons-material/Bolt'
+import AssignmentLate from '@mui/icons-material/AssignmentLate'
+import Timeline from '@mui/icons-material/Timeline'
 import PricingCalculator from './PricingCalculator'
 import ProfitEstimator from './ProfitEstimator'
 import PackagingCostCalculator from './PackagingCostCalculator'

@@ -1,27 +1,24 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Chip,
-  Card,
-  CardContent,
-  LinearProgress
-} from '@mui/material'
-import {
-  TrendingUp,
-  TrendingDown,
-  Info,
-  CalendarToday,
-  LocationOn
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Chip from '@mui/material/Chip'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import LinearProgress from '@mui/material/LinearProgress'
+
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import TrendingDown from '@mui/icons-material/TrendingDown'
+import Info from '@mui/icons-material/Info'
+import CalendarToday from '@mui/icons-material/CalendarToday'
+import LocationOn from '@mui/icons-material/LocationOn'
 
 const PRICE_DATA = [
   { item: 'Wheat', mandi: 'Khanna, Punjab', price: 2125, trend: 'up', change: '+₹15' },

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  Button,
-  Card
-} from '@mui/material'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+
 import {
   BarChart,
   Bar,
@@ -17,12 +16,11 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts'
-import {
-  ShoppingBag,
-  Inventory,
-  Favorite,
-  Explore
-} from '@mui/icons-material'
+
+import ShoppingBag from '@mui/icons-material/ShoppingBag'
+import Inventory from '@mui/icons-material/Inventory'
+import Favorite from '@mui/icons-material/Favorite'
+import Explore from '@mui/icons-material/Explore'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useOrders } from '../../contexts/OrderContext'

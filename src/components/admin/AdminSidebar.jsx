@@ -1,32 +1,28 @@
 import React from 'react'
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-  Box,
-  Divider,
-  Chip,
-  Paper
-} from '@mui/material'
-import {
-  Dashboard,
-  People,
-  Inventory,
-  ShoppingBag,
-  School,
-  AirplanemodeActive,
-  BarChart,
-  Notifications,
-  Settings,
-  AdminPanelSettings,
-  SettingsSuggest,
-  Work
-} from '@mui/icons-material'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import Dashboard from '@mui/icons-material/Dashboard'
+import People from '@mui/icons-material/People'
+import Inventory from '@mui/icons-material/Inventory'
+import ShoppingBag from '@mui/icons-material/ShoppingBag'
+import School from '@mui/icons-material/School'
+import AirplanemodeActive from '@mui/icons-material/AirplanemodeActive'
+import BarChart from '@mui/icons-material/BarChart'
+import Notifications from '@mui/icons-material/Notifications'
+import Settings from '@mui/icons-material/Settings'
+import AdminPanelSettings from '@mui/icons-material/AdminPanelSettings'
+import SettingsSuggest from '@mui/icons-material/SettingsSuggest'
+import Work from '@mui/icons-material/Work'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 const drawerWidth = 280

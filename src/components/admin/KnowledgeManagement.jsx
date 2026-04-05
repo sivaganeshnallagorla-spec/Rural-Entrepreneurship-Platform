@@ -1,44 +1,40 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Chip,
-  TextField,
-  InputAdornment,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
-  Tabs,
-  Tab,
-  Divider
-} from '@mui/material'
-import {
-  Search,
-  Edit,
-  Delete,
-  Add,
-  School,
-  LocalFlorist,
-  Inventory,
-  AccountBalance,
-  Business,
-  Public,
-  Description,
-  Link as LinkIcon,
-  OpenInNew
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import IconButton from '@mui/material/IconButton'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Divider from '@mui/material/Divider'
+import Search from '@mui/icons-material/Search'
+import Edit from '@mui/icons-material/Edit'
+import Delete from '@mui/icons-material/Delete'
+import Add from '@mui/icons-material/Add'
+import School from '@mui/icons-material/School'
+import LocalFlorist from '@mui/icons-material/LocalFlorist'
+import Inventory from '@mui/icons-material/Inventory'
+import AccountBalance from '@mui/icons-material/AccountBalance'
+import Business from '@mui/icons-material/Business'
+import Public from '@mui/icons-material/Public'
+import Description from '@mui/icons-material/Description'
+import LinkIcon from '@mui/icons-material/Link'
+import OpenInNew from '@mui/icons-material/OpenInNew'
 import { useKnowledge } from '../../contexts/KnowledgeContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 import AddEditKnowledgeModule from './AddEditKnowledgeModule'

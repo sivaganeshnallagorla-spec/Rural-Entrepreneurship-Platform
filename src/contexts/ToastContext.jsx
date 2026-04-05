@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Snackbar, Alert } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
 
 const ToastContext = createContext();
 

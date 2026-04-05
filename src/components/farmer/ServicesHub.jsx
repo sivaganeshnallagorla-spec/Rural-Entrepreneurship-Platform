@@ -1,26 +1,22 @@
 import React from 'react';
-import { 
-  Grid, 
-  Card, 
-  CardContent, 
-  Typography, 
-  CardActionArea,
-  Box,
-  Avatar
-} from '@mui/material';
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import CardActionArea from '@mui/material/CardActionArea'
+import Box from '@mui/material/Box'
+import Avatar from '@mui/material/Avatar'
 import { useNavigate } from 'react-router-dom';
-import {
-  Grass,
-  WaterDrop,
-  BugReport,
-  Science,
-  Agriculture,
-  MonitorHeart,
-  AccountBalance,
-  Storefront,
-  LocalShipping,
-  CurrencyExchange
-} from '@mui/icons-material';
+import Grass from '@mui/icons-material/Grass'
+import WaterDrop from '@mui/icons-material/WaterDrop'
+import BugReport from '@mui/icons-material/BugReport'
+import Science from '@mui/icons-material/Science'
+import Agriculture from '@mui/icons-material/Agriculture'
+import MonitorHeart from '@mui/icons-material/MonitorHeart'
+import AccountBalance from '@mui/icons-material/AccountBalance'
+import Storefront from '@mui/icons-material/Storefront'
+import LocalShipping from '@mui/icons-material/LocalShipping'
+import CurrencyExchange from '@mui/icons-material/CurrencyExchange'
 
 const stages = [
   { id: 1, title: 'Pre-farming Advice', icon: <Science />, color: '#4caf50', path: 'stage1' },

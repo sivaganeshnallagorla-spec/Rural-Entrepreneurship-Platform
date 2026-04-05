@@ -1,32 +1,29 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Badge,
-  Select,
-  FormControl,
-  InputLabel,
-  Divider
-} from '@mui/material'
-import {
-  ShoppingCart,
-  Notifications,
-  AccountCircle,
-  ExitToApp,
-  Translate,
-  DarkMode,
-  LightMode,
-  Favorite,
-  CompareArrows,
-  Message
-} from '@mui/icons-material'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Badge from '@mui/material/Badge'
+import Select from '@mui/material/Select'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Divider from '@mui/material/Divider'
+
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import Notifications from '@mui/icons-material/Notifications'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import ExitToApp from '@mui/icons-material/ExitToApp'
+import Translate from '@mui/icons-material/Translate'
+import DarkMode from '@mui/icons-material/DarkMode'
+import LightMode from '@mui/icons-material/LightMode'
+import Favorite from '@mui/icons-material/Favorite'
+import CompareArrows from '@mui/icons-material/CompareArrows'
+import Message from '@mui/icons-material/Message'
 import { useThemeMode } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 import { useNotifications } from '../contexts/NotificationContext'
@@ -79,7 +76,9 @@ const Navbar = ({ onCartClick }) => {
     en: 'English',
     hi: 'हिंदी',
     te: 'తెలుగు',
-    ta: 'தமிழ்'
+    ta: 'தமிழ்',
+    kn: 'ಕನ್ನಡ',
+    mr: 'मराठी'
   }
 
   return (
@@ -211,6 +210,34 @@ const Navbar = ({ onCartClick }) => {
               </IconButton>
             </Box>
           )}
+
+          <FormControl size="small" sx={{ minWidth: 100, display: { xs: 'none', sm: 'flex' } }}>
+            <Select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={{ 
+                borderRadius: 2,
+                bgcolor: 'rgba(46, 125, 50, 0.05)',
+                '& .MuiSelect-select': { py: 0.8, display: 'flex', alignItems: 'center', gap: 1 }
+              }}
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Translate fontSize="small" color="primary" />
+                  <Typography variant="body2" fontWeight="600">
+                    {languageLabels[selected]}
+                  </Typography>
+                </Box>
+              )}
+            >
+              {availableLanguages.map((lang) => (
+                <MenuItem key={lang} value={lang}>
+                  {languageLabels[lang]}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <Divider orientation="vertical" flexItem sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }} />
 

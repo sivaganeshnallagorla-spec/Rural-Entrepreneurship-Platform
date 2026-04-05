@@ -1,35 +1,31 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Chip,
-  TextField,
-  InputAdornment,
-  Tabs,
-  Tab,
-  Avatar,
-  Divider,
-  Tooltip,
-  IconButton
-} from '@mui/material'
-import {
-  Search,
-  CheckCircle,
-  Cancel,
-  Edit,
-  Verified,
-  Warning,
-  Category,
-  Agriculture,
-  LocationOn
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Avatar from '@mui/material/Avatar'
+import Divider from '@mui/material/Divider'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import Search from '@mui/icons-material/Search'
+import CheckCircle from '@mui/icons-material/CheckCircle'
+import Cancel from '@mui/icons-material/Cancel'
+import Edit from '@mui/icons-material/Edit'
+import Verified from '@mui/icons-material/Verified'
+import Warning from '@mui/icons-material/Warning'
+import Category from '@mui/icons-material/Category'
+import Agriculture from '@mui/icons-material/Agriculture'
+import LocationOn from '@mui/icons-material/LocationOn'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 

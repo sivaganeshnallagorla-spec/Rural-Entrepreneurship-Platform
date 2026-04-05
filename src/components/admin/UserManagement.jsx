@@ -1,33 +1,29 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Chip,
-  IconButton,
-  Tooltip,
-  Avatar,
-  Button,
-  TextField,
-  InputAdornment
-} from '@mui/material'
-import {
-  Edit,
-  Block,
-  CheckCircle,
-  Search,
-  PersonAdd,
-  FilterList,
-  ContactPhone,
-  Mail,
-  FmdGood
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Edit from '@mui/icons-material/Edit'
+import Block from '@mui/icons-material/Block'
+import CheckCircle from '@mui/icons-material/CheckCircle'
+import Search from '@mui/icons-material/Search'
+import PersonAdd from '@mui/icons-material/PersonAdd'
+import FilterList from '@mui/icons-material/FilterList'
+import ContactPhone from '@mui/icons-material/ContactPhone'
+import Mail from '@mui/icons-material/Mail'
+import FmdGood from '@mui/icons-material/FmdGood'
 import { useAuth } from '../../contexts/AuthContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 

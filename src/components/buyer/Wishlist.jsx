@@ -1,23 +1,19 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Chip,
-  Paper,
-  IconButton
-} from '@mui/material'
-import {
-  Favorite,
-  Delete,
-  ShoppingCart,
-  Visibility
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import IconButton from '@mui/material/IconButton'
+import Favorite from '@mui/icons-material/Favorite'
+import Delete from '@mui/icons-material/Delete'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import Visibility from '@mui/icons-material/Visibility'
 import { useNavigate } from 'react-router-dom'
 import { useWishlist } from '../../contexts/WishlistContext'
 import { useToast } from '../../contexts/ToastContext'

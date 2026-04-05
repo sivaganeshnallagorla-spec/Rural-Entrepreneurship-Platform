@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Chip,
-} from '@mui/material';
-import { Inventory } from '@mui/icons-material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import Inventory from '@mui/icons-material/Inventory'
 
 const AgroProcessingCatalog = () => {
   const [equipmentList, setEquipmentList] = useState([]);

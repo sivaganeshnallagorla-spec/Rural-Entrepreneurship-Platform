@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  Box,
-  TextField,
-  Rating
-} from '@mui/material'
-import { CheckCircle } from '@mui/icons-material'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Rating from '@mui/material/Rating'
+import CheckCircle from '@mui/icons-material/CheckCircle'
 import { useAuth } from '../../contexts/AuthContext'
 import { useReviews } from '../../contexts/ReviewContext'
 import { useToast } from '../../contexts/ToastContext'

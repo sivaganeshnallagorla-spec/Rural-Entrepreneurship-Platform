@@ -19,7 +19,8 @@ import FarmerSchemes from '../components/farmer/FarmerSchemes'
 import SkillModule from '../components/farmer/SkillModule'
 import EquipmentMarketplace from '../components/farmer/EquipmentMarketplace'
 import MandiDashboard from '../components/farmer/MandiDashboard'
-import { Container, Box } from '@mui/material'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
 
 const FarmerDashboard = () => {
   const [progress, setProgress] = useState({

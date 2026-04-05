@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { 
-  Grid, 
-  Card, 
-  CardContent, 
-  CardMedia, 
-  Typography, 
-  Button, 
-  Box, 
-  Chip, 
-  Rating,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  MenuItem
-} from '@mui/material';
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+import Chip from '@mui/material/Chip'
+import Rating from '@mui/material/Rating'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import TextField from '@mui/material/TextField'
+import MenuItem from '@mui/material/MenuItem'
 import { useDrone } from '../../contexts/DroneContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { Agriculture, LocationOn, Star } from '@mui/icons-material';
+import Agriculture from '@mui/icons-material/Agriculture'
+import LocationOn from '@mui/icons-material/LocationOn'
+import Star from '@mui/icons-material/Star'
 
 const DaaSMarketplace = () => {
   const { operators, bookDrone } = useDrone();

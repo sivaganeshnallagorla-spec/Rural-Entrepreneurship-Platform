@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  Divider,
-  Alert
-} from '@mui/material';
-import { QueryStats, AssignmentLate } from '@mui/icons-material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Alert from '@mui/material/Alert'
+import QueryStats from '@mui/icons-material/QueryStats'
+import AssignmentLate from '@mui/icons-material/AssignmentLate'
 
 const PostHarvestLossTracker = () => {
   const [stages, setStages] = useState({

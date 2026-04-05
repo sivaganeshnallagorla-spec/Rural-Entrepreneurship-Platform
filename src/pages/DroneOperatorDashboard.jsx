@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Container } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import DroneOverview from '../components/drone/DroneOverview'

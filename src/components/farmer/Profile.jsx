@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Avatar,
-  Card,
-  CardContent,
-  Divider
-} from '@mui/material'
-import {
-  Edit,
-  Save,
-  Cancel
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Edit from '@mui/icons-material/Edit'
+import Save from '@mui/icons-material/Save'
+import Cancel from '@mui/icons-material/Cancel'
 import { useAuth } from '../../contexts/AuthContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 
@@ -206,6 +202,26 @@ const Profile = () => {
               <Grid item xs={12} md={4}>
                 <TextField
                   fullWidth
+                  label="Village"
+                  name="address.village"
+                  value={formData.address.village || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <TextField
+                  fullWidth
+                  label="District"
+                  name="address.district"
+                  value={formData.address.district || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <TextField
+                  fullWidth
                   label="City"
                   name="address.city"
                   value={formData.address.city}
@@ -234,6 +250,27 @@ const Profile = () => {
                   onChange={handleChange}
                   disabled={!isEditing}
                   required
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Land Holding Size (Acres)"
+                  name="landSize"
+                  type="number"
+                  value={formData.landSize || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="FPO Membership ID (Optional)"
+                  name="fpoId"
+                  value={formData.fpoId || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing}
                 />
               </Grid>
               <Grid item xs={12}>

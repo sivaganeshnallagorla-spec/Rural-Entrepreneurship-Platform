@@ -1,0 +1,31 @@
+name: CI Pipeline
+on:
+  push: { branches: [main, develop] }
+  pull_request: { branches: [main] }
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci
+      - run: npm run build
+
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    env:
+      # NOTE: For security, it is highly recommended to move these to GitHub Repository Secrets
+      # Settings > Secrets and variables > Actions > New repository secret
+      NETLIFY_AUTH_TOKEN: nfp_fBQVDfAYKEpGRtoUvRu7i7jWYgcaWtNLdcaf
+      NETLIFY_SITE_ID: b2d12959-296a-4858-9f96-04819a865d06
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci && npm run build
+      - name: Deploy to Netlify
+        run: npx -y netlify-cli deploy --prod --dir=dist

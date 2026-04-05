@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  TextField,
-  Chip,
-  InputAdornment,
-  IconButton,
-  Divider,
-  Paper
-} from '@mui/material';
-import { 
-  Inventory, 
-  OpenInNew, 
-  ShoppingCart, 
-  Search, 
-  Favorite, 
-  Calculate, 
-  Bolt 
-} from '@mui/icons-material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Chip from '@mui/material/Chip'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import Divider from '@mui/material/Divider'
+import Paper from '@mui/material/Paper'
+import Inventory from '@mui/icons-material/Inventory'
+import OpenInNew from '@mui/icons-material/OpenInNew'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import Search from '@mui/icons-material/Search'
+import Favorite from '@mui/icons-material/Favorite'
+import Calculate from '@mui/icons-material/Calculate'
+import Bolt from '@mui/icons-material/Bolt'
 import AgroProcessingCatalog from './AgroProcessingCatalog';
 import EquipmentComparisonTool from './EquipmentComparisonTool';
 import EnergyEfficiencyCalculator from './EnergyEfficiencyCalculator';

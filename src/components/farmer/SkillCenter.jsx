@@ -1,42 +1,38 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Chip,
-  Paper,
-  Tabs,
-  Tab,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  TextField
-} from '@mui/material'
-import {
-  ExpandMore,
-  School,
-  LocalFlorist,
-  Inventory,
-  AccountBalance,
-  Business,
-  Public,
-  Description,
-  VideoLibrary,
-  Article,
-  Calculate,
-  AttachMoney,
-  OpenInNew,
-  Link as LinkIcon
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Divider from '@mui/material/Divider'
+import TextField from '@mui/material/TextField'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import School from '@mui/icons-material/School'
+import LocalFlorist from '@mui/icons-material/LocalFlorist'
+import Inventory from '@mui/icons-material/Inventory'
+import AccountBalance from '@mui/icons-material/AccountBalance'
+import Business from '@mui/icons-material/Business'
+import Public from '@mui/icons-material/Public'
+import Description from '@mui/icons-material/Description'
+import VideoLibrary from '@mui/icons-material/VideoLibrary'
+import Article from '@mui/icons-material/Article'
+import Calculate from '@mui/icons-material/Calculate'
+import AttachMoney from '@mui/icons-material/AttachMoney'
+import OpenInNew from '@mui/icons-material/OpenInNew'
+import LinkIcon from '@mui/icons-material/Link'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { useKnowledge } from '../../contexts/KnowledgeContext'
 import { useNavigate } from 'react-router-dom'

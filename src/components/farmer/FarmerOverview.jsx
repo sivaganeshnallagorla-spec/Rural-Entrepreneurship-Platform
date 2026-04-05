@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  Button
-} from '@mui/material'
-import {
-  Inventory,
-  ShoppingBag,
-  TrendingUp,
-  Add,
-  School,
-  Calculate,
-  Star
-} from '@mui/icons-material'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+
+import Inventory from '@mui/icons-material/Inventory'
+import ShoppingBag from '@mui/icons-material/ShoppingBag'
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import Add from '@mui/icons-material/Add'
+import School from '@mui/icons-material/School'
+import Calculate from '@mui/icons-material/Calculate'
+import Star from '@mui/icons-material/Star'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductContext'

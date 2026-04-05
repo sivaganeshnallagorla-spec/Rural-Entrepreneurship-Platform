@@ -1,17 +1,15 @@
 import React from 'react';
-import {
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Box,
-  Chip
-} from '@mui/material';
-import { FlightTakeoff } from '@mui/icons-material';
+import Typography from '@mui/material/Typography'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import Chip from '@mui/material/Chip'
+import FlightTakeoff from '@mui/icons-material/FlightTakeoff'
 import { useDrone } from '../../contexts/DroneContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { format } from 'date-fns';

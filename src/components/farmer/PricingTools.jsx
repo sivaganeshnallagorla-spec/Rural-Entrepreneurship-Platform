@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Grid, 
-  Paper, 
-  TextField, 
-  Button, 
-  MenuItem,
-  Card,
-  CardContent,
-  Divider,
-  Alert
-} from '@mui/material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import MenuItem from '@mui/material/MenuItem'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Alert from '@mui/material/Alert'
 import { usePricing } from '../../contexts/PricingContext';
-import { TrendingUp, Calculate, Insights } from '@mui/icons-material';
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import Calculate from '@mui/icons-material/Calculate'
+import Insights from '@mui/icons-material/Insights'
 import { fetchAIPricePrediction } from '../../api/anthropic';
 
 const PricingTools = () => {

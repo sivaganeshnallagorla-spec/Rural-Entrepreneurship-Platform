@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { 
-  Container, 
-  Typography, 
-  Paper, 
-  Box, 
-  Divider, 
-  Grid, 
-  Avatar, 
-  Chip,
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent
-} from '@mui/material';
-import { 
-  Agriculture, 
-  Verified, 
-  Inventory, 
-  LocalShipping, 
-  Place,
-  DateRange,
-  QrCode
-} from '@mui/icons-material';
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import Avatar from '@mui/material/Avatar'
+import Chip from '@mui/material/Chip'
+import Stepper from '@mui/material/Stepper'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+import StepContent from '@mui/material/StepContent'
+import Agriculture from '@mui/icons-material/Agriculture'
+import Verified from '@mui/icons-material/Verified'
+import Inventory from '@mui/icons-material/Inventory'
+import LocalShipping from '@mui/icons-material/LocalShipping'
+import Place from '@mui/icons-material/Place'
+import DateRange from '@mui/icons-material/DateRange'
+import QrCode from '@mui/icons-material/QrCode'
 import Navbar from '../components/Navbar';
 import { getOriginData } from '../utils/qrGenerator';
 

@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Chip,
-  TextField,
-  InputAdornment,
-  Paper,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  IconButton,
-  Rating
-} from '@mui/material'
-import {
-  Search,
-  ShoppingCart,
-  Visibility,
-  Favorite,
-  CompareArrows
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Paper from '@mui/material/Paper'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import IconButton from '@mui/material/IconButton'
+import Rating from '@mui/material/Rating'
+import Search from '@mui/icons-material/Search'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import Visibility from '@mui/icons-material/Visibility'
+import Favorite from '@mui/icons-material/Favorite'
+import CompareArrows from '@mui/icons-material/CompareArrows'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '../../contexts/ProductContext'
 import { useLanguage } from '../../contexts/LanguageContext'
@@ -201,6 +197,7 @@ const BrowseProducts = () => {
                   height="260"
                   image={product.image || `https://via.placeholder.com/400x300?text=${encodeURIComponent(product.name)}`}
                   alt={product.name}
+                  loading="lazy"
                   sx={{ 
                     transition: 'transform 0.5s ease',
                     '&:hover': { transform: 'scale(1.05)' }

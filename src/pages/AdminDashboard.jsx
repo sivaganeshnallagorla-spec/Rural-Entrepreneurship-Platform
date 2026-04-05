@@ -1,21 +1,49 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AdminSidebar from '../components/admin/AdminSidebar'
 import AdminOverview from '../components/admin/AdminOverview'
-import UserManagement from '../components/admin/UserManagement'
-import Analytics from '../components/admin/Analytics'
-import ProductModeration from '../components/admin/ProductModeration'
-import EquipmentManagement from '../components/admin/EquipmentManagement'
-import OrderManagement from '../components/admin/OrderManagement'
-import ServicesHubManagement from '../components/admin/ServicesHubManagement'
-import KnowledgeManagement from '../components/admin/KnowledgeManagement'
-import DroneManagement from '../components/admin/DroneManagement'
-import NotificationsComponent from '../components/Notifications'
-import { Box, Paper, Typography, Tooltip, IconButton, Avatar, Menu, MenuItem } from '@mui/material'
-import { Security, Search, Settings, Help } from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import Avatar from '@mui/material/Avatar'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import CircularProgress from '@mui/material/CircularProgress'
+import Stack from '@mui/material/Stack'
+
+import Security from '@mui/icons-material/Security'
+import Search from '@mui/icons-material/Search'
+import Settings from '@mui/icons-material/Settings'
+import Help from '@mui/icons-material/Help'
 import { useAuth } from '../contexts/AuthContext'
 
+// Lazy loaded components for code splitting (Optimized for 2G)
+const UserManagement = lazy(() => import('../components/admin/UserManagement'))
+const Analytics = lazy(() => import('../components/admin/Analytics'))
+const ProductModeration = lazy(() => import('../components/admin/ProductModeration'))
+const EquipmentManagement = lazy(() => import('../components/admin/EquipmentManagement'))
+const OrderManagement = lazy(() => import('../components/admin/OrderManagement'))
+const ServicesHubManagement = lazy(() => import('../components/admin/ServicesHubManagement'))
+const KnowledgeManagement = lazy(() => import('../components/admin/KnowledgeManagement'))
+const DroneManagement = lazy(() => import('../components/admin/DroneManagement'))
+const NotificationsComponent = lazy(() => import('../components/Notifications'))
+
 const drawerWidth = 280
+
+const LoadingState = () => (
+  <Stack 
+    alignItems="center" 
+    justifyContent="center" 
+    sx={{ height: '300px', width: '100%' }}
+  >
+    <CircularProgress size={32} thickness={5} sx={{ color: '#2e7d32' }} />
+    <Typography variant="caption" sx={{ mt: 2, color: 'text.secondary', fontWeight: 600 }}>
+      Optimizing for your connection...
+    </Typography>
+  </Stack>
+)
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth()
@@ -80,19 +108,21 @@ const AdminDashboard = () => {
         </Paper>
 
         <Box component="main" sx={{ p: 4, flexGrow: 1 }}>
-          <Routes>
-            <Route index element={<AdminOverview />} />
-            <Route path="users" element={<UserManagement />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="products" element={<ProductModeration />} />
-            <Route path="equipment" element={<EquipmentManagement />} />
-            <Route path="orders" element={<OrderManagement />} />
-            <Route path="services" element={<ServicesHubManagement />} />
-            <Route path="skill" element={<KnowledgeManagement />} />
-            <Route path="drones" element={<DroneManagement />} />
-            <Route path="notifications" element={<NotificationsComponent />} />
-            <Route path="*" element={<Navigate to="/admin" replace />} />
-          </Routes>
+          <Suspense fallback={<LoadingState />}>
+            <Routes>
+              <Route index element={<AdminOverview />} />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="products" element={<ProductModeration />} />
+              <Route path="equipment" element={<EquipmentManagement />} />
+              <Route path="orders" element={<OrderManagement />} />
+              <Route path="services" element={<ServicesHubManagement />} />
+              <Route path="skill" element={<KnowledgeManagement />} />
+              <Route path="drones" element={<DroneManagement />} />
+              <Route path="notifications" element={<NotificationsComponent />} />
+              <Route path="*" element={<Navigate to="/admin" replace />} />
+            </Routes>
+          </Suspense>
         </Box>
       </Box>
     </Box>

@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  Divider,
-  Alert,
-  InputAdornment
-} from '@mui/material'
-import {
-  Calculate,
-  TrendingUp,
-  TrendingDown
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Alert from '@mui/material/Alert'
+import InputAdornment from '@mui/material/InputAdornment'
+import Calculate from '@mui/icons-material/Calculate'
+import TrendingUp from '@mui/icons-material/TrendingUp'
+import TrendingDown from '@mui/icons-material/TrendingDown'
 
 const PricingCalculator = () => {
   const [inputs, setInputs] = useState({
@@ -30,6 +26,22 @@ const PricingCalculator = () => {
     overheadCost: '', // Other costs (utilities, etc.)
     profitMargin: '' // Desired profit margin percentage
   })
+
+  const presets = {
+    wheat_flour: { name: 'Wheat to Flour (Atta)', yield: 95, cost: 3 },
+    tomato_sauce: { name: 'Tomato to Sauce/Ketchup', yield: 40, cost: 15 },
+    turmeric_powder: { name: 'Turmeric to Powder', yield: 25, cost: 25 },
+    mustard_oil: { name: 'Mustard to Oil', yield: 35, cost: 10 }
+  }
+
+  const applyPreset = (presetKey) => {
+    const p = presets[presetKey]
+    setInputs(prev => ({
+      ...prev,
+      processingYield: p.yield,
+      processingCost: p.cost
+    }))
+  }
 
   const [results, setResults] = useState(null)
 
@@ -129,6 +141,20 @@ const PricingCalculator = () => {
             <Typography variant="h6" gutterBottom>
               Input Details
             </Typography>
+
+            <Box sx={{ mb: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+              {Object.entries(presets).map(([key, p]) => (
+                <Button 
+                  key={key} 
+                  variant="outlined" 
+                  size="small" 
+                  onClick={() => applyPreset(key)}
+                  sx={{ borderRadius: 6, fontSize: '0.7rem' }}
+                >
+                  {p.name}
+                </Button>
+              ))}
+            </Box>
 
             <Grid container spacing={2} sx={{ mt: 1 }}>
               <Grid item xs={12}>

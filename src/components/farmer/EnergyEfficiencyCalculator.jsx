@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  InputAdornment,
-  Divider
-} from '@mui/material';
-import { Bolt, Calculate } from '@mui/icons-material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import InputAdornment from '@mui/material/InputAdornment'
+import Divider from '@mui/material/Divider'
+import Bolt from '@mui/icons-material/Bolt'
+import Calculate from '@mui/icons-material/Calculate'
 
 const EnergyEfficiencyCalculator = () => {
   const [batchSize, setBatchSize] = useState('');

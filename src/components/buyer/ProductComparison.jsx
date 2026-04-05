@@ -1,25 +1,21 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-  Chip,
-  IconButton,
-  Card,
-  CardMedia,
-  Grid
-} from '@mui/material'
-import {
-  Delete,
-  CompareArrows
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
+import Grid from '@mui/material/Grid'
+import Delete from '@mui/icons-material/Delete'
+import CompareArrows from '@mui/icons-material/CompareArrows'
 import { useNavigate } from 'react-router-dom'
 import { useComparison } from '../../contexts/ComparisonContext'
 import { useToast } from '../../contexts/ToastContext'

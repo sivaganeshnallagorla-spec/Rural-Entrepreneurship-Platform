@@ -1,20 +1,16 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Chip,
-  Paper
-} from '@mui/material'
-import {
-  Visibility,
-  ShoppingCart
-} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import Visibility from '@mui/icons-material/Visibility'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
 import { useNavigate } from 'react-router-dom'
 import { useRecentlyViewed } from '../../contexts/RecentlyViewedContext'
 

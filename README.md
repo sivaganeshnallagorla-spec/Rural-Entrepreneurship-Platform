@@ -2,6 +2,20 @@
 
 A comprehensive web application that empowers farmers in rural India to transform raw crops into value-added products. The platform promotes rural entrepreneurship, connects farmers with global buyers, and leverages technology to improve income, sustainability, and community development.
 
+[![Netlify Status](https://api.netlify.com/api/v1/sites/b2d12959-296a-4858-9f96-04819a865d06/badge.svg)](https://app.netlify.com/sites/framerenpevorment/deploys)
+**Live Demo**: [http://framerenpevorment.netlify.app](http://framerenpevorment.netlify.app)
+
+> [!CAUTION]
+> **DEMO MODE WARNING**: This platform is currently running in **Demo Mode**. All data is stored locally in your browser's indexed storage (Base64 encoded). Real sensitive farmer data, personal identification, or financial information should NOT be entered into this demo version as it is not stored securely on a server for production use.
+
+## 📸 Dashboard Previews
+
+| Landing Page | Farmer Dashboard |
+| :---: | :---: |
+| ![Landing](public/screenshots/landing.png) | ![Farmer](public/screenshots/farmer.png) |
+| **Buyer Dashboard** | **Admin Dashboard** |
+| ![Buyer](public/screenshots/buyer.png) | ![Admin](public/screenshots/admin.png) |
+
 ## 🚀 Features
 
 ### 🔑 Authentication
@@ -90,6 +104,22 @@ Modern, card-based learning hub at `/farmer/skill` with:
 - **Vite** - Fast build tool and dev server
 - **jsPDF** - Client-side PDF invoice creation
 
+## ⚙️ Environment Setup
+
+Before running the application, ensure you have a `.env` file in the root directory. You can use `.env.example` as a template:
+
+```bash
+# API Base URL (Frontend)
+VITE_API_BASE_URL=http://localhost:8000
+# Set to 'true' to use local storage only
+VITE_APP_DEMO_MODE=true
+# Google Maps API Key
+VITE_GOOGLE_MAPS_KEY=
+# Backend Variables (Optional)
+SUPABASE_URL=
+SUPABASE_KEY=
+```
+
 ## 📦 Installation
 
 1. **Clone the repository**
@@ -103,12 +133,18 @@ Modern, card-based learning hub at `/farmer/skill` with:
    npm install
    ```
 
-3. **Start development server**
+3. **Configure Environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your credentials if testing with backend
+   ```
+
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Build for production**
+5. **Build for production**
    ```bash
    npm run build
    ```
