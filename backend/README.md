@@ -1,11 +1,11 @@
 # Rural Entrepreneurship Platform Backend (FastAPI)
 
-This is the Python-based backend for the Rural Entrepreneurship Platform, built using **FastAPI** and **SQLModel** (SQLite by default).
+This is the Python-based backend for the Rural Entrepreneurship Platform, built using **FastAPI** with **Supabase** for auth, database, and storage.
 
 ## ✨ Features
 - **FastAPI**: Modern, high-performance web framework.
-- **SQLModel**: Combined Pydantic and SQLAlchemy for easy data modeling.
-- **SQLite**: No-setup database for development.
+- **Supabase**: Auth, PostgreSQL, and storage integration.
+- **Rate Limiting**: Basic request throttling via `slowapi`.
 - **Swagger UI**: Automatic API documentation at `/docs`.
 
 ## 🛠️ Setup Instructions
@@ -42,6 +42,7 @@ Once the server is running, visit:
 
 ## 📁 Project Structure
 - `app/main.py`: Entry point and CORS configuration.
-- `app/db.py`: Database engine and session management.
-- `app/models/`: Database schemas (e.g., `product.py`).
+- `app/config/supabase.py`: Supabase client and settings.
+- `app/middleware/`: Auth middleware and request utilities.
+- `app/models/`: Domain schemas (e.g., `product.py`).
 - `app/routes/`: API endpoints (e.g., `products.py`).

@@ -8,7 +8,7 @@ Thank you for your interest in contributing to our platform! We are building tec
 2. **Clone the Repo**:
    ```bash
    git clone <repository-url>
-   cd FEDFW
+   cd Rural-Entrepreneurship-Platform
    ```
 3. **Install Dependencies**:
    ```bash
@@ -26,10 +26,7 @@ Thank you for your interest in contributing to our platform! We are building tec
 
 ## 🧪 Test Coverage Requirements
 
-We aim for high reliability. Please ensure:
-- **Unit Tests**: New logic in `utils/` or `hooks/` must include unit tests.
-- **Component Tests**: Major UI components should be tested for accessibility and basic rendering.
-- **Minimum Coverage**: 80% coverage on new feature code is recommended.
+We aim for high reliability. If you add testing tooling, please include unit tests for new `utils/` or `hooks/` logic and basic rendering/accessibility checks for major UI components.
 
 ## 🌿 Branch Naming Convention
 
@@ -44,9 +41,9 @@ Please follow these prefixes for your branches:
 
 Before submitting a PR, please ensure:
 - [ ] Branch follows the naming convention.
-- [ ] Code is formatted and linted (`npm run lint`).
+- [ ] Code is formatted and linted (if lint tooling is added).
 - [ ] New features are documented in `README.md` or `src/api/README.md`.
-- [ ] Tests pass locally (`npm test`).
+- [ ] Tests pass locally (if test tooling is added).
 - [ ] No hardcoded secrets or API keys.
 - [ ] "Demo Mode" compatibility is maintained.
 

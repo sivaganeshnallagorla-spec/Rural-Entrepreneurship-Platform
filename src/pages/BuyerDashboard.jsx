@@ -39,12 +39,10 @@ const BuyerDashboard = () => {
           <Route path="notifications" element={<NotificationsComponent />} />
           <Route path="messages" element={<Messaging />} />
           <Route path="bulk-order" element={<BulkOrder />} />
+          <Route path="international" element={<InternationalBuyerPortal />} />
           <Route path="*" element={<Navigate to="/buyer" replace />} />
         </Routes>
       </Container>
-      <div className="buyer-dashboard-section">
-        <InternationalBuyerPortal />
-      </div>
       <Cart open={cartOpen} onClose={() => setCartOpen(false)} />
     </Box>
   )

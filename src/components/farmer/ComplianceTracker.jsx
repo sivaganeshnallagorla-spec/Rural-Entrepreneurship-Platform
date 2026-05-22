@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const ComplianceTracker = () => {
   const [complianceStatus, setComplianceStatus] = useState({
@@ -14,34 +18,42 @@ const ComplianceTracker = () => {
   };
 
   return (
-    <div>
-      <h3>FSSAI/APEDA Compliance Tracker</h3>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={complianceStatus.fssai}
-            onChange={() => toggleCompliance('fssai')}
-          />
-          FSSAI Compliance
-        </label>
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={complianceStatus.apeda}
-            onChange={() => toggleCompliance('apeda')}
-          />
-          APEDA Compliance
-        </label>
-      </div>
-      <div>
-        <h4>Compliance Status:</h4>
-        <p>FSSAI: {complianceStatus.fssai ? 'Completed' : 'Pending'}</p>
-        <p>APEDA: {complianceStatus.apeda ? 'Completed' : 'Pending'}</p>
-      </div>
-    </div>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        FSSAI/APEDA Compliance Tracker
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2 }}>
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={complianceStatus.fssai}
+              onChange={() => toggleCompliance('fssai')}
+            />
+          )}
+          label="FSSAI Compliance"
+        />
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={complianceStatus.apeda}
+              onChange={() => toggleCompliance('apeda')}
+            />
+          )}
+          label="APEDA Compliance"
+        />
+      </Box>
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Compliance Status:
+        </Typography>
+        <Typography variant="body2" color="textSecondary" paragraph>
+          FSSAI: {complianceStatus.fssai ? 'Completed' : 'Pending'}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" paragraph>
+          APEDA: {complianceStatus.apeda ? 'Completed' : 'Pending'}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

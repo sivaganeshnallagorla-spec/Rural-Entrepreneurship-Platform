@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const StorageConditionMonitor = () => {
   const [conditions, setConditions] = useState({
@@ -29,41 +36,47 @@ const StorageConditionMonitor = () => {
   };
 
   return (
-    <div>
-      <h3>Storage Condition Monitor</h3>
-      <div>
-        <label>
-          Temperature (°C):
-          <input
-            type="number"
-            name="temperature"
-            value={conditions.temperature}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Humidity (%):
-          <input
-            type="number"
-            name="humidity"
-            value={conditions.humidity}
-            onChange={handleChange}
-          />
-        </label>
-        <button onClick={checkConditions}>Check Conditions</button>
-      </div>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Storage Condition Monitor
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Temperature (°C)"
+          name="temperature"
+          value={conditions.temperature}
+          onChange={handleChange}
+        />
+        <TextField
+          fullWidth
+          type="number"
+          label="Humidity (%)"
+          name="humidity"
+          value={conditions.humidity}
+          onChange={handleChange}
+        />
+        <Button variant="contained" onClick={checkConditions}>
+          Check Conditions
+        </Button>
+      </Box>
 
       {alerts.length > 0 && (
-        <div>
-          <h4>Alerts</h4>
-          <ul>
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Alerts
+          </Typography>
+          <List>
             {alerts.map((alert, index) => (
-              <li key={index}>{alert}</li>
+              <ListItem key={index} disablePadding>
+                <ListItemText primary={alert} />
+              </ListItem>
             ))}
-          </ul>
-        </div>
+          </List>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

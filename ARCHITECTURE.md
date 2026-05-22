@@ -22,7 +22,7 @@ graph TD
 
 ## 🛠️ Service Layer Pattern
 
-We use a centralized service layer ([src/services/](file:///c:/Users/sivag/Desktop/resum-detailes/hackthon-projects/pune_hack/Rural-Entrepreneurship-Platform/src/services/)) to abstract data fetching.
+We use a centralized service layer ([src/services/](src/services/)) to abstract data fetching.
 
 - **Centralized API**: `src/utils/api.js` defines the Axios instance with interceptors.
 - **Demo Toggle**: Each service checks `APP_CONFIG.isDemo`.
@@ -47,4 +47,4 @@ Follow these steps to add a new domain (e.g., "Farmer Tools"):
 
 ---
 
-For API specific contracts, see [src/api/README.md](file:///c:/Users/sivag/Desktop/resum-detailes/hackthon-projects/pune_hack/Rural-Entrepreneurship-Platform/src/api/README.md).
+For API specific contracts, see [src/api/README.md](src/api/README.md).

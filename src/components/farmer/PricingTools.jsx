@@ -21,6 +21,8 @@ const PricingTools = () => {
   const [roiInputs, setRoiInputs] = useState({ cost: '', quantity: '', expectedPrice: '' });
   const [roiResult, setRoiResult] = useState(null);
   const [selectedCrop, setSelectedCrop] = useState('');
+  const [selectedSeason, setSelectedSeason] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('');
   const [suggestion, setSuggestion] = useState(null);
   const [predictedPrice, setPredictedPrice] = useState(null);
 
@@ -78,6 +80,32 @@ const PricingTools = () => {
             >
               {Object.keys(pricingData).map((crop) => (
                 <MenuItem key={crop} value={crop}>{crop}</MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              fullWidth
+              label="Season"
+              value={selectedSeason}
+              onChange={(e) => setSelectedSeason(e.target.value)}
+              sx={{ mb: 3 }}
+            >
+              {['Kharif (Jun–Sep)', 'Rabi (Oct–Mar)', 'Zaid (Mar–Jun)'].map((season) => (
+                <MenuItem key={season} value={season}>{season}</MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              fullWidth
+              label="Region"
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+              sx={{ mb: 3 }}
+            >
+              {['Punjab', 'Maharashtra', 'Andhra Pradesh', 'Telangana', 'Karnataka', 'Tamil Nadu', 'Uttar Pradesh', 'Gujarat'].map((region) => (
+                <MenuItem key={region} value={region}>{region}</MenuItem>
               ))}
             </TextField>
 

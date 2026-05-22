@@ -1,4 +1,8 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 const BioBasedFunctionalFoods = () => {
   const categories = [
@@ -35,19 +39,31 @@ const BioBasedFunctionalFoods = () => {
   ];
 
   return (
-    <div>
-      <h3>Bio-based & Functional Foods</h3>
-      <ul>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Bio-based & Functional Foods
+      </Typography>
+      <List>
         {categories.map((category, index) => (
-          <li key={index}>
-            <h4>{category.name}</h4>
-            <p>{category.description}</p>
-            <p>Market Demand: {category.marketDemand}</p>
-            <p>Regulatory Notes: {category.regulatoryNotes}</p>
-          </li>
+          <ListItem key={index} alignItems="flex-start" disablePadding>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h6" gutterBottom>
+                {category.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                {category.description}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                Market Demand: {category.marketDemand}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                Regulatory Notes: {category.regulatoryNotes}
+              </Typography>
+            </Box>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

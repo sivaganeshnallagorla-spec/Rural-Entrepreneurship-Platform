@@ -313,78 +313,140 @@ const SkillCenter = () => {
 
       {activeTab === 1 && (
         <>
-          <h2>QR/Batch Traceability System</h2>
-          <QRTraceabilitySystem />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              QR/Batch Traceability System
+            </Typography>
+            <QRTraceabilitySystem />
+          </Box>
 
-          <h2>Quality Grading Module</h2>
-          <QualityGradingModule />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Quality Grading Module
+            </Typography>
+            <QualityGradingModule />
+          </Box>
 
-          <h2>Certification Management</h2>
-          <CertificationManagement />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Certification Management
+            </Typography>
+            <CertificationManagement />
+          </Box>
         </>
       )}
 
       {activeTab === 2 && (
         <>
-          <h2>Lab Test Result Uploads</h2>
-          <LabTestUploads />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Lab Test Result Uploads
+            </Typography>
+            <LabTestUploads />
+          </Box>
 
-          <h2>Mandi/Wholesale Price Feed</h2>
-          <MandiPriceFeed />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Mandi/Wholesale Price Feed
+            </Typography>
+            <MandiPriceFeed />
+          </Box>
 
-          <h2>Packaging Cost Calculator</h2>
-          <PackagingCostCalculator />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Packaging Cost Calculator
+            </Typography>
+            <PackagingCostCalculator />
+          </Box>
         </>
       )}
 
       {activeTab === 3 && (
         <>
-          <h2>Storage Condition Monitor</h2>
-          <StorageConditionMonitor />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Storage Condition Monitor
+            </Typography>
+            <StorageConditionMonitor />
+          </Box>
 
-          <h2>Post-Harvest Loss Tracker</h2>
-          <PostHarvestLossTracker />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Post-Harvest Loss Tracker
+            </Typography>
+            <PostHarvestLossTracker />
+          </Box>
 
-          <h2>Value Addition Workflow</h2>
-          <ValueAdditionWorkflow />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Value Addition Workflow
+            </Typography>
+            <ValueAdditionWorkflow />
+          </Box>
         </>
       )}
 
       {activeTab === 4 && (
         <>
-          <h2>Bio-based & Functional Foods</h2>
-          <BioBasedFunctionalFoods />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Bio-based & Functional Foods
+            </Typography>
+            <BioBasedFunctionalFoods />
+          </Box>
 
-          <h2>Supply Chain Transparency Dashboard</h2>
-          <SupplyChainDashboard />
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Supply Chain Transparency Dashboard
+            </Typography>
+            <SupplyChainDashboard />
+          </Box>
 
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Export Documentation Management
+            </Typography>
             <ExportDocuments />
-          </div>
+          </Box>
         </>
       )}
 
       {activeTab === 5 && (
         <>
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              FSSAI/APEDA Compliance Tracker
+            </Typography>
             <ComplianceTracker />
-          </div>
+          </Box>
 
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Demand Forecasting
+            </Typography>
             <DemandForecasting />
-          </div>
+          </Box>
 
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Farmer Producer Organization (FPO) Management
+            </Typography>
             <FPOManagement />
-          </div>
+          </Box>
 
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Export Subsidy and Scheme Information
+            </Typography>
             <ExportSubsidyInfo />
-          </div>
+          </Box>
 
-          <div className="knowledge-center-section">
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" gutterBottom>
+              Global Trade Fair Listings
+            </Typography>
             <TradeFairListings />
-          </div>
+          </Box>
         </>
       )}
     </Box>

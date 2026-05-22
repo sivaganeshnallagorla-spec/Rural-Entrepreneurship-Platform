@@ -58,15 +58,7 @@ const ProductDetails = () => {
   const [paymentMethod, setPaymentMethod] = useState('')
   const [shippingCost, setShippingCost] = useState(0)
   const [shippingDetails, setShippingDetails] = useState(null)
-
-  if (!product) {
-    return (
-      <Box>
-        <Typography variant="h4">Product not found</Typography>
-        <Button onClick={() => navigate('/buyer/browse')}>Back to Browse</Button>
-      </Box>
-    )
-  }
+  const [activeTab, setActiveTab] = useState('details')
 
   // Track recently viewed
   useEffect(() => {
@@ -90,6 +82,15 @@ const ProductDetails = () => {
       setShippingDetails(shipping)
     }
   }, [quantity, shippingMethod, product, user])
+
+  if (!product) {
+    return (
+      <Box>
+        <Typography variant="h4">Product not found</Typography>
+        <Button onClick={() => navigate('/buyer/browse')}>Back to Browse</Button>
+      </Box>
+    )
+  }
 
   const handleAddToCart = () => {
     if (!paymentMethod) { showToast('Please select a payment method', 'warning'); return }
@@ -153,8 +154,6 @@ const ProductDetails = () => {
   const avgRating = getAverageRating(product.id)
   const reviews = getReviewsByProduct(product.id)
   const recentReviews = reviews.slice(-3).reverse()
-
-  const [activeTab, setActiveTab] = useState('details')
 
   return (
     <Box>

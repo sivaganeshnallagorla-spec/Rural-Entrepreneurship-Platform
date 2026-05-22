@@ -1,4 +1,9 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Button from '@mui/material/Button';
 
 const TradeFairListings = () => {
   const tradeFairs = [
@@ -23,21 +28,36 @@ const TradeFairListings = () => {
   ];
 
   return (
-    <div>
-      <h3>Global Trade Fair Listings</h3>
-      <ul>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Global Trade Fair Listings
+      </Typography>
+      <List>
         {tradeFairs.map((fair, index) => (
-          <li key={index}>
-            <h4>{fair.name}</h4>
-            <p>Date: {fair.date}</p>
-            <p>Location: {fair.location}</p>
-            <a href={fair.link} target="_blank" rel="noopener noreferrer">
-              Learn More
-            </a>
-          </li>
+          <ListItem key={index} alignItems="flex-start" disablePadding>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h6" gutterBottom>
+                {fair.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                Date: {fair.date}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                Location: {fair.location}
+              </Typography>
+              <Button
+                variant="outlined"
+                href={fair.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn More
+              </Button>
+            </Box>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

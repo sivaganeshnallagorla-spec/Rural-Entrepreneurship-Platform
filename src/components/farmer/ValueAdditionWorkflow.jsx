@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const ValueAdditionWorkflow = () => {
   const [step, setStep] = useState(1);
@@ -24,93 +28,110 @@ const ValueAdditionWorkflow = () => {
   };
 
   return (
-    <div>
-      <h3>Value Addition Workflow</h3>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Value Addition Workflow
+      </Typography>
+
       {step === 1 && (
-        <div>
-          <label>
-            Raw Crop:
-            <input
-              type="text"
-              name="rawCrop"
-              value={workflowData.rawCrop}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={nextStep}>Next</button>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            fullWidth
+            label="Raw Crop"
+            name="rawCrop"
+            value={workflowData.rawCrop}
+            onChange={handleChange}
+          />
+          <Box>
+            <Button variant="contained" onClick={nextStep}>Next</Button>
+          </Box>
+        </Box>
       )}
 
       {step === 2 && (
-        <div>
-          <label>
-            Processing Method:
-            <input
-              type="text"
-              name="processingMethod"
-              value={workflowData.processingMethod}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={prevStep}>Back</button>
-          <button onClick={nextStep}>Next</button>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            fullWidth
+            label="Processing Method"
+            name="processingMethod"
+            value={workflowData.processingMethod}
+            onChange={handleChange}
+          />
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button variant="outlined" onClick={prevStep}>Back</Button>
+            <Button variant="contained" onClick={nextStep}>Next</Button>
+          </Box>
+        </Box>
       )}
 
       {step === 3 && (
-        <div>
-          <label>
-            Processed Product:
-            <input
-              type="text"
-              name="processedProduct"
-              value={workflowData.processedProduct}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={prevStep}>Back</button>
-          <button onClick={nextStep}>Next</button>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            fullWidth
+            label="Processed Product"
+            name="processedProduct"
+            value={workflowData.processedProduct}
+            onChange={handleChange}
+          />
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button variant="outlined" onClick={prevStep}>Back</Button>
+            <Button variant="contained" onClick={nextStep}>Next</Button>
+          </Box>
+        </Box>
       )}
 
       {step === 4 && (
-        <div>
-          <label>
-            Cost (INR):
-            <input
-              type="number"
-              name="cost"
-              value={workflowData.cost}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Benefit (INR):
-            <input
-              type="number"
-              name="benefit"
-              value={workflowData.benefit}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={prevStep}>Back</button>
-          <button onClick={nextStep}>Finish</button>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            fullWidth
+            type="number"
+            label="Cost (INR)"
+            name="cost"
+            value={workflowData.cost}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            type="number"
+            label="Benefit (INR)"
+            name="benefit"
+            value={workflowData.benefit}
+            onChange={handleChange}
+          />
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button variant="outlined" onClick={prevStep}>Back</Button>
+            <Button variant="contained" onClick={nextStep}>Finish</Button>
+          </Box>
+        </Box>
       )}
 
       {step === 5 && (
-        <div>
-          <h4>Cost-Benefit Summary</h4>
-          <p>Raw Crop: {workflowData.rawCrop}</p>
-          <p>Processing Method: {workflowData.processingMethod}</p>
-          <p>Processed Product: {workflowData.processedProduct}</p>
-          <p>Cost: INR {workflowData.cost}</p>
-          <p>Benefit: INR {workflowData.benefit}</p>
-          <p>Net Margin: INR {calculateSummary()}</p>
-          <button onClick={() => setStep(1)}>Start Over</button>
-        </div>
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Cost-Benefit Summary
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Raw Crop: {workflowData.rawCrop}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Processing Method: {workflowData.processingMethod}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Processed Product: {workflowData.processedProduct}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Cost: INR {workflowData.cost}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Benefit: INR {workflowData.benefit}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" paragraph>
+            Net Margin: INR {calculateSummary()}
+          </Typography>
+          <Button variant="contained" onClick={() => setStep(1)}>Start Over</Button>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

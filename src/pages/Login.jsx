@@ -51,16 +51,22 @@ const Login = () => {
     }
   }
 
-  const handleRoleLogin = (role) => {
+  const handleRoleLogin = async (role) => {
     const credentials = {
-      farmer: { username: 'farmer_user', password: 'farmer_pass' },
-      buyer: { username: 'buyer_user', password: 'buyer_pass' },
-      admin: { username: 'admin_user', password: 'admin_pass' },
+      farmer: { username: 'farmer', password: 'farmer123' },
+      buyer: { username: 'buyer', password: 'buyer123' },
+      admin: { username: 'admin', password: 'admin123' },
+      drone: { username: 'drone', password: 'drone123' },
     };
-    const { username, password } = credentials[role];
-    console.log(`Logging in as ${role} with username: ${username}`);
-    setUsername(username)
-    setPassword(password)
+    const { username: u, password: p } = credentials[role];
+    setUsername(u);
+    setPassword(p);
+    const result = await login(u, p);
+    if (result.success) {
+      showToast('Login successful', 'success');
+      const r = result.user.role;
+      navigate(r === 'admin' ? '/admin' : r === 'farmer' ? '/farmer' : r === 'buyer' ? '/buyer' : '/drone-operator');
+    }
   };
 
   return (
@@ -96,6 +102,19 @@ const Login = () => {
                 </Typography>
               </CardContent>
             </Card>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
+              {['admin', 'farmer', 'buyer', 'drone'].map(role => (
+                <Button
+                  key={role}
+                  size="small"
+                  variant="outlined"
+                  onClick={() => handleRoleLogin(role)}
+                  sx={{ textTransform: 'capitalize' }}
+                >
+                  Login as {role}
+                </Button>
+              ))}
+            </Box>
           </Box>
 
           <Box sx={{ mt: 4, mb: 3 }}>

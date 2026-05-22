@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { secureStorage } from '../../utils/secureStorage';
 
 const SupplyChainDashboard = () => {
   const [ledger, setLedger] = useState(() => {
-    const storedLedger = localStorage.getItem('supplyChainLedger');
-    return storedLedger ? JSON.parse(storedLedger) : [];
+    return secureStorage.get('supplyChainLedger') || [];
   });
 
   const addTransaction = (batchId, details) => {
@@ -14,7 +14,7 @@ const SupplyChainDashboard = () => {
     };
     const updatedLedger = [...ledger, newTransaction];
     setLedger(updatedLedger);
-    localStorage.setItem('supplyChainLedger', JSON.stringify(updatedLedger));
+    secureStorage.set('supplyChainLedger', updatedLedger);
   };
 
   return (

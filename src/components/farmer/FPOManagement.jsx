@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const FPOManagement = () => {
   const [fpoName, setFpoName] = useState('');
@@ -14,41 +21,49 @@ const FPOManagement = () => {
   };
 
   return (
-    <div>
-      <h3>Farmer Producer Organization (FPO) Management</h3>
-      <div>
-        <label>
-          FPO Name:
-          <input
-            type="text"
-            value={fpoName}
-            onChange={(e) => setFpoName(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <h4>Members</h4>
-        <ul>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Farmer Producer Organization (FPO) Management
+      </Typography>
+      <Box sx={{ mb: 3 }}>
+        <TextField
+          fullWidth
+          label="FPO Name"
+          value={fpoName}
+          onChange={(e) => setFpoName(e.target.value)}
+        />
+      </Box>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          Members
+        </Typography>
+        <List>
           {members.map((member, index) => (
-            <li key={index}>{member}</li>
+            <ListItem key={index} disablePadding>
+              <ListItemText primary={member} />
+            </ListItem>
           ))}
-        </ul>
-        <button onClick={() => addMember(prompt('Enter member name:'))}>
+        </List>
+        <Button variant="contained" onClick={() => addMember(prompt('Enter member name:'))}>
           Add Member
-        </button>
-      </div>
-      <div>
-        <h4>Inventory</h4>
-        <ul>
+        </Button>
+      </Box>
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Inventory
+        </Typography>
+        <List>
           {inventory.map((item, index) => (
-            <li key={index}>{item}</li>
+            <ListItem key={index} disablePadding>
+              <ListItemText primary={item} />
+            </ListItem>
           ))}
-        </ul>
-        <button onClick={() => addInventoryItem(prompt('Enter inventory item:'))}>
+        </List>
+        <Button variant="contained" onClick={() => addInventoryItem(prompt('Enter inventory item:'))}>
           Add Inventory Item
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

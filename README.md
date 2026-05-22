@@ -125,7 +125,7 @@ SUPABASE_KEY=
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd FEDFW
+   cd Rural-Entrepreneurship-Platform
    ```
 
 2. **Install dependencies**

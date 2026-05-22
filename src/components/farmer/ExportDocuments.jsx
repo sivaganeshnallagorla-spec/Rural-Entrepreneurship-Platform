@@ -1,4 +1,9 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Button from '@mui/material/Button';
 
 const ExportDocuments = () => {
   const documents = [
@@ -21,18 +26,26 @@ const ExportDocuments = () => {
   ];
 
   return (
-    <div>
-      <h3>Export Documentation Management</h3>
-      <ul>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Export Documentation Management
+      </Typography>
+      <List>
         {documents.map((doc, index) => (
-          <li key={index}>
-            <a href={doc.link} target="_blank" rel="noopener noreferrer">
+          <ListItem key={index} disablePadding>
+            <Button
+              variant="outlined"
+              href={doc.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ mb: 1 }}
+            >
               {doc.name}
-            </a>
-          </li>
+            </Button>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

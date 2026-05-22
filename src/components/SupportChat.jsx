@@ -21,6 +21,7 @@ const SupportChat = () => {
     { text: "Hello! I'm your Rural Entrepreneurship Assistant. How can I help you today?", isBot: true }
   ])
   const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -31,22 +32,38 @@ const SupportChat = () => {
     scrollToBottom()
   }, [messages])
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!inputValue.trim()) return
 
     const userMessage = { text: inputValue, isBot: false }
+    const currentInput = inputValue
     setMessages(prev => [...prev, userMessage])
     setInputValue('')
 
-    // Mock bot response
-    setTimeout(() => {
-      let botText = "That's a great question! Let me check that for you."
-      if (inputValue.toLowerCase().includes('order')) botText = "You can track your orders in the 'Orders' section of your dashboard."
-      if (inputValue.toLowerCase().includes('price')) botText = "Mandi prices are updated daily in the 'Mandi Price Feed' on the Farmer Dashboard."
-      if (inputValue.toLowerCase().includes('drone')) botText = "You can book drone operators via the 'Drone Marketplace' section."
-      
+    setIsLoading(true)
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [
+            {
+              role: "user",
+              content: `You are a helpful support assistant for KisanMart, a rural entrepreneurship platform for Indian farmers and buyers. Answer concisely in 1-2 sentences. User question: ${currentInput}`
+            }
+          ]
+        })
+      })
+      const data = await response.json()
+      const botText = data.content?.[0]?.text || "I'm here to help! Please try again."
       setMessages(prev => [...prev, { text: botText, isBot: true }])
-    }, 1000)
+    } catch {
+      setMessages(prev => [...prev, { text: "I'm having trouble connecting. Please try again shortly.", isBot: true }])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -141,10 +158,11 @@ const SupportChat = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              disabled={isLoading}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton color="primary" size="small" onClick={handleSend}>
+                    <IconButton color="primary" size="small" onClick={handleSend} disabled={isLoading}>
                       <Send />
                     </IconButton>
                   </InputAdornment>
