@@ -1,6 +1,6 @@
-# Rural Entrepreneurship Platform Backend (FastAPI)
+# KisanMart Backend (FastAPI)
 
-This is the Python-based backend for the Rural Entrepreneurship Platform, built using **FastAPI** with **Supabase** for auth, database, and storage.
+This is the Python-based backend for the KisanMart, built using **FastAPI** with **Supabase** for auth, database, and storage.
 
 ## ✨ Features
 - **FastAPI**: Modern, high-performance web framework.
@@ -46,3 +46,4 @@ Once the server is running, visit:
 - `app/middleware/`: Auth middleware and request utilities.
 - `app/models/`: Domain schemas (e.g., `product.py`).
 - `app/routes/`: API endpoints (e.g., `products.py`).
+

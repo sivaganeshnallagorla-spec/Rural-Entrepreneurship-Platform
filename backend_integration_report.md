@@ -1,6 +1,6 @@
 # 🚀 Backend Integration & Restructuring Report
 
-## Project: Rural Entrepreneurship Platform
+## Project: KisanMart
 
 ### Overview
 This report outlines the successful migration and integration of the backend API provided via intermediate structure (`tp` folder) into the production `backend` structure. The backend leverages modern solutions like **FastAPI** and **Supabase** for robust authentication, data handling, and relational mappings, shifting the application away from mock local storage logic.
@@ -33,4 +33,5 @@ This report outlines the successful migration and integration of the backend API
 ---
 
 ### End Result 🎉
-The codebase is now clean, lean, securely documented, and pre-packaged with all required dependencies to run the Rural Entrepreneurship Platform reliably! Update the frontend `Axios` requests to fetch from `localhost:8000` to complete the ecosystem.
+The codebase is now clean, lean, securely documented, and pre-packaged with all required dependencies to run the KisanMart reliably! Update the frontend `Axios` requests to fetch from `localhost:8000` to complete the ecosystem.
+

@@ -1,5 +1,5 @@
 -- ══════════════════════════════════════════════════════════════════════════════
---  Rural Entrepreneurship Platform — Supabase SQL Schema
+--  KisanMart — Supabase SQL Schema
 --  Run this in: Supabase Dashboard → SQL Editor → New query → Run
 -- ══════════════════════════════════════════════════════════════════════════════
 
@@ -457,3 +457,4 @@ INSERT INTO public.knowledge_modules (title, description, icon, color, target_ro
 ('Export Guide',          'How to sell to global buyers and export your products',     'Public',        '#f44336', 'farmer', 5),
 ('Government Schemes',    'Subsidies, loans, and schemes for rural entrepreneurs',     'AccountTree',   '#009688', 'all',    6)
 ON CONFLICT DO NOTHING;
+

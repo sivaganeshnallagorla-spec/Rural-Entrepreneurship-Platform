@@ -1,6 +1,6 @@
 # API Contract Specification
 
-This document outlines the expected API endpoints for the Rural Entrepreneurship Platform.
+This document outlines the expected API endpoints for the KisanMart.
 The frontend uses a centralized service layer that can switch between **Demo Mode** (using `secureStorage`) and **Real API Mode** (Axios) based on the `APP_CONFIG.isDemo` flag.
 
 ## Base URL
@@ -149,3 +149,4 @@ The default base URL is set to `http://localhost:8000/api/v1` but is configurabl
   "updatedAt": "ISOString"
 }
 ```
+

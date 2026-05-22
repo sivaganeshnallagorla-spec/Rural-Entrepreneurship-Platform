@@ -5,3 +5,4 @@ export const APP_CONFIG = {
   isDemo: import.meta.env.VITE_APP_DEMO_MODE === 'true' || !import.meta.env.VITE_API_BASE_URL,
   isProduction: import.meta.env.PROD,
 };
+

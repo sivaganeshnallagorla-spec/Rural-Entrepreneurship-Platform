@@ -157,7 +157,7 @@ export const generateInvoice = async (order, user, farmer = {}) => {
     doc.text('KisanMart', margin, 12);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
-    doc.text('Rural Entrepreneurship Platform', margin, 18);
+    doc.text('KisanMart', margin, 18);
     doc.text('Connecting Farmers · Empowering India', margin, 23);
 
     doc.setFontSize(22);
@@ -382,3 +382,4 @@ export const generateInvoice = async (order, user, farmer = {}) => {
     alert('Unable to generate invoice. Please try again or check your connection.');
   }
 };
+

@@ -18,7 +18,7 @@ import SmartToy from '@mui/icons-material/SmartToy'
 const SupportChat = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
-    { text: "Hello! I'm your Rural Entrepreneurship Assistant. How can I help you today?", isBot: true }
+    { text: "Hello! I'm your KisanMart Assistant. How can I help you today?", isBot: true }
   ])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -51,7 +51,7 @@ const SupportChat = () => {
           messages: [
             {
               role: "user",
-              content: `You are a helpful support assistant for KisanMart, a rural entrepreneurship platform for Indian farmers and buyers. Answer concisely in 1-2 sentences. User question: ${currentInput}`
+              content: `You are a helpful support assistant for KisanMart, a local entrepreneurship platform for Indian farmers and buyers. Answer concisely in 1-2 sentences. User question: ${currentInput}`
             }
           ]
         })
@@ -178,3 +178,4 @@ const SupportChat = () => {
 }
 
 export default SupportChat
+

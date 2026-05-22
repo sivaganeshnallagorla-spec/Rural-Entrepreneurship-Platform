@@ -1,5 +1,5 @@
 You are working on a React 18 + MUI 5 + Vite frontend project called 
-"Rural Entrepreneurship Platform". The project is already cloned and 
+"KisanMart". The project is already cloned and 
 running. The full source is at the root. Below is a complete list of 
 everything that needs to be fixed, modified, and implemented. Work 
 through each item in order. Do not skip any item.
@@ -596,3 +596,4 @@ CONSTRAINTS
 - Follow the existing file naming convention (PascalCase .jsx).
 - Use the existing useToast() hook for all success/error feedback.
 - Use the existing useLanguage() / t() hook for all user-facing strings.
+

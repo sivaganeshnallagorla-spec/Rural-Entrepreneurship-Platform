@@ -1,6 +1,6 @@
 # Project Architecture 🏗️
 
-This document explains the technical structure and design patterns used in the Rural Entrepreneurship Platform.
+This document explains the technical structure and design patterns used in the KisanMart.
 
 ## 🌳 Context Provider Tree
 
@@ -48,3 +48,4 @@ Follow these steps to add a new domain (e.g., "Farmer Tools"):
 ---
 
 For API specific contracts, see [src/api/README.md](src/api/README.md).
+

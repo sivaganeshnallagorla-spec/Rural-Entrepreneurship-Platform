@@ -1,5 +1,5 @@
 """
-main.py — Rural Entrepreneurship Platform Backend
+main.py — KisanMart Backend
 FastAPI + Supabase
 """
 from fastapi import FastAPI, Request
@@ -96,7 +96,7 @@ limiter = Limiter(key_func=get_remote_address)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings = get_settings()
-    print(f"\n🌾 Rural Entrepreneurship Backend")
+    print(f"\n🌾 KisanMart Backend")
     print(f"🚀 Environment: {settings.app_env}")
     print(f"🔗 Supabase: {settings.supabase_url}\n")
     yield
@@ -105,7 +105,7 @@ async def lifespan(app: FastAPI):
 
 # ── Create App ────────────────────────────────────────────────────────────────
 app = FastAPI(
-    title="Rural Entrepreneurship Platform API",
+    title="KisanMart API",
     description="Backend API for empowering farmers in rural India 🌾",
     version="1.0.0",
     lifespan=lifespan,
@@ -137,7 +137,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 # ── Health check ──────────────────────────────────────────────────────────────
 @app.get("/api/health", tags=["Health"])
 async def health():
-    return {"status": "OK", "message": "Rural Entrepreneurship API is running 🌾"}
+    return {"status": "OK", "message": "KisanMart API is running 🌾"}
 
 # ── Register all routers ──────────────────────────────────────────────────────
 app.include_router(auth_router)
@@ -155,3 +155,4 @@ app.include_router(upload_router)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=settings.app_port, reload=True)
+

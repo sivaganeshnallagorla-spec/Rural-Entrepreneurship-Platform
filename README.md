@@ -1,9 +1,9 @@
-# 🌾 Rural Entrepreneurship Platform
+# 🌾 KisanMart
 
 A comprehensive web application that empowers farmers in rural India to transform raw crops into value-added products. The platform promotes rural entrepreneurship, connects farmers with global buyers, and leverages technology to improve income, sustainability, and community development.
 
-[![Netlify Status](https://api.netlify.com/api/v1/sites/b2d12959-296a-4858-9f96-04819a865d06/badge.svg)](https://app.netlify.com/sites/framerenpevorment/deploys)
-**Live Demo**: [http://framerenpevorment.netlify.app](http://framerenpevorment.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/sites/b2d12959-296a-4858-9f96-04819a865d06/badge.svg)](https://app.netlify.com/sites/kisanmart/deploys)
+**Live Demo**: [https://kisanmart.netlify.app](https://kisanmart.netlify.app)
 
 > [!CAUTION]
 > **DEMO MODE WARNING**: This platform is currently running in **Demo Mode**. All data is stored locally in your browser's indexed storage (Base64 encoded). Real sensitive farmer data, personal identification, or financial information should NOT be entered into this demo version as it is not stored securely on a server for production use.
@@ -125,7 +125,7 @@ SUPABASE_KEY=
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Rural-Entrepreneurship-Platform
+   cd KisanMart
    ```
 
 2. **Install dependencies**
@@ -368,3 +368,4 @@ Built with ❤️ to transform raw crops into value-added products.
 ---
 
 **Note**: The backend APIs have been successfully integrated. Update your frontend `Axios` instances to point to `http://localhost:8000` to completely hook up the Local Storage UI to the Supabase endpoints!
+

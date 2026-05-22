@@ -1,4 +1,4 @@
-# 🚀 Future Feature Roadmap for Rural Entrepreneurship Platform
+# 🚀 Future Feature Roadmap for KisanMart
 
 To transition this platform into a category-leading agritech solution, here are the most impactful features recommended for the next development phase:
 
@@ -25,3 +25,4 @@ To transition this platform into a category-leading agritech solution, here are 
 ## 5. 🌍 Global Reach
 - **Automatic Currency Conversion**: AI-driven currency hedging and conversion for international buyers.
 - **Multi-lingual AI Translation**: Real-time translation of product descriptions and reviews to enable trade between farmers and global buyers without language barriers.
+

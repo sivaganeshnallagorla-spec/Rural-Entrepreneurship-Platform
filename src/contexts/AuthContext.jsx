@@ -21,7 +21,7 @@ const PREDEFINED_USERS = [
     password: import.meta.env.VITE_DEMO_ADMIN_PASS || 'admin123',
     role: 'admin',
     name: 'Platform Admin',
-    email: 'admin@ruralplatform.in'
+    email: 'admin@kisanmart.in'
   },
   {
     id: 'farmer1',

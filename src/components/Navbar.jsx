@@ -112,7 +112,7 @@ const Navbar = ({ onCartClick }) => {
             onClick={() => navigate('/')}
           >
             <span style={{ fontSize: '1.8rem', filter: 'drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2))' }}>🌾</span>
-            RuralPlatform
+            KisanMart
           </Typography>
 
           <Box sx={{ ml: 4, display: { xs: 'none', md: 'flex' }, gap: 1 }}>
@@ -322,3 +322,4 @@ const Navbar = ({ onCartClick }) => {
 }
 
 export default Navbar
+

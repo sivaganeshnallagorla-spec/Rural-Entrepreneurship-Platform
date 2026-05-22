@@ -59,7 +59,7 @@ const ServicesHubManagement = () => {
     },
     {
       id: 3,
-      name: 'Rural Skill Development FPO',
+        name: 'KisanMart Skill Development FPO',
       category: 'Marketing & Skills',
       location: 'Nagpur Region',
       rating: 4.2,

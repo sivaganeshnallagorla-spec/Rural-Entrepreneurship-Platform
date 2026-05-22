@@ -11,9 +11,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'KisanMart - Rural Entrepreneurship',
+        name: 'KisanMart - Local Entrepreneurship',
         short_name: 'KisanMart',
-        description: 'Connecting farmers with markets for sustainable rural development.',
+        description: 'KisanMart connects local producers with global markets for sustainable development.',
         theme_color: '#2e7d32',
         background_color: '#ffffff',
         display: 'standalone',
@@ -82,3 +82,4 @@ export default defineConfig({
     host: true
   }
 })
+

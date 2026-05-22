@@ -112,7 +112,7 @@ const Landing = () => {
             <div className="nav-wrapper">
               <div className="logo">
                 <span className="logo-icon">🌾</span>
-                <span className="logo-text">Rural Entrepreneurship Platform</span>
+                <span className="logo-text">KisanMart</span>
               </div>
               <ul className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`} id="navMenu">
                 <li>
@@ -243,7 +243,7 @@ const Landing = () => {
           </div>
           <div className="about-content">
             <p className="about-description">
-              The Rural Entrepreneurship Platform promotes sustainable agriculture and entrepreneurship by connecting farmers and buyers worldwide. We bridge the gap between rural producers and global markets through technology.
+              The KisanMart promotes sustainable agriculture and entrepreneurship by connecting farmers and buyers worldwide. We bridge the gap between rural producers and global markets through technology.
             </p>
             <div className="team-section">
               <h3 className="team-title">Developed by</h3>
@@ -360,7 +360,7 @@ const Landing = () => {
       <section className="cta" id="cta">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Be part of the Rural Entrepreneurship Revolution!</h2>
+            <h2 className="cta-title">Be part of the KisanMart Revolution!</h2>
             <p className="cta-subtitle">Join thousands of farmers and buyers creating sustainable rural economies</p>
             <div className="cta-buttons">
               <Link to="/signup" className="btn btn-primary btn-large">Register Now</Link>
@@ -383,7 +383,7 @@ const Landing = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h3 className="footer-title">🌾 Rural Entrepreneurship Platform</h3>
+              <h3 className="footer-title">🌾 KisanMart</h3>
               <p>Connecting farmers with global markets for sustainable rural development.</p>
             </div>
             <div className="footer-section">
@@ -397,7 +397,7 @@ const Landing = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2025 Rural Entrepreneurship Platform. All Rights Reserved.</p>
+            <p>&copy; 2025 KisanMart. All Rights Reserved.</p>
           </div>
         </div>
       </footer>
@@ -406,4 +406,5 @@ const Landing = () => {
 }
 
 export default Landing
+
 

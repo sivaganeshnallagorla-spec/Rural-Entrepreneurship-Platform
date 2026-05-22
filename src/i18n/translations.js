@@ -1,6 +1,6 @@
 export const translations = {
   en: {
-    app_name: 'Rural Entrepreneurship Platform',
+    app_name: 'KisanMart',
     login: 'Login',
     signup: 'Sign Up',
     logout: 'Logout',
@@ -52,7 +52,7 @@ export const translations = {
     shipping_method: 'Shipping Method',
   },
   hi: {
-    app_name: 'ग्रामीण उद्यमिता मंच',
+    app_name: 'KisanMart',
     login: 'लॉग इन करें',
     signup: 'साइन अप करें',
     logout: 'लॉग आउट',
@@ -104,7 +104,7 @@ export const translations = {
     shipping_method: 'शिपिंग विधि',
   },
   te: {
-    app_name: 'గ్రామీణ వ్యవస్థాపక వేదిక',
+    app_name: 'KisanMart',
     login: 'ప్రవేశించండి',
     signup: 'సైన్ అప్',
     logout: 'లాగ్ అవుట్',
@@ -156,7 +156,7 @@ export const translations = {
     shipping_method: 'షిప్పింగ్ పద్ధతి',
   },
   ta: {
-    app_name: 'கிராமப்புற தொழில் முனைவோர் தளம்',
+    app_name: 'KisanMart',
     login: 'உள்நுழைக',
     signup: 'பதிவு செய்க',
     logout: 'வெளியேறு',
@@ -208,7 +208,7 @@ export const translations = {
     shipping_method: 'விநியோக முறை',
   },
   kn: {
-    app_name: 'ಗ್ರಾಮೀಣ ಉದ್ಯಮಶೀಲತಾ ವೇದಿಕೆ',
+    app_name: 'KisanMart',
     login: 'ಲಾಗಿನ್',
     signup: 'ಸೈನ್ ಅಪ್',
     logout: 'ಲಾಗ್ ಔಟ್',
@@ -260,7 +260,7 @@ export const translations = {
     shipping_method: 'ಶಿಪ್ಪಿಂಗ್ ವಿಧಾನ',
   },
   mr: {
-    app_name: 'ग्रामीण उद्योजकता मंच',
+    app_name: 'KisanMart',
     login: 'लॉगिन',
     signup: 'साइन अप',
     logout: 'लॉग आउट',
@@ -312,4 +312,5 @@ export const translations = {
     shipping_method: 'शिपिंग पद्धत',
   }
 };
+
 

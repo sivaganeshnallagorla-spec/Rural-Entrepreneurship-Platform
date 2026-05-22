@@ -1,4 +1,4 @@
-# Contributing to Rural Entrepreneurship Platform 🌾
+# Contributing to KisanMart 🌾
 
 Thank you for your interest in contributing to our platform! We are building technology to empower rural farmers and promote sustainable entrepreneurship.
 
@@ -8,7 +8,7 @@ Thank you for your interest in contributing to our platform! We are building tec
 2. **Clone the Repo**:
    ```bash
    git clone <repository-url>
-   cd Rural-Entrepreneurship-Platform
+   cd KisanMart
    ```
 3. **Install Dependencies**:
    ```bash
@@ -57,3 +57,4 @@ We prefer [Conventional Commits](https://www.conventionalcommits.org/):
 ---
 
 Built with ❤️ for rural empowerment.
+

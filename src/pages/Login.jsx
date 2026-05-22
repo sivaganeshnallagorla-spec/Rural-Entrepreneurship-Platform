@@ -82,7 +82,7 @@ const Login = () => {
       <Container maxWidth="sm">
         <Paper elevation={10} sx={{ padding: 4, borderRadius: 2 }}>
           <Typography variant="h4" gutterBottom align="center" color="primary">
-            🌾 Rural Entrepreneurship Platform
+            🌾 KisanMart
           </Typography>
           <Typography variant="h6" gutterBottom align="center" color="text.secondary">
             Empowering Farmers, Connecting Markets
@@ -198,4 +198,5 @@ const Login = () => {
 }
 
 export default Login
+
 

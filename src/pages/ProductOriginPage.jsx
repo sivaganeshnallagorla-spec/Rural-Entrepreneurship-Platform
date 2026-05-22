@@ -127,7 +127,7 @@ const ProductOriginPage = () => {
             <Divider sx={{ my: 4 }} />
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary">
-                Verified by Rural Entrepreneurship Platform Supply-Chain Engine.
+                Verified by KisanMart Supply-Chain Engine.
               </Typography>
             </Box>
           </Box>
@@ -138,3 +138,4 @@ const ProductOriginPage = () => {
 };
 
 export default ProductOriginPage;
+

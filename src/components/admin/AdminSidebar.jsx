@@ -73,7 +73,7 @@ const AdminSidebar = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
           <AdminPanelSettings sx={{ fontSize: '2.5rem', color: 'primary.main' }} />
           <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-0.5px' }}>
-            Rural<span style={{ color: 'var(--primary-color)' }}>Admin</span>
+            Kisan<span style={{ color: 'var(--primary-color)' }}>Mart</span>
           </Typography>
         </Box>
         <Chip 

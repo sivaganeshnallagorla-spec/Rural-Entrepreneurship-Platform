@@ -57,7 +57,7 @@ const EquipmentManagement = () => {
       price: 250000,
       stock: 3,
       status: 'low_stock',
-      manufacturer: 'Rural Engineering',
+      manufacturer: 'KisanMart Engineering',
       rating: 4.9
     },
     {

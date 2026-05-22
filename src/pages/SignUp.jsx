@@ -132,7 +132,7 @@ const SignUp = () => {
             🌾 Create Account
           </Typography>
           <Typography variant="h6" gutterBottom align="center" color="text.secondary">
-            Join the Rural Entrepreneurship Platform
+            Join the KisanMart
           </Typography>
 
           {success && (
@@ -385,4 +385,5 @@ const SignUp = () => {
 }
 
 export default SignUp
+
 

@@ -4,13 +4,13 @@
 
 If you find a security vulnerability in this project, please report it privately to our team. We aim to acknowledge reports within 48 hours and provide a fix as soon as possible.
 
-**Contact**: security@ruralplatform.in
+**Contact**: security@kisanmart.in
 
 Please do not report security issues via public GitHub issues.
 
 ## ⚠️ Known Security Limitations (Demo Mode)
 
-The Rural Entrepreneurship Platform is currently in **Demo Mode**. While we take best-effort measures, please be aware of these known limitations in the current version:
+The KisanMart is currently in **Demo Mode**. While we take best-effort measures, please be aware of these known limitations in the current version:
 
 1.  **Local Storage Security**: Data (products, orders, user profile) is saved to `localStorage` using `secureStorage` which encodes it to Base64. This is NOT encryption. Do not store sensitive personal information or real financial data in demo mode.
 2.  **Authentication**: In demo mode, predefined users' passwords are compared as plain text in the context for convenience. In production mode, we use hashed password comparison and JWT authentication via Supabase/FastAPI.
@@ -28,3 +28,4 @@ The Rural Entrepreneurship Platform is currently in **Demo Mode**. While we take
 ---
 
 We value your privacy and security. Report responsibly!
+
